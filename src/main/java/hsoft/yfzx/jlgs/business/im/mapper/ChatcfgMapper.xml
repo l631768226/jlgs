@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hsoft.yfzx.jlgs.business.im.mapper.ChatcfgMapper">
+  <resultMap id="BaseResultMap" type="hsoft.yfzx.jlgs.business.im.model.Chatcfg">
+    <id column="CHATCFGID" jdbcType="VARCHAR" property="CHATCFGID" />
+    <result column="USERID" jdbcType="VARCHAR" property="USERID" />
+    <result column="OBJECTID" jdbcType="VARCHAR" property="OBJECTID" />
+    <result column="TOPSTATUS" jdbcType="VARCHAR" property="TOPSTATUS" />
+    <result column="OBJECTTYPE" jdbcType="VARCHAR" property="OBJECTTYPE" />
+    <result column="UNDISTURBED" jdbcType="VARCHAR" property="UNDISTURBED" />
+    <result column="VERSIONSTAMP" jdbcType="NUMERIC" property="VERSIONSTAMP" />
+    <result column="CREATETIME" jdbcType="NUMERIC" property="CREATETIME" />
+    <result column="DELFLAG" jdbcType="CHAR" property="DELFLAG" />
+    <result column="OBJECTNAME" jdbcType="VARCHAR" property="OBJECTNAME" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CHATCFGID, USERID, OBJECTID, TOPSTATUS, OBJECTTYPE, UNDISTURBED, VERSIONSTAMP, CREATETIME, 
+    DELFLAG, OBJECTNAME
+  </sql>
+  <select id="selectByExample" parameterType="hsoft.yfzx.jlgs.business.im.model.ChatcfgExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from CHATCFG
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CHATCFG
+    where CHATCFGID = #{CHATCFGID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from CHATCFG
+    where CHATCFGID = #{CHATCFGID,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="hsoft.yfzx.jlgs.business.im.model.ChatcfgExample">
+    delete from CHATCFG
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="hsoft.yfzx.jlgs.business.im.model.Chatcfg">
+    insert into CHATCFG (CHATCFGID, USERID, OBJECTID, 
+      TOPSTATUS, OBJECTTYPE, UNDISTURBED, 
+      VERSIONSTAMP, CREATETIME, DELFLAG, 
+      OBJECTNAME)
+    values (#{CHATCFGID,jdbcType=VARCHAR}, #{USERID,jdbcType=VARCHAR}, #{OBJECTID,jdbcType=VARCHAR}, 
+      #{TOPSTATUS,jdbcType=VARCHAR}, #{OBJECTTYPE,jdbcType=VARCHAR}, #{UNDISTURBED,jdbcType=VARCHAR}, 
+      #{VERSIONSTAMP,jdbcType=NUMERIC}, #{CREATETIME,jdbcType=NUMERIC}, #{DELFLAG,jdbcType=CHAR}, 
+      #{OBJECTNAME,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="hsoft.yfzx.jlgs.business.im.model.Chatcfg">
+    insert into CHATCFG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="CHATCFGID != null">
+        CHATCFGID,
+      </if>
+      <if test="USERID != null">
+        USERID,
+      </if>
+      <if test="OBJECTID != null">
+        OBJECTID,
+      </if>
+      <if test="TOPSTATUS != null">
+        TOPSTATUS,
+      </if>
+      <if test="OBJECTTYPE != null">
+        OBJECTTYPE,
+      </if>
+      <if test="UNDISTURBED != null">
+        UNDISTURBED,
+      </if>
+      <if test="VERSIONSTAMP != null">
+        VERSIONSTAMP,
+      </if>
+      <if test="CREATETIME != null">
+        CREATETIME,
+      </if>
+      <if test="DELFLAG != null">
+        DELFLAG,
+      </if>
+      <if test="OBJECTNAME != null">
+        OBJECTNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="CHATCFGID != null">
+        #{CHATCFGID,jdbcType=VARCHAR},
+      </if>
+      <if test="USERID != null">
+        #{USERID,jdbcType=VARCHAR},
+      </if>
+      <if test="OBJECTID != null">
+        #{OBJECTID,jdbcType=VARCHAR},
+      </if>
+      <if test="TOPSTATUS != null">
+        #{TOPSTATUS,jdbcType=VARCHAR},
+      </if>
+      <if test="OBJECTTYPE != null">
+        #{OBJECTTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="UNDISTURBED != null">
+        #{UNDISTURBED,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSIONSTAMP != null">
+        #{VERSIONSTAMP,jdbcType=NUMERIC},
+      </if>
+      <if test="CREATETIME != null">
+        #{CREATETIME,jdbcType=NUMERIC},
+      </if>
+      <if test="DELFLAG != null">
+        #{DELFLAG,jdbcType=CHAR},
+      </if>
+      <if test="OBJECTNAME != null">
+        #{OBJECTNAME,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="hsoft.yfzx.jlgs.business.im.model.ChatcfgExample" resultType="java.lang.Long">
+    select count(*) from CHATCFG
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update CHATCFG
+    <set>
+      <if test="record.CHATCFGID != null">
+        CHATCFGID = #{record.CHATCFGID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.USERID != null">
+        USERID = #{record.USERID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.OBJECTID != null">
+        OBJECTID = #{record.OBJECTID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.TOPSTATUS != null">
+        TOPSTATUS = #{record.TOPSTATUS,jdbcType=VARCHAR},
+      </if>
+      <if test="record.OBJECTTYPE != null">
+        OBJECTTYPE = #{record.OBJECTTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.UNDISTURBED != null">
+        UNDISTURBED = #{record.UNDISTURBED,jdbcType=VARCHAR},
+      </if>
+      <if test="record.VERSIONSTAMP != null">
+        VERSIONSTAMP = #{record.VERSIONSTAMP,jdbcType=NUMERIC},
+      </if>
+      <if test="record.CREATETIME != null">
+        CREATETIME = #{record.CREATETIME,jdbcType=NUMERIC},
+      </if>
+      <if test="record.DELFLAG != null">
+        DELFLAG = #{record.DELFLAG,jdbcType=CHAR},
+      </if>
+      <if test="record.OBJECTNAME != null">
+        OBJECTNAME = #{record.OBJECTNAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update CHATCFG
+    set CHATCFGID = #{record.CHATCFGID,jdbcType=VARCHAR},
+      USERID = #{record.USERID,jdbcType=VARCHAR},
+      OBJECTID = #{record.OBJECTID,jdbcType=VARCHAR},
+      TOPSTATUS = #{record.TOPSTATUS,jdbcType=VARCHAR},
+      OBJECTTYPE = #{record.OBJECTTYPE,jdbcType=VARCHAR},
+      UNDISTURBED = #{record.UNDISTURBED,jdbcType=VARCHAR},
+      VERSIONSTAMP = #{record.VERSIONSTAMP,jdbcType=NUMERIC},
+      CREATETIME = #{record.CREATETIME,jdbcType=NUMERIC},
+      DELFLAG = #{record.DELFLAG,jdbcType=CHAR},
+      OBJECTNAME = #{record.OBJECTNAME,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="hsoft.yfzx.jlgs.business.im.model.Chatcfg">
+    update CHATCFG
+    <set>
+      <if test="USERID != null">
+        USERID = #{USERID,jdbcType=VARCHAR},
+      </if>
+      <if test="OBJECTID != null">
+        OBJECTID = #{OBJECTID,jdbcType=VARCHAR},
+      </if>
+      <if test="TOPSTATUS != null">
+        TOPSTATUS = #{TOPSTATUS,jdbcType=VARCHAR},
+      </if>
+      <if test="OBJECTTYPE != null">
+        OBJECTTYPE = #{OBJECTTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="UNDISTURBED != null">
+        UNDISTURBED = #{UNDISTURBED,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSIONSTAMP != null">
+        VERSIONSTAMP = #{VERSIONSTAMP,jdbcType=NUMERIC},
+      </if>
+      <if test="CREATETIME != null">
+        CREATETIME = #{CREATETIME,jdbcType=NUMERIC},
+      </if>
+      <if test="DELFLAG != null">
+        DELFLAG = #{DELFLAG,jdbcType=CHAR},
+      </if>
+      <if test="OBJECTNAME != null">
+        OBJECTNAME = #{OBJECTNAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CHATCFGID = #{CHATCFGID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="hsoft.yfzx.jlgs.business.im.model.Chatcfg">
+    update CHATCFG
+    set USERID = #{USERID,jdbcType=VARCHAR},
+      OBJECTID = #{OBJECTID,jdbcType=VARCHAR},
+      TOPSTATUS = #{TOPSTATUS,jdbcType=VARCHAR},
+      OBJECTTYPE = #{OBJECTTYPE,jdbcType=VARCHAR},
+      UNDISTURBED = #{UNDISTURBED,jdbcType=VARCHAR},
+      VERSIONSTAMP = #{VERSIONSTAMP,jdbcType=NUMERIC},
+      CREATETIME = #{CREATETIME,jdbcType=NUMERIC},
+      DELFLAG = #{DELFLAG,jdbcType=CHAR},
+      OBJECTNAME = #{OBJECTNAME,jdbcType=VARCHAR}
+    where CHATCFGID = #{CHATCFGID,jdbcType=VARCHAR}
+  </update>
+</mapper>

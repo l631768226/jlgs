@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hsoft.yfzx.jlgs.business.basic.mapper.GroupinfoMapper">
+  <resultMap id="BaseResultMap" type="hsoft.yfzx.jlgs.business.basic.model.Groupinfo">
+    <id column="GROUPID" jdbcType="VARCHAR" property="GROUPID" />
+    <result column="GROUPNAME" jdbcType="VARCHAR" property="GROUPNAME" />
+    <result column="PICID" jdbcType="VARCHAR" property="PICID" />
+    <result column="NOTICE" jdbcType="VARCHAR" property="NOTICE" />
+    <result column="INTRODUCE" jdbcType="VARCHAR" property="INTRODUCE" />
+    <result column="VERSIONSTAMP" jdbcType="NUMERIC" property="VERSIONSTAMP" />
+    <result column="CREATETIME" jdbcType="NUMERIC" property="CREATETIME" />
+    <result column="DELFLAG" jdbcType="CHAR" property="DELFLAG" />
+    <result column="SORT" jdbcType="NUMERIC" property="SORT" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    GROUPID, GROUPNAME, PICID, NOTICE, INTRODUCE, VERSIONSTAMP, CREATETIME, DELFLAG, 
+    SORT
+  </sql>
+  <select id="selectByExample" parameterType="hsoft.yfzx.jlgs.business.basic.model.GroupinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from GROUPINFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from GROUPINFO
+    where GROUPID = #{GROUPID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from GROUPINFO
+    where GROUPID = #{GROUPID,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="hsoft.yfzx.jlgs.business.basic.model.GroupinfoExample">
+    delete from GROUPINFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="hsoft.yfzx.jlgs.business.basic.model.Groupinfo">
+    insert into GROUPINFO (GROUPID, GROUPNAME, PICID, 
+      NOTICE, INTRODUCE, VERSIONSTAMP, 
+      CREATETIME, DELFLAG, SORT
+      )
+    values (#{GROUPID,jdbcType=VARCHAR}, #{GROUPNAME,jdbcType=VARCHAR}, #{PICID,jdbcType=VARCHAR}, 
+      #{NOTICE,jdbcType=VARCHAR}, #{INTRODUCE,jdbcType=VARCHAR}, #{VERSIONSTAMP,jdbcType=NUMERIC}, 
+      #{CREATETIME,jdbcType=NUMERIC}, #{DELFLAG,jdbcType=CHAR}, #{SORT,jdbcType=NUMERIC}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="hsoft.yfzx.jlgs.business.basic.model.Groupinfo">
+    insert into GROUPINFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="GROUPID != null">
+        GROUPID,
+      </if>
+      <if test="GROUPNAME != null">
+        GROUPNAME,
+      </if>
+      <if test="PICID != null">
+        PICID,
+      </if>
+      <if test="NOTICE != null">
+        NOTICE,
+      </if>
+      <if test="INTRODUCE != null">
+        INTRODUCE,
+      </if>
+      <if test="VERSIONSTAMP != null">
+        VERSIONSTAMP,
+      </if>
+      <if test="CREATETIME != null">
+        CREATETIME,
+      </if>
+      <if test="DELFLAG != null">
+        DELFLAG,
+      </if>
+      <if test="SORT != null">
+        SORT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="GROUPID != null">
+        #{GROUPID,jdbcType=VARCHAR},
+      </if>
+      <if test="GROUPNAME != null">
+        #{GROUPNAME,jdbcType=VARCHAR},
+      </if>
+      <if test="PICID != null">
+        #{PICID,jdbcType=VARCHAR},
+      </if>
+      <if test="NOTICE != null">
+        #{NOTICE,jdbcType=VARCHAR},
+      </if>
+      <if test="INTRODUCE != null">
+        #{INTRODUCE,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSIONSTAMP != null">
+        #{VERSIONSTAMP,jdbcType=NUMERIC},
+      </if>
+      <if test="CREATETIME != null">
+        #{CREATETIME,jdbcType=NUMERIC},
+      </if>
+      <if test="DELFLAG != null">
+        #{DELFLAG,jdbcType=CHAR},
+      </if>
+      <if test="SORT != null">
+        #{SORT,jdbcType=NUMERIC},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="hsoft.yfzx.jlgs.business.basic.model.GroupinfoExample" resultType="java.lang.Long">
+    select count(*) from GROUPINFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update GROUPINFO
+    <set>
+      <if test="record.GROUPID != null">
+        GROUPID = #{record.GROUPID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.GROUPNAME != null">
+        GROUPNAME = #{record.GROUPNAME,jdbcType=VARCHAR},
+      </if>
+      <if test="record.PICID != null">
+        PICID = #{record.PICID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.NOTICE != null">
+        NOTICE = #{record.NOTICE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.INTRODUCE != null">
+        INTRODUCE = #{record.INTRODUCE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.VERSIONSTAMP != null">
+        VERSIONSTAMP = #{record.VERSIONSTAMP,jdbcType=NUMERIC},
+      </if>
+      <if test="record.CREATETIME != null">
+        CREATETIME = #{record.CREATETIME,jdbcType=NUMERIC},
+      </if>
+      <if test="record.DELFLAG != null">
+        DELFLAG = #{record.DELFLAG,jdbcType=CHAR},
+      </if>
+      <if test="record.SORT != null">
+        SORT = #{record.SORT,jdbcType=NUMERIC},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update GROUPINFO
+    set GROUPID = #{record.GROUPID,jdbcType=VARCHAR},
+      GROUPNAME = #{record.GROUPNAME,jdbcType=VARCHAR},
+      PICID = #{record.PICID,jdbcType=VARCHAR},
+      NOTICE = #{record.NOTICE,jdbcType=VARCHAR},
+      INTRODUCE = #{record.INTRODUCE,jdbcType=VARCHAR},
+      VERSIONSTAMP = #{record.VERSIONSTAMP,jdbcType=NUMERIC},
+      CREATETIME = #{record.CREATETIME,jdbcType=NUMERIC},
+      DELFLAG = #{record.DELFLAG,jdbcType=CHAR},
+      SORT = #{record.SORT,jdbcType=NUMERIC}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="hsoft.yfzx.jlgs.business.basic.model.Groupinfo">
+    update GROUPINFO
+    <set>
+      <if test="GROUPNAME != null">
+        GROUPNAME = #{GROUPNAME,jdbcType=VARCHAR},
+      </if>
+      <if test="PICID != null">
+        PICID = #{PICID,jdbcType=VARCHAR},
+      </if>
+      <if test="NOTICE != null">
+        NOTICE = #{NOTICE,jdbcType=VARCHAR},
+      </if>
+      <if test="INTRODUCE != null">
+        INTRODUCE = #{INTRODUCE,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSIONSTAMP != null">
+        VERSIONSTAMP = #{VERSIONSTAMP,jdbcType=NUMERIC},
+      </if>
+      <if test="CREATETIME != null">
+        CREATETIME = #{CREATETIME,jdbcType=NUMERIC},
+      </if>
+      <if test="DELFLAG != null">
+        DELFLAG = #{DELFLAG,jdbcType=CHAR},
+      </if>
+      <if test="SORT != null">
+        SORT = #{SORT,jdbcType=NUMERIC},
+      </if>
+    </set>
+    where GROUPID = #{GROUPID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="hsoft.yfzx.jlgs.business.basic.model.Groupinfo">
+    update GROUPINFO
+    set GROUPNAME = #{GROUPNAME,jdbcType=VARCHAR},
+      PICID = #{PICID,jdbcType=VARCHAR},
+      NOTICE = #{NOTICE,jdbcType=VARCHAR},
+      INTRODUCE = #{INTRODUCE,jdbcType=VARCHAR},
+      VERSIONSTAMP = #{VERSIONSTAMP,jdbcType=NUMERIC},
+      CREATETIME = #{CREATETIME,jdbcType=NUMERIC},
+      DELFLAG = #{DELFLAG,jdbcType=CHAR},
+      SORT = #{SORT,jdbcType=NUMERIC}
+    where GROUPID = #{GROUPID,jdbcType=VARCHAR}
+  </update>
+</mapper>

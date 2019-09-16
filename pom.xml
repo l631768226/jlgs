@@ -26,6 +26,8 @@
         <!-- smack -->
         <smack.version>4.2.3</smack.version>
 
+        <!-- APNS -->
+        <javapns-jdk16.version>2.4.0</javapns-jdk16.version>
     </properties>
 
     <dependencies>
@@ -147,6 +149,12 @@
             <version>3.9</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.fernandospr</groupId>
+            <artifactId>javapns-jdk16</artifactId>
+            <version>${javapns-jdk16.version}</version>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 

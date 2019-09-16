@@ -12,9 +12,10 @@ public class QUserLoginRec extends AbstactBaseRec {
 
     @DataValidation(description = "密码", dataType = DataType.STRING, required = true, length = 30)
     private String password;
-
+    @DataValidation(description = "设备类型", dataType = DataType.STRING, required = true, length = 8)
     private String deviceType;
 
+    @DataValidation(description = "IMEI", dataType = DataType.STRING, length = 50)
     @JsonProperty("IMEI")
     private String IMEI;
 
