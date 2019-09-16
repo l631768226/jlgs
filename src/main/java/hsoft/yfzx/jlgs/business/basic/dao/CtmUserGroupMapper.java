@@ -1,7 +1,9 @@
-package hsoft.yfzx.jlgs.business.basic.mapper;
+package hsoft.yfzx.jlgs.business.basic.dao;
 
+import hsoft.yfzx.jlgs.business.basic.model.Groupinfo;
 import hsoft.yfzx.jlgs.business.basic.model.Usergroup;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
@@ -24,4 +26,13 @@ public interface CtmUserGroupMapper {
             "</script>"
     })
     int updateDelFlag(@Param(value = "userGroupList") List<Usergroup> usergroupList, @Param("groupId") String groupId);
+
+    /**
+     * 根据用户id查询属于他的群组信息
+     * @param userId 用户id
+     * @return
+     */
+    @Select("select B.* from USERGROUP A, GROUPINFO B where A.GROUPID = B.GROUPID and A.USERID = #{userId}")
+    List<Groupinfo> findMyGroupList(@Param("userId") String userId);
+
 }

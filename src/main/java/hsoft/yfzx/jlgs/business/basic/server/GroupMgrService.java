@@ -1,9 +1,7 @@
 package hsoft.yfzx.jlgs.business.basic.server;
 
-import hsoft.yfzx.jlgs.business.basic.ctmmodel.CGroupRec;
-import hsoft.yfzx.jlgs.business.basic.ctmmodel.CGroupsUserRec;
-import hsoft.yfzx.jlgs.business.basic.ctmmodel.DGroupRec;
-import hsoft.yfzx.jlgs.business.basic.mapper.CtmUserGroupMapper;
+import hsoft.yfzx.jlgs.business.basic.ctmmodel.*;
+import hsoft.yfzx.jlgs.business.basic.dao.CtmUserGroupMapper;
 import hsoft.yfzx.jlgs.business.basic.mapper.GroupinfoMapper;
 import hsoft.yfzx.jlgs.business.basic.mapper.UsergroupMapper;
 import hsoft.yfzx.jlgs.business.basic.model.Groupinfo;
@@ -19,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -162,4 +160,98 @@ public class GroupMgrService {
         return list;
     }
 
+    /**
+     * 修改群组信息
+     * @param uGroupRec
+     * @return
+     */
+    public ResponseData<String> updateGroup(UGroupRec uGroupRec) {
+        ResponseData<String> responseData = new ResponseData<>();
+        // 判断要修改的群组是否存在并且状态正常
+        List<Groupinfo> list = checkGroup(uGroupRec.getGroupId());
+        if (list.isEmpty()) {
+            responseData.setStatus(ReturnStatus.ERR0003);
+            responseData.setExtInfo("修改的群组在数据库中不存在");
+            return responseData;
+        }
+        // 添加修改历史
+        Groupinfo oldGroupInfo = list.get(0);
+
+        // 修改
+        oldGroupInfo.setGROUPNAME(uGroupRec.getGroupName());
+        oldGroupInfo.setINTRODUCE(uGroupRec.getIntroduce());
+        oldGroupInfo.setNOTICE(uGroupRec.getNotice());
+        oldGroupInfo.setPICID(uGroupRec.getPicId());
+        oldGroupInfo.setVERSIONSTAMP(Generator.getLongTimeStamp());
+        int updateCount = groupinfoMapper.updateByPrimaryKey(oldGroupInfo);
+        if(updateCount < 0){
+            responseData.setStatus(ReturnStatus.ERR0004);
+            responseData.setExtInfo("数据库更新失败");
+            return responseData;
+        }
+        responseData.setStatus(ReturnStatus.OK);
+        return responseData;
+    }
+
+    /**
+     * 根据群组id查询群组信息
+     * @param qGroupDetailRec
+     * @param userId
+     * @return
+     */
+    public ResponseData<QGroupDetailRst> groupDetail(QGroupDetailRec qGroupDetailRec, String userId) {
+        ResponseData<QGroupDetailRst> responseData = new ResponseData<>();
+        //根据群组id查询群组信息
+        List<Groupinfo> list = checkGroup(qGroupDetailRec.getGroupId());
+        QGroupDetailRst qGroupDetailRst = new QGroupDetailRst();
+        if (list.isEmpty()) {
+            responseData.setStatus(ReturnStatus.ERR0003);
+            responseData.setExtInfo("该群组在数据库中不存在");
+            responseData.setResultSet(qGroupDetailRst);
+            return responseData;
+        }
+        Groupinfo groupInfo = list.get(0);
+
+        //设置返回参数
+        qGroupDetailRst.setGroupId(groupInfo.getGROUPID());
+        qGroupDetailRst.setGroupName(groupInfo.getGROUPNAME());
+        qGroupDetailRst.setIntroduce(groupInfo.getINTRODUCE());
+        qGroupDetailRst.setNotice(groupInfo.getNOTICE());
+        qGroupDetailRst.setPicId(groupInfo.getPICID());
+        qGroupDetailRst.setCreateTime(String.valueOf(groupInfo.getCREATETIME()));
+        qGroupDetailRst.setVersionStamp(groupInfo.getVERSIONSTAMP().toString());
+
+        responseData.setStatus(ReturnStatus.OK);
+        responseData.setResultSet(qGroupDetailRst);
+        return responseData;
+    }
+
+    /**
+     * 查询某用户的群组列表
+     * @param userId 用户id
+     * @return
+     */
+    public ResponseData<List<QGroupMyListRst>> groupMyList(String userId) {
+        ResponseData<List<QGroupMyListRst>> responseData = new ResponseData<>();
+        // 根据用户id查询属于他的群组列表
+        List<Groupinfo> userGroupList = ctmUserGroupMapper.findMyGroupList(userId);
+        List<QGroupMyListRst> list = new ArrayList<>();
+        // 复制数据返回
+        for (Groupinfo groupinfo : userGroupList) {
+            QGroupMyListRst qGroupMyListRst = new QGroupMyListRst();
+            qGroupMyListRst.setGroupId(groupinfo.getGROUPID());
+            qGroupMyListRst.setGroupName(groupinfo.getGROUPNAME());
+            qGroupMyListRst.setPicId(groupinfo.getPICID());
+            Long createTime = groupinfo.getCREATETIME();
+            qGroupMyListRst.setCreateTime(createTime != null ?
+                    String.valueOf(groupinfo.getCREATETIME()) : "");
+            Long versionStamp = groupinfo.getVERSIONSTAMP();
+            qGroupMyListRst.setVersionStamp(versionStamp != null ?
+                    groupinfo.getVERSIONSTAMP().toString() : "");
+            list.add(qGroupMyListRst);
+        }
+        responseData.setStatus(ReturnStatus.OK);
+        responseData.setResultSet(list);
+        return responseData;
+    }
 }

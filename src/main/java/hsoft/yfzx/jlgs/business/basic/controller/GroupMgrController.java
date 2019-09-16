@@ -1,11 +1,6 @@
 package hsoft.yfzx.jlgs.business.basic.controller;
 
-import hsoft.yfzx.jlgs.business.basic.ctmmodel.CGroupRec;
-import hsoft.yfzx.jlgs.business.basic.ctmmodel.CGroupsUserRec;
-import hsoft.yfzx.jlgs.business.basic.ctmmodel.DGroupRec;
-import hsoft.yfzx.jlgs.business.basic.mapper.GroupinfoMapper;
-import hsoft.yfzx.jlgs.business.basic.model.Groupinfo;
-import hsoft.yfzx.jlgs.business.basic.model.GroupinfoExample;
+import hsoft.yfzx.jlgs.business.basic.ctmmodel.*;
 import hsoft.yfzx.jlgs.business.basic.server.GroupMgrService;
 import hsoft.yfzx.jlgs.utils.model.common.RequestData;
 import hsoft.yfzx.jlgs.utils.model.common.ResponseData;
@@ -78,6 +73,60 @@ public class GroupMgrController {
             return responseData;
         }
         return groupMgrService.deleteGroup(data);
+    }
+
+    /**
+     * 修改群组信息
+     * @param requestData
+     * @return
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ResponseData<String> updateGroup(@RequestBody RequestData<UGroupRec> requestData){
+        ResponseData<String> responseData = new ResponseData<>();
+        UGroupRec data = requestData.getData();
+        if (data == null || !data.validation())
+        {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
+            // 返回
+            return responseData;
+        }
+        return groupMgrService.updateGroup(data);
+    }
+
+    /**
+     * 查询群组详情信息
+     * @param requestData
+     * @return
+     */
+    @RequestMapping(value = "/detail", method = RequestMethod.POST)
+    public ResponseData<QGroupDetailRst> groupDetail(@RequestBody RequestData<QGroupDetailRec> requestData){
+        ResponseData<QGroupDetailRst> responseData = new ResponseData<>();
+        QGroupDetailRec qGroupDetailRec = requestData.getData();
+        if (qGroupDetailRec == null || !qGroupDetailRec.validation())
+        {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(qGroupDetailRec.getFailCauses());
+            responseData.setResultSet(new QGroupDetailRst());
+            // 返回
+            return responseData;
+        }
+        String userId = requestData.getOwner().getUserId();
+        return groupMgrService.groupDetail(qGroupDetailRec,userId);
+    }
+
+    /**
+     * 获取某用户群组列表
+     * @param requestData
+     * @return
+     */
+    public ResponseData<List<QGroupMyListRst>> groupMyList(@RequestBody RequestData<?> requestData){
+        //获取用户id
+        String userId = requestData.getOwner().getUserId();
+        // String userId = null;
+        return groupMgrService.groupMyList(userId);
     }
 
 
