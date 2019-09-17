@@ -1,5 +1,6 @@
 package hsoft.yfzx.jlgs.business.im.dao;
 
+import hsoft.yfzx.jlgs.business.im.ctmmodel.CtmChatStore;
 import hsoft.yfzx.jlgs.business.im.ctmmodel.CtmLastChatStore;
 import hsoft.yfzx.jlgs.business.im.model.Chatstore;
 import org.apache.ibatis.annotations.Param;
@@ -88,5 +89,49 @@ public interface CtmChatStoreMapper {
             ") AND C.USERID = A.SENDERID " )
     List<CtmLastChatStore> queryNewestGroupChat(@Param("receId") String receId,
                                                 @Param("versionStamp")BigDecimal versionStamp, @Param("createTime") Long createTime);
+
+
+    /**
+     * 根据聊天记录id查询单人会话详情
+     * @param chatStoreId
+     * @return
+     */
+    @Select("select A.*, B.PICID PICID from CHATSTORE A " + "INNER JOIN LOGININFO B on A.OBJECTTYPE = 0 and A.CHATSTOREID = #{chatStoreId} "
+            + "and B.USERID = A.SENDERID order by A.SENDTIME desc;")
+    CtmChatStore queryDetailByUserId(@Param("chatStoreId") String chatStoreId);
+
+    /**
+     * 根据聊天记录id查询群组会话详情
+     * @param chatStoreId
+     * @return
+     */
+    @Select("select A.*, B.PICID PICID from CHATSTORE A " + "INNER JOIN LOGININFO B on A.OBJECTTYPE = 1 and A.CHATSTOREID = #{chatStoreId} "
+            + "and A.SENDERID = B.USERID order by A.SENDTIME desc;")
+    CtmChatStore queryDetailByGroupId(@Param("chatStoreId") String chatStoreId);
+
+    /**
+     * 根据userId和对方id获取最新一条聊天记录
+     * @param userId
+     * @param objectId
+     * @return
+     */
+    @Select("select A.*, B.PICID from chatStore A INNER JOIN LOGININFO B on A.senderId = B.userId and "
+            + "A.sendTime = (select max(sendTime) from chatStore " + "where senderId = #{userId} and receId = #{objectId} "
+            + "or receId = #{userId} and senderId = #{objectId} )")
+    List<CtmChatStore> queryLastByUserId(@Param("userId") String userId, @Param("objectId") String objectId);
+
+
+    /**
+     * 根据userId和群组id获取最后一条聊天记录
+     * @param userId 用户id
+     * @param objectId 群组id
+     * @param versionStamp 时间戳(当前时间或被移出群组的时间)
+     * @return
+     */
+    @Select("select A.*, B.PICID from CHATSTORE A INNER JOIN LOGININFO B on A.SENDERID = B.USERID "
+            + "and A.SENDTIME = (select max(SENDTIME) from CHATSTORE where RECEID = #{objectId} and SENDTIME < #{versionStamp}"
+            + " and SENDTIME > #{createTime})")
+    CtmChatStore queryLastByGroupId(@Param("userId") String userId, @Param("objectId") String objectId,
+                                    @Param("versionStamp") BigDecimal versionStamp, @Param("createTime") Long createTime);
 
 }

@@ -1,9 +1,6 @@
 package hsoft.yfzx.jlgs.business.im.controller;
 
-import hsoft.yfzx.jlgs.business.im.ctmmodel.QChatStoreListRec;
-import hsoft.yfzx.jlgs.business.im.ctmmodel.QChatStoreListRst;
-import hsoft.yfzx.jlgs.business.im.ctmmodel.QChatStoreSyncRec;
-import hsoft.yfzx.jlgs.business.im.ctmmodel.QChatStoreSyncRst;
+import hsoft.yfzx.jlgs.business.im.ctmmodel.*;
 import hsoft.yfzx.jlgs.business.im.server.ChatCfgService;
 import hsoft.yfzx.jlgs.business.im.server.ChatStoreService;
 import hsoft.yfzx.jlgs.utils.model.common.RequestData;
@@ -72,5 +69,50 @@ public class ChatStoreController {
         return chatStoreService.lastChatStore(data);
     }
 
+    /**
+     * 根据id列表获取聊天记录列表
+     * @param requestData
+     * @return
+     */
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public ResponseData<List<QChatStoreRst>> chatStoreListDetial(@RequestBody RequestData<QChatStoreRec> requestData){
+        ResponseData<List<QChatStoreRst>> responseData = new ResponseData<>();
+
+        QChatStoreRec data = requestData.getData();
+
+        if(data == null || !data.validation()){
+            //无数据
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo("请提交相应数据");
+            //返回
+            return responseData;
+        }
+
+        return chatStoreService.queryList(data);
+    }
+
+    /**
+     * 根据聊天对象获取最新一条聊天记录
+     * @param requestData
+     * @return
+     */
+    @RequestMapping(value = "/chatStore/last", method = RequestMethod.POST)
+    public ResponseData<List<QChatStoreRst>> queryLastChatStore(@RequestBody RequestData<QChatRec> requestData){
+        ResponseData<List<QChatStoreRst>> responseData = new ResponseData<>();
+
+        QChatRec data = requestData.getData();
+        //数据校验
+        if(data == null || !data.validation()){
+            //无数据
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo("请提交相应数据");
+            //返回
+            return responseData;
+        }
+        //设置发起请求人的id
+        data.setUserId(requestData.getOwner().getUserId());
+
+        return chatStoreService.queryLastChatStore(data);
+    }
 
 }

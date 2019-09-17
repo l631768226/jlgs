@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import hsoft.yfzx.jlgs.business.im.ctmmodel.CXmppRec;
 import hsoft.yfzx.jlgs.business.im.ctmmodel.CXmppRst;
+import hsoft.yfzx.jlgs.business.im.server.XmppService;
 import hsoft.yfzx.jlgs.utils.model.common.RequestData;
 import hsoft.yfzx.jlgs.utils.model.common.ResponseData;
 import hsoft.yfzx.jlgs.utils.model.common.ReturnStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 public class XmppController {
 
     private Gson gson = new Gson();
+
+    @Autowired
+    private XmppService xmppService;
 
     /**
      * 发送xmpp消息
@@ -51,8 +56,7 @@ public class XmppController {
             //返回
             return responseData;
         }
-//        return xmppService.sendXmpp(data, request);
-        return null;
+        return xmppService.sendXmpp(data, request);
     }
 
 }
