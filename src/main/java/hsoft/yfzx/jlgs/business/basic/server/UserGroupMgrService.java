@@ -1,13 +1,14 @@
 package hsoft.yfzx.jlgs.business.basic.server;
 
-import hsoft.yfzx.jlgs.business.basic.ctmmodel.CGroupsUserRec;
-import hsoft.yfzx.jlgs.business.basic.ctmmodel.CUserGroupRec;
+import hsoft.yfzx.jlgs.business.basic.ctmmodel.*;
+import hsoft.yfzx.jlgs.business.basic.dao.CtmUserGroupMapper;
 import hsoft.yfzx.jlgs.business.basic.mapper.GroupinfoMapper;
 import hsoft.yfzx.jlgs.business.basic.mapper.UsergroupMapper;
 import hsoft.yfzx.jlgs.business.basic.model.Groupinfo;
 import hsoft.yfzx.jlgs.business.basic.model.GroupinfoExample;
 import hsoft.yfzx.jlgs.business.basic.model.Usergroup;
 import hsoft.yfzx.jlgs.business.basic.model.UsergroupExample;
+import hsoft.yfzx.jlgs.business.im.dao.CtmChatCfgMapper;
 import hsoft.yfzx.jlgs.utils.model.common.ResponseData;
 import hsoft.yfzx.jlgs.utils.model.common.ReturnStatus;
 import hsoft.yfzx.jlgs.utils.tool.Generator;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.security.acl.Group;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,6 +31,12 @@ public class UserGroupMgrService {
 
     @Autowired
     private UsergroupMapper usergroupMapper;
+
+    @Autowired
+    private CtmChatCfgMapper ctmChatCfgMapper;
+
+    @Autowired
+    private CtmUserGroupMapper ctmUserGroupMapper;
 
     /**
      * 某个群组添加人员
@@ -91,4 +99,92 @@ public class UserGroupMgrService {
         return responseData;
     }
 
+    /**
+     * 删除群组内成员
+     * @param dUserGroupRec
+     * @return
+     */
+    public ResponseData<String> deleteUserGroup(DUserGroupRec dUserGroupRec) {
+        ResponseData<String> responseData = new ResponseData<>();
+        UsergroupExample userGroupExample = new UsergroupExample();
+        userGroupExample.or().andGROUPIDEqualTo(dUserGroupRec.getGroupId()).andUSERIDIn(dUserGroupRec.getUsers());
+        // 判断删除的人员是否存在
+        List<Usergroup> userGroupList = checkUserGroup(userGroupExample);
+        if (userGroupList.size() != dUserGroupRec.getUsers().size()) {
+            responseData.setStatus(ReturnStatus.ERR0003);
+            responseData.setExtInfo("删除的人员或群组在数据库中不存在");
+            return responseData;
+        }
+
+        // 删除人员
+        UsergroupExample userGroupExample1 = new UsergroupExample();
+        userGroupExample1.or().andGROUPIDEqualTo(dUserGroupRec.getGroupId());
+
+        usergroupMapper.deleteByExample(userGroupExample);
+
+        List<String> userIdList = dUserGroupRec.getUsers();
+        //获取群组id
+        String groupId = dUserGroupRec.getGroupId();
+        for(String userId : userIdList){
+            ctmChatCfgMapper.delChatCfg(userId, groupId);
+        }
+        responseData.setStatus(ReturnStatus.OK);
+        return responseData;
+    }
+
+    /**
+     * 查询群组内人员列表
+     * @param qUserGroupListRec
+     * @param userId
+     * @return
+     */
+    public ResponseData<List<QUserGroupListRst>> userGroupList(QUserGroupListRec qUserGroupListRec, String userId) {
+        ResponseData<List<QUserGroupListRst>> responseData = new ResponseData<>();
+        List<QUserGroupListRst> userGroupList = new ArrayList<>();
+        // 判断群组是否存在
+        if (checkGroup(qUserGroupListRec.getGroupId()).size() < 1) {
+            responseData.setStatus(ReturnStatus.ERR0003);
+            responseData.setExtInfo("群组在数据库中不存在");
+            responseData.setResultSet(userGroupList);
+            return responseData;
+        }
+        //获取群组id
+        String groupId = qUserGroupListRec.getGroupId();
+
+        String content= "%" + qUserGroupListRec.getSearchRule() + "%";
+        //根据条件查询群组内人员
+
+        //此处的返回值需要测试
+        userGroupList = ctmUserGroupMapper.selectGroupUser(groupId, content);
+
+        responseData.setStatus(ReturnStatus.OK);
+        responseData.setResultSet(userGroupList);
+        return responseData;
+    }
+
+    /**
+     * 返回成员数据
+     *
+     * @param userGroupExample
+     * @return
+     */
+    public List<Usergroup> checkUserGroup(UsergroupExample userGroupExample) {
+
+        return usergroupMapper.selectByExample(userGroupExample);
+    }
+
+    /**
+     * 查找群组
+     *
+     * @param groupId
+     * @return
+     */
+    public List<Groupinfo> checkGroup(String groupId) {
+        GroupinfoExample groupInfoExample = new GroupinfoExample();
+        groupInfoExample.or().andGROUPIDEqualTo(groupId);
+
+        List<Groupinfo> list = groupinfoMapper.selectByExample(groupInfoExample);
+
+        return list;
+    }
 }

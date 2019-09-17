@@ -40,6 +40,28 @@ public class FreqController {
     }
 
     /**
+     * 删除常用联系人
+     * @param requestData
+     * @return
+     */
+    @RequestMapping(value = "/delContact", method = RequestMethod.POST)
+    public ResponseData<String> delContact(@RequestBody RequestData<DFreqContactRec> requestData){
+        ResponseData<String> responseData = new ResponseData<>();
+        DFreqContactRec data = requestData.getData();
+        if (data == null || !data.validation())
+        {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
+            // 返回
+            return responseData;
+        }
+        String userId = requestData.getOwner().getUserId();
+        return freqService.delFreqContact(userId, data);
+    }
+
+
+    /**
      * 设置常用群组
      * @param requestData
      * @return
@@ -58,6 +80,27 @@ public class FreqController {
         }
         String userId = requestData.getOwner().getUserId();
         return freqService.setFreqGroup(userId, data);
+    }
+
+    /**
+     * 删除常用群组
+     * @param requestData
+     * @return
+     */
+    @RequestMapping(value = "/delGroup", method = RequestMethod.POST)
+    public ResponseData<String> delGroup(@RequestBody RequestData<DFreqGroupRec> requestData) {
+        ResponseData<String> responseData = new ResponseData<>();
+        DFreqGroupRec data = requestData.getData();
+        if (data == null || !data.validation())
+        {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
+            // 返回
+            return responseData;
+        }
+        String userId = requestData.getOwner().getUserId();
+        return freqService.delFreqGroup(userId, data);
     }
 
     /**

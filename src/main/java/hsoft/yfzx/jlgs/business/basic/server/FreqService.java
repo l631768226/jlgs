@@ -57,6 +57,28 @@ public class FreqService {
     }
 
     /**
+     * 设置常用联系人
+     * @param ownerId 主人id
+     * @param dFreqContactRec
+     * @return
+     */
+    public ResponseData<String> delFreqContact(String ownerId, DFreqContactRec dFreqContactRec) {
+        ResponseData<String> responseData = new ResponseData<>();
+        //被删除人员id
+        String userId = dFreqContactRec.getUserId();
+
+        //删除对某人的常用联系人设置
+        int delCount = ctmFreqMapper.delFreqContact(ownerId, userId);
+        if(delCount < 1){
+            responseData.setStatus(ReturnStatus.ERR0004);
+            responseData.setExtInfo("数据库删除失败");
+            return responseData;
+        }
+        responseData.setStatus(ReturnStatus.OK);
+        return responseData;
+    }
+
+    /**
      * 设置常用群组
      * @param userId 主人id
      * @param cFreqGroupRec
@@ -80,6 +102,28 @@ public class FreqService {
             return responseData;
         }
 
+        responseData.setStatus(ReturnStatus.OK);
+        return responseData;
+    }
+
+    /**
+     * 删除常用群组
+     * @param ownerId 主人id
+     * @param dFreqGroupRec
+     * @return
+     */
+    public ResponseData<String> delFreqGroup(String ownerId, DFreqGroupRec dFreqGroupRec) {
+        ResponseData<String> responseData = new ResponseData<>();
+        //被删除群组id
+        String groupId = dFreqGroupRec.getGroupId();
+
+        //删除对某人的常用群组设置
+        int delCount = ctmFreqMapper.delFreqGroup(ownerId, groupId);
+        if(delCount < 1){
+            responseData.setStatus(ReturnStatus.ERR0004);
+            responseData.setExtInfo("数据库删除失败");
+            return responseData;
+        }
         responseData.setStatus(ReturnStatus.OK);
         return responseData;
     }

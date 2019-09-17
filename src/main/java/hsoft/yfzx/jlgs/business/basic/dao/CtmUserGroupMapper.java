@@ -1,5 +1,7 @@
 package hsoft.yfzx.jlgs.business.basic.dao;
 
+import hsoft.yfzx.jlgs.business.basic.ctmmodel.CtmGroupUser;
+import hsoft.yfzx.jlgs.business.basic.ctmmodel.QUserGroupListRst;
 import hsoft.yfzx.jlgs.business.basic.model.Groupinfo;
 import hsoft.yfzx.jlgs.business.basic.model.Usergroup;
 import org.apache.ibatis.annotations.Param;
@@ -35,4 +37,24 @@ public interface CtmUserGroupMapper {
     @Select("select B.* from USERGROUP A, GROUPINFO B where A.GROUPID = B.GROUPID and A.USERID = #{userId}")
     List<Groupinfo> findMyGroupList(@Param("userId") String userId);
 
+    /**
+     * 根据群组id和搜索条件模糊查询群组内成员信息
+     * @param groupId
+     * @param searchRule
+     * @return
+     */
+    @Select("SELECT A.GROUPID groupId, A.USERID userId, A.CARD card, A.VERSIONSTAMP versionStamp, B.REALNAME realName, A.USER_LEVEL \"level\"" +
+            "FROM \"USERGROUP\" A ,LOGININFO B " +
+            "WHERE A.GROUPID = #{groupId} and A.USERID = B.USERID " +
+            "and B.REALNAME like #{searchRule} order by A.CREATETIME ASC ")
+    List<QUserGroupListRst> selectGroupUser(@Param("groupId") String groupId, @Param("searchRule") String searchRule);
+
+    /**
+     * 根据条件查询某人的群组
+     * @param userId 用户id
+     * @param condition 查询条件
+     * @return
+     */
+    @Select("select * from GROUPINFO where GROUPID in (select GROUPID from \"USERGROUP\" where USERID =  #{userId}) and GROUPNAME like '%${condition}%'")
+    List<Groupinfo> selectGroupByCondition(@Param("userId") String userId, @Param("condition") String condition);
 }

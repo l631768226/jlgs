@@ -195,7 +195,7 @@
         -->
 
         <!-- 指定数据表 -->
-        <table tableName="">
+        <table tableName="FEEDBACK">
             <!-- 参考 javaModelGenerator 的 constructorBased属性
             <property name="constructorBased" value="false"/>
             -->
