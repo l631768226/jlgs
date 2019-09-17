@@ -88,6 +88,7 @@ public class UserMgrService {
         logininfo.setTOKEN(token);
         logininfo.setREALNAME(realName);
         logininfo.setPICID(sysUser.getPHOTO());
+        logininfo.setUSERNAME(sysUser.getLOGIN_NAME());
         long lastLoginTime = Generator.getLongTimeStamp();
         logininfo.setLASTLOGINTIME(lastLoginTime);
         loginInfoMapper.updateByPrimaryKeySelective(logininfo);

@@ -1,4 +1,4 @@
-package hsoft.yfzx.jlgs.business.im.ctmmodel;
+package hsoft.yfzx.jlgs.utils.model.common;
 
 /**
  * 同步信息使用的model

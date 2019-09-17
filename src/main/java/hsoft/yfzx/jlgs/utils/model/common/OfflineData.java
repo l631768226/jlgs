@@ -1,4 +1,4 @@
-package hsoft.yfzx.jlgs.business.im.ctmmodel;
+package hsoft.yfzx.jlgs.utils.model.common;
 
 /**
  * 离线通讯录下载返回的实体类

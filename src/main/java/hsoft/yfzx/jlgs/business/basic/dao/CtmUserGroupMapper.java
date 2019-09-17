@@ -67,5 +67,13 @@ public interface CtmUserGroupMapper {
     @Select("select * from \"USERGROUP\" where USERID = #{userId} and GROUPID = #{groupId}")
     Usergroup findByUserIdGroupId(@Param("userId") String userId, @Param("groupId") String groupId);
 
-
+    /**
+     * 根据群组id获取用户id列表
+     *
+     * @param groupId
+     *        群组id
+     * @return
+     */
+    @Select("select USERID from \"USERGROUP\" where GROUPID = #{groupId};")
+    List<String> queryUserId(@Param("groupId") String groupId);
 }

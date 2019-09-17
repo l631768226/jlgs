@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/im/xmpp")
@@ -30,7 +32,7 @@ public class XmppController {
      * @return
      */
     @RequestMapping(value = "/xmpp/send", method = RequestMethod.POST)
-    public ResponseData<CXmppRst> sendXmppInfo(HttpServletRequest request){
+    public ResponseData<CXmppRst> sendXmppInfo(HttpServletRequest request) throws IOException, ServletException {
         //获取参数
         String value = request.getParameter("json");
         //从请求中获取请求数据

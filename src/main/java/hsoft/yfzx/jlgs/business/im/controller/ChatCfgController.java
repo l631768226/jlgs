@@ -2,9 +2,7 @@ package hsoft.yfzx.jlgs.business.im.controller;
 
 import hsoft.yfzx.jlgs.business.im.ctmmodel.*;
 import hsoft.yfzx.jlgs.business.im.server.ChatCfgService;
-import hsoft.yfzx.jlgs.utils.model.common.RequestData;
-import hsoft.yfzx.jlgs.utils.model.common.ResponseData;
-import hsoft.yfzx.jlgs.utils.model.common.ReturnStatus;
+import hsoft.yfzx.jlgs.utils.model.common.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
