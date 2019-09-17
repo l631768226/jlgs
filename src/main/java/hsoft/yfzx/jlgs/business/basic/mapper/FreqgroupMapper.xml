@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hsoft.yfzx.jlgs.business.basic.mapper.FreqgroupMapper">
+  <resultMap id="BaseResultMap" type="hsoft.yfzx.jlgs.business.basic.model.Freqgroup">
+    <id column="OWNERID" jdbcType="VARCHAR" property="OWNERID" />
+    <id column="GROUPID" jdbcType="VARCHAR" property="GROUPID" />
+    <result column="SORT" jdbcType="NUMERIC" property="SORT" />
+    <result column="GROUPNAME" jdbcType="VARCHAR" property="GROUPNAME" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    OWNERID, GROUPID, SORT, GROUPNAME
+  </sql>
+  <select id="selectByExample" parameterType="hsoft.yfzx.jlgs.business.basic.model.FreqgroupExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from FREQGROUP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from FREQGROUP
+    where OWNERID = #{OWNERID,jdbcType=VARCHAR}
+      and GROUPID = #{GROUPID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from FREQGROUP
+    where OWNERID = #{OWNERID,jdbcType=VARCHAR}
+      and GROUPID = #{GROUPID,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="hsoft.yfzx.jlgs.business.basic.model.FreqgroupExample">
+    delete from FREQGROUP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="hsoft.yfzx.jlgs.business.basic.model.Freqgroup">
+    insert into FREQGROUP (OWNERID, GROUPID, SORT, 
+      GROUPNAME)
+    values (#{OWNERID,jdbcType=VARCHAR}, #{GROUPID,jdbcType=VARCHAR}, #{SORT,jdbcType=NUMERIC}, 
+      #{GROUPNAME,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="hsoft.yfzx.jlgs.business.basic.model.Freqgroup">
+    insert into FREQGROUP
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="OWNERID != null">
+        OWNERID,
+      </if>
+      <if test="GROUPID != null">
+        GROUPID,
+      </if>
+      <if test="SORT != null">
+        SORT,
+      </if>
+      <if test="GROUPNAME != null">
+        GROUPNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="OWNERID != null">
+        #{OWNERID,jdbcType=VARCHAR},
+      </if>
+      <if test="GROUPID != null">
+        #{GROUPID,jdbcType=VARCHAR},
+      </if>
+      <if test="SORT != null">
+        #{SORT,jdbcType=NUMERIC},
+      </if>
+      <if test="GROUPNAME != null">
+        #{GROUPNAME,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="hsoft.yfzx.jlgs.business.basic.model.FreqgroupExample" resultType="java.lang.Long">
+    select count(*) from FREQGROUP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update FREQGROUP
+    <set>
+      <if test="record.OWNERID != null">
+        OWNERID = #{record.OWNERID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.GROUPID != null">
+        GROUPID = #{record.GROUPID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.SORT != null">
+        SORT = #{record.SORT,jdbcType=NUMERIC},
+      </if>
+      <if test="record.GROUPNAME != null">
+        GROUPNAME = #{record.GROUPNAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update FREQGROUP
+    set OWNERID = #{record.OWNERID,jdbcType=VARCHAR},
+      GROUPID = #{record.GROUPID,jdbcType=VARCHAR},
+      SORT = #{record.SORT,jdbcType=NUMERIC},
+      GROUPNAME = #{record.GROUPNAME,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="hsoft.yfzx.jlgs.business.basic.model.Freqgroup">
+    update FREQGROUP
+    <set>
+      <if test="SORT != null">
+        SORT = #{SORT,jdbcType=NUMERIC},
+      </if>
+      <if test="GROUPNAME != null">
+        GROUPNAME = #{GROUPNAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where OWNERID = #{OWNERID,jdbcType=VARCHAR}
+      and GROUPID = #{GROUPID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="hsoft.yfzx.jlgs.business.basic.model.Freqgroup">
+    update FREQGROUP
+    set SORT = #{SORT,jdbcType=NUMERIC},
+      GROUPNAME = #{GROUPNAME,jdbcType=VARCHAR}
+    where OWNERID = #{OWNERID,jdbcType=VARCHAR}
+      and GROUPID = #{GROUPID,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hsoft.yfzx.jlgs.business.im.mapper.ChatstoreMapper">
+  <resultMap id="BaseResultMap" type="hsoft.yfzx.jlgs.business.im.model.Chatstore">
+    <id column="CHATSTOREID" jdbcType="VARCHAR" property="CHATSTOREID" />
+    <result column="OBJECTTYPE" jdbcType="VARCHAR" property="OBJECTTYPE" />
+    <result column="SENDERID" jdbcType="VARCHAR" property="SENDERID" />
+    <result column="SENDERNAME" jdbcType="VARCHAR" property="SENDERNAME" />
+    <result column="RECEID" jdbcType="VARCHAR" property="RECEID" />
+    <result column="RECENAME" jdbcType="VARCHAR" property="RECENAME" />
+    <result column="MSGTYPE" jdbcType="VARCHAR" property="MSGTYPE" />
+    <result column="SENDTIME" jdbcType="NUMERIC" property="SENDTIME" />
+    <result column="SENDSTATUS" jdbcType="VARCHAR" property="SENDSTATUS" />
+    <result column="VERSIONSTAMP" jdbcType="NUMERIC" property="VERSIONSTAMP" />
+    <result column="PICID" jdbcType="VARCHAR" property="PICID" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="hsoft.yfzx.jlgs.business.im.model.Chatstore">
+    <result column="CONTENT" jdbcType="CLOB" property="CONTENT" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CHATSTOREID, OBJECTTYPE, SENDERID, SENDERNAME, RECEID, RECENAME, MSGTYPE, SENDTIME, 
+    SENDSTATUS, VERSIONSTAMP, PICID
+  </sql>
+  <sql id="Blob_Column_List">
+    CONTENT
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="hsoft.yfzx.jlgs.business.im.model.ChatstoreExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from CHATSTORE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="hsoft.yfzx.jlgs.business.im.model.ChatstoreExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from CHATSTORE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from CHATSTORE
+    where CHATSTOREID = #{CHATSTOREID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from CHATSTORE
+    where CHATSTOREID = #{CHATSTOREID,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="hsoft.yfzx.jlgs.business.im.model.ChatstoreExample">
+    delete from CHATSTORE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="hsoft.yfzx.jlgs.business.im.model.Chatstore">
+    insert into CHATSTORE (CHATSTOREID, OBJECTTYPE, SENDERID, 
+      SENDERNAME, RECEID, RECENAME, 
+      MSGTYPE, SENDTIME, SENDSTATUS, 
+      VERSIONSTAMP, PICID, CONTENT
+      )
+    values (#{CHATSTOREID,jdbcType=VARCHAR}, #{OBJECTTYPE,jdbcType=VARCHAR}, #{SENDERID,jdbcType=VARCHAR}, 
+      #{SENDERNAME,jdbcType=VARCHAR}, #{RECEID,jdbcType=VARCHAR}, #{RECENAME,jdbcType=VARCHAR}, 
+      #{MSGTYPE,jdbcType=VARCHAR}, #{SENDTIME,jdbcType=NUMERIC}, #{SENDSTATUS,jdbcType=VARCHAR}, 
+      #{VERSIONSTAMP,jdbcType=NUMERIC}, #{PICID,jdbcType=VARCHAR}, #{CONTENT,jdbcType=CLOB}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="hsoft.yfzx.jlgs.business.im.model.Chatstore">
+    insert into CHATSTORE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="CHATSTOREID != null">
+        CHATSTOREID,
+      </if>
+      <if test="OBJECTTYPE != null">
+        OBJECTTYPE,
+      </if>
+      <if test="SENDERID != null">
+        SENDERID,
+      </if>
+      <if test="SENDERNAME != null">
+        SENDERNAME,
+      </if>
+      <if test="RECEID != null">
+        RECEID,
+      </if>
+      <if test="RECENAME != null">
+        RECENAME,
+      </if>
+      <if test="MSGTYPE != null">
+        MSGTYPE,
+      </if>
+      <if test="SENDTIME != null">
+        SENDTIME,
+      </if>
+      <if test="SENDSTATUS != null">
+        SENDSTATUS,
+      </if>
+      <if test="VERSIONSTAMP != null">
+        VERSIONSTAMP,
+      </if>
+      <if test="PICID != null">
+        PICID,
+      </if>
+      <if test="CONTENT != null">
+        CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="CHATSTOREID != null">
+        #{CHATSTOREID,jdbcType=VARCHAR},
+      </if>
+      <if test="OBJECTTYPE != null">
+        #{OBJECTTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="SENDERID != null">
+        #{SENDERID,jdbcType=VARCHAR},
+      </if>
+      <if test="SENDERNAME != null">
+        #{SENDERNAME,jdbcType=VARCHAR},
+      </if>
+      <if test="RECEID != null">
+        #{RECEID,jdbcType=VARCHAR},
+      </if>
+      <if test="RECENAME != null">
+        #{RECENAME,jdbcType=VARCHAR},
+      </if>
+      <if test="MSGTYPE != null">
+        #{MSGTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="SENDTIME != null">
+        #{SENDTIME,jdbcType=NUMERIC},
+      </if>
+      <if test="SENDSTATUS != null">
+        #{SENDSTATUS,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSIONSTAMP != null">
+        #{VERSIONSTAMP,jdbcType=NUMERIC},
+      </if>
+      <if test="PICID != null">
+        #{PICID,jdbcType=VARCHAR},
+      </if>
+      <if test="CONTENT != null">
+        #{CONTENT,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="hsoft.yfzx.jlgs.business.im.model.ChatstoreExample" resultType="java.lang.Long">
+    select count(*) from CHATSTORE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update CHATSTORE
+    <set>
+      <if test="record.CHATSTOREID != null">
+        CHATSTOREID = #{record.CHATSTOREID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.OBJECTTYPE != null">
+        OBJECTTYPE = #{record.OBJECTTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.SENDERID != null">
+        SENDERID = #{record.SENDERID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.SENDERNAME != null">
+        SENDERNAME = #{record.SENDERNAME,jdbcType=VARCHAR},
+      </if>
+      <if test="record.RECEID != null">
+        RECEID = #{record.RECEID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.RECENAME != null">
+        RECENAME = #{record.RECENAME,jdbcType=VARCHAR},
+      </if>
+      <if test="record.MSGTYPE != null">
+        MSGTYPE = #{record.MSGTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.SENDTIME != null">
+        SENDTIME = #{record.SENDTIME,jdbcType=NUMERIC},
+      </if>
+      <if test="record.SENDSTATUS != null">
+        SENDSTATUS = #{record.SENDSTATUS,jdbcType=VARCHAR},
+      </if>
+      <if test="record.VERSIONSTAMP != null">
+        VERSIONSTAMP = #{record.VERSIONSTAMP,jdbcType=NUMERIC},
+      </if>
+      <if test="record.PICID != null">
+        PICID = #{record.PICID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CONTENT != null">
+        CONTENT = #{record.CONTENT,jdbcType=CLOB},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update CHATSTORE
+    set CHATSTOREID = #{record.CHATSTOREID,jdbcType=VARCHAR},
+      OBJECTTYPE = #{record.OBJECTTYPE,jdbcType=VARCHAR},
+      SENDERID = #{record.SENDERID,jdbcType=VARCHAR},
+      SENDERNAME = #{record.SENDERNAME,jdbcType=VARCHAR},
+      RECEID = #{record.RECEID,jdbcType=VARCHAR},
+      RECENAME = #{record.RECENAME,jdbcType=VARCHAR},
+      MSGTYPE = #{record.MSGTYPE,jdbcType=VARCHAR},
+      SENDTIME = #{record.SENDTIME,jdbcType=NUMERIC},
+      SENDSTATUS = #{record.SENDSTATUS,jdbcType=VARCHAR},
+      VERSIONSTAMP = #{record.VERSIONSTAMP,jdbcType=NUMERIC},
+      PICID = #{record.PICID,jdbcType=VARCHAR},
+      CONTENT = #{record.CONTENT,jdbcType=CLOB}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update CHATSTORE
+    set CHATSTOREID = #{record.CHATSTOREID,jdbcType=VARCHAR},
+      OBJECTTYPE = #{record.OBJECTTYPE,jdbcType=VARCHAR},
+      SENDERID = #{record.SENDERID,jdbcType=VARCHAR},
+      SENDERNAME = #{record.SENDERNAME,jdbcType=VARCHAR},
+      RECEID = #{record.RECEID,jdbcType=VARCHAR},
+      RECENAME = #{record.RECENAME,jdbcType=VARCHAR},
+      MSGTYPE = #{record.MSGTYPE,jdbcType=VARCHAR},
+      SENDTIME = #{record.SENDTIME,jdbcType=NUMERIC},
+      SENDSTATUS = #{record.SENDSTATUS,jdbcType=VARCHAR},
+      VERSIONSTAMP = #{record.VERSIONSTAMP,jdbcType=NUMERIC},
+      PICID = #{record.PICID,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="hsoft.yfzx.jlgs.business.im.model.Chatstore">
+    update CHATSTORE
+    <set>
+      <if test="OBJECTTYPE != null">
+        OBJECTTYPE = #{OBJECTTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="SENDERID != null">
+        SENDERID = #{SENDERID,jdbcType=VARCHAR},
+      </if>
+      <if test="SENDERNAME != null">
+        SENDERNAME = #{SENDERNAME,jdbcType=VARCHAR},
+      </if>
+      <if test="RECEID != null">
+        RECEID = #{RECEID,jdbcType=VARCHAR},
+      </if>
+      <if test="RECENAME != null">
+        RECENAME = #{RECENAME,jdbcType=VARCHAR},
+      </if>
+      <if test="MSGTYPE != null">
+        MSGTYPE = #{MSGTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="SENDTIME != null">
+        SENDTIME = #{SENDTIME,jdbcType=NUMERIC},
+      </if>
+      <if test="SENDSTATUS != null">
+        SENDSTATUS = #{SENDSTATUS,jdbcType=VARCHAR},
+      </if>
+      <if test="VERSIONSTAMP != null">
+        VERSIONSTAMP = #{VERSIONSTAMP,jdbcType=NUMERIC},
+      </if>
+      <if test="PICID != null">
+        PICID = #{PICID,jdbcType=VARCHAR},
+      </if>
+      <if test="CONTENT != null">
+        CONTENT = #{CONTENT,jdbcType=CLOB},
+      </if>
+    </set>
+    where CHATSTOREID = #{CHATSTOREID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="hsoft.yfzx.jlgs.business.im.model.Chatstore">
+    update CHATSTORE
+    set OBJECTTYPE = #{OBJECTTYPE,jdbcType=VARCHAR},
+      SENDERID = #{SENDERID,jdbcType=VARCHAR},
+      SENDERNAME = #{SENDERNAME,jdbcType=VARCHAR},
+      RECEID = #{RECEID,jdbcType=VARCHAR},
+      RECENAME = #{RECENAME,jdbcType=VARCHAR},
+      MSGTYPE = #{MSGTYPE,jdbcType=VARCHAR},
+      SENDTIME = #{SENDTIME,jdbcType=NUMERIC},
+      SENDSTATUS = #{SENDSTATUS,jdbcType=VARCHAR},
+      VERSIONSTAMP = #{VERSIONSTAMP,jdbcType=NUMERIC},
+      PICID = #{PICID,jdbcType=VARCHAR},
+      CONTENT = #{CONTENT,jdbcType=CLOB}
+    where CHATSTOREID = #{CHATSTOREID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="hsoft.yfzx.jlgs.business.im.model.Chatstore">
+    update CHATSTORE
+    set OBJECTTYPE = #{OBJECTTYPE,jdbcType=VARCHAR},
+      SENDERID = #{SENDERID,jdbcType=VARCHAR},
+      SENDERNAME = #{SENDERNAME,jdbcType=VARCHAR},
+      RECEID = #{RECEID,jdbcType=VARCHAR},
+      RECENAME = #{RECENAME,jdbcType=VARCHAR},
+      MSGTYPE = #{MSGTYPE,jdbcType=VARCHAR},
+      SENDTIME = #{SENDTIME,jdbcType=NUMERIC},
+      SENDSTATUS = #{SENDSTATUS,jdbcType=VARCHAR},
+      VERSIONSTAMP = #{VERSIONSTAMP,jdbcType=NUMERIC},
+      PICID = #{PICID,jdbcType=VARCHAR}
+    where CHATSTOREID = #{CHATSTOREID,jdbcType=VARCHAR}
+  </update>
+</mapper>

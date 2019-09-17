@@ -57,4 +57,15 @@ public interface CtmUserGroupMapper {
      */
     @Select("select * from GROUPINFO where GROUPID in (select GROUPID from \"USERGROUP\" where USERID =  #{userId}) and GROUPNAME like '%${condition}%'")
     List<Groupinfo> selectGroupByCondition(@Param("userId") String userId, @Param("condition") String condition);
+
+    /**
+     * 根据用户id和群组id查询群组人员关系表
+     * @param userId 用户id
+     * @param groupId 群组id
+     * @return
+     */
+    @Select("select * from \"USERGROUP\" where USERID = #{userId} and GROUPID = #{groupId}")
+    Usergroup findByUserIdGroupId(@Param("userId") String userId, @Param("groupId") String groupId);
+
+
 }

@@ -8,7 +8,7 @@ import hsoft.yfzx.jlgs.business.basic.model.Groupinfo;
 import hsoft.yfzx.jlgs.business.basic.model.GroupinfoExample;
 import hsoft.yfzx.jlgs.business.basic.model.Usergroup;
 import hsoft.yfzx.jlgs.business.basic.model.UsergroupExample;
-import hsoft.yfzx.jlgs.business.im.ctmmodel.CtmChatCfgMapper;
+import hsoft.yfzx.jlgs.business.im.dao.CtmChatCfgMapper;
 import hsoft.yfzx.jlgs.utils.model.common.ResponseData;
 import hsoft.yfzx.jlgs.utils.model.common.ReturnStatus;
 import hsoft.yfzx.jlgs.utils.tool.Generator;

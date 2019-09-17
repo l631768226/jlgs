@@ -23,7 +23,7 @@ public class FreqController {
      * @param requestData
      * @return
      */
-    @RequestMapping(value = "/setContace", method = RequestMethod.POST)
+    @RequestMapping(value = "/setContact", method = RequestMethod.POST)
     public ResponseData<String> setContact(@RequestBody RequestData<CFreqContactRec> requestData){
         ResponseData<String> responseData = new ResponseData<>();
         CFreqContactRec data = requestData.getData();
@@ -141,7 +141,7 @@ public class FreqController {
      * @param requestData
      * @return
      */
-    @RequestMapping(value = "/groupSort", method = RequestMethod.POST)
+    @RequestMapping(value = "/contactSort", method = RequestMethod.POST)
     public ResponseData<String> contactSort(@RequestBody RequestData<UFreContactRec> requestData){
         ResponseData<String> responseData = new ResponseData<>();
         UFreContactRec data = requestData.getData();
