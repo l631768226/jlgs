@@ -56,10 +56,18 @@ public class ChatStoreController {
         ResponseData<List<QChatStoreListRst>> responseData = new ResponseData<>();
         QChatStoreListRec data = requestData.getData();
 
-        if(data == null || !data.validation()){
+        if(data == null){
             //无数据
             responseData.setStatus(ReturnStatus.ERR0001);
             responseData.setExtInfo("请提交相应数据");
+            //返回
+            return responseData;
+        }
+
+        if(!data.validation()){
+            //数据校验没有通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
             //返回
             return responseData;
         }
@@ -80,10 +88,18 @@ public class ChatStoreController {
 
         QChatStoreRec data = requestData.getData();
 
-        if(data == null || !data.validation()){
+        if(data == null){
             //无数据
             responseData.setStatus(ReturnStatus.ERR0001);
             responseData.setExtInfo("请提交相应数据");
+            //返回
+            return responseData;
+        }
+
+        if(!data.validation()){
+            //数据校验没有通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
             //返回
             return responseData;
         }
@@ -96,16 +112,24 @@ public class ChatStoreController {
      * @param requestData
      * @return
      */
-    @RequestMapping(value = "/chatStore/last", method = RequestMethod.POST)
+    @RequestMapping(value = "/last", method = RequestMethod.POST)
     public ResponseData<List<QChatStoreRst>> queryLastChatStore(@RequestBody RequestData<QChatRec> requestData){
         ResponseData<List<QChatStoreRst>> responseData = new ResponseData<>();
 
         QChatRec data = requestData.getData();
         //数据校验
-        if(data == null || !data.validation()){
+        if(data == null){
             //无数据
             responseData.setStatus(ReturnStatus.ERR0001);
             responseData.setExtInfo("请提交相应数据");
+            //返回
+            return responseData;
+        }
+
+        if(!data.validation()){
+            //数据校验没有通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
             //返回
             return responseData;
         }

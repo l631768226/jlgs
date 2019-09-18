@@ -244,8 +244,8 @@ public class XmppOperator {
      * 发送xmpp消息（带APNS推送）
      * @param userNameList 发送xmpp消息人员列表
      * @param IMEIList 发送APNS推送人员的IMEI列表
-     * @param content APNS推送内容（对话框提示的内容）
-     * @param title APNS推送标题
+     * @param apnsContent APNS推送内容（对话框提示的内容）
+     * @param apnsTitle APNS推送标题
      * @param msgInfo xmpp消息体
      * @throws SmackException
      * @throws IOException
@@ -256,7 +256,7 @@ public class XmppOperator {
      * @throws KeystoreException
      * @throws InvalidDeviceTokenFormatException
      */
-    public static void sendXMPP(List<String> userNameList, List<String> IMEIList, String content, String title, String msgInfo)
+    public static void sendXMPP(List<String> userNameList, List<String> IMEIList, String apnsContent, String apnsTitle, String msgInfo)
             throws SmackException, IOException, XMPPException, InterruptedException, JSONException,
             CommunicationException, KeystoreException, InvalidDeviceTokenFormatException {
         //群发xmpp消息
@@ -264,7 +264,7 @@ public class XmppOperator {
 
         //发送APNS消息
         if (IMEIList.size() > 0){
-            sendAPNS(IMEIList, content, title, msgInfo);
+            sendAPNS(IMEIList, apnsContent, apnsTitle, msgInfo);
         }
     }
 
