@@ -39,6 +39,16 @@ public class QUserLoginRst {
 
     private String politics;
 
+    private String officeName;
+
+    public String getOfficeName() {
+        return officeName;
+    }
+
+    public void setOfficeName(String officeName) {
+        this.officeName = officeName;
+    }
+
     public String getToken() {
         return token;
     }

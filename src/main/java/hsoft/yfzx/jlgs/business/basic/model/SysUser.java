@@ -3,343 +3,363 @@ package hsoft.yfzx.jlgs.business.basic.model;
 import java.util.Date;
 
 public class SysUser {
-    private String ID;
+    private String id;
 
-    private String COMPANY_ID;
+    private String company_ID;
 
-    private String OFFICE_ID;
+    private String office_ID;
 
-    private String LOGIN_NAME;
+    private String login_NAME;
 
-    private String PASSWORD;
+    private String password;
 
-    private String NO;
+    private String no;
 
-    private String NAME;
+    private String name;
 
-    private String EMAIL;
+    private String email;
 
-    private String PHONE;
+    private String phone;
 
-    private String MOBILE;
+    private String mobile;
 
-    private String PHOTO;
+    private String user_TYPE;
 
-    private String LOGIN_IP;
+    private String photo;
 
-    private Date LOGIN_DATE;
+    private String login_IP;
 
-    private String LOGIN_FLAG;
+    private Date login_DATE;
 
-    private String CREATE_BY;
+    private String login_FLAG;
 
-    private Date CREATE_DATE;
+    private String create_BY;
 
-    private String UPDATE_BY;
+    private Date create_DATE;
 
-    private Date UPDATE_DATE;
+    private String update_BY;
 
-    private String REMARKS;
+    private Date update_DATE;
 
-    private String DEL_FLAG;
+    private String remarks;
 
-    private String QRCODE;
+    private String del_FLAG;
 
-    private String SIGN;
+    private String qrcode;
 
-    private String GENDER;
+    private String sign;
 
-    private String POSITION;
+    private String gender;
 
-    private String POSITION_REMARK;
+    private String position;
 
-    private Date BIRTHDAY;
+    private String position_REMARK;
 
-    private Short WORK_YEARS;
+    private Date birthday;
 
-    private String WORK_STATE;
+    private Short work_YEARS;
 
-    private String DUTY;
+    private String work_STATE;
 
-    private String POLITICS;
+    private String duty;
 
-    private Long VERSIONSTAMP;
+    private String politics;
 
-    private String DEVICETYPE;
+    private Long versionstamp;
 
-    private String IMEI;
+    private String devicetype;
 
-    private Short SORT;
+    private String imei;
 
-    public String getID() {
-        return ID;
+    private Short sort;
+
+    private String officeName;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCompany_ID() {
+        return company_ID;
+    }
+
+    public void setCompany_ID(String company_ID) {
+        this.company_ID = company_ID;
+    }
+
+    public String getOffice_ID() {
+        return office_ID;
     }
 
-    public void setID(String ID) {
-        this.ID = ID == null ? null : ID.trim();
+    public void setOffice_ID(String office_ID) {
+        this.office_ID = office_ID;
     }
 
-    public String getCOMPANY_ID() {
-        return COMPANY_ID;
+    public String getLogin_NAME() {
+        return login_NAME;
     }
 
-    public void setCOMPANY_ID(String COMPANY_ID) {
-        this.COMPANY_ID = COMPANY_ID == null ? null : COMPANY_ID.trim();
+    public void setLogin_NAME(String login_NAME) {
+        this.login_NAME = login_NAME;
     }
 
-    public String getOFFICE_ID() {
-        return OFFICE_ID;
+    public String getPassword() {
+        return password;
     }
 
-    public void setOFFICE_ID(String OFFICE_ID) {
-        this.OFFICE_ID = OFFICE_ID == null ? null : OFFICE_ID.trim();
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getLOGIN_NAME() {
-        return LOGIN_NAME;
+    public String getNo() {
+        return no;
     }
 
-    public void setLOGIN_NAME(String LOGIN_NAME) {
-        this.LOGIN_NAME = LOGIN_NAME == null ? null : LOGIN_NAME.trim();
+    public void setNo(String no) {
+        this.no = no;
     }
 
-    public String getPASSWORD() {
-        return PASSWORD;
+    public String getName() {
+        return name;
     }
 
-    public void setPASSWORD(String PASSWORD) {
-        this.PASSWORD = PASSWORD == null ? null : PASSWORD.trim();
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getNO() {
-        return NO;
+    public String getEmail() {
+        return email;
     }
 
-    public void setNO(String NO) {
-        this.NO = NO == null ? null : NO.trim();
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getNAME() {
-        return NAME;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setNAME(String NAME) {
-        this.NAME = NAME == null ? null : NAME.trim();
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getEMAIL() {
-        return EMAIL;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setEMAIL(String EMAIL) {
-        this.EMAIL = EMAIL == null ? null : EMAIL.trim();
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
-    public String getPHONE() {
-        return PHONE;
+    public String getUser_TYPE() {
+        return user_TYPE;
     }
 
-    public void setPHONE(String PHONE) {
-        this.PHONE = PHONE == null ? null : PHONE.trim();
+    public void setUser_TYPE(String user_TYPE) {
+        this.user_TYPE = user_TYPE;
     }
 
-    public String getMOBILE() {
-        return MOBILE;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setMOBILE(String MOBILE) {
-        this.MOBILE = MOBILE == null ? null : MOBILE.trim();
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
-    public String getPHOTO() {
-        return PHOTO;
+    public String getLogin_IP() {
+        return login_IP;
     }
 
-    public void setPHOTO(String PHOTO) {
-        this.PHOTO = PHOTO == null ? null : PHOTO.trim();
+    public void setLogin_IP(String login_IP) {
+        this.login_IP = login_IP;
     }
 
-    public String getLOGIN_IP() {
-        return LOGIN_IP;
+    public Date getLogin_DATE() {
+        return login_DATE;
     }
 
-    public void setLOGIN_IP(String LOGIN_IP) {
-        this.LOGIN_IP = LOGIN_IP == null ? null : LOGIN_IP.trim();
+    public void setLogin_DATE(Date login_DATE) {
+        this.login_DATE = login_DATE;
     }
 
-    public Date getLOGIN_DATE() {
-        return LOGIN_DATE;
+    public String getLogin_FLAG() {
+        return login_FLAG;
     }
 
-    public void setLOGIN_DATE(Date LOGIN_DATE) {
-        this.LOGIN_DATE = LOGIN_DATE;
+    public void setLogin_FLAG(String login_FLAG) {
+        this.login_FLAG = login_FLAG;
     }
 
-    public String getLOGIN_FLAG() {
-        return LOGIN_FLAG;
+    public String getCreate_BY() {
+        return create_BY;
     }
 
-    public void setLOGIN_FLAG(String LOGIN_FLAG) {
-        this.LOGIN_FLAG = LOGIN_FLAG == null ? null : LOGIN_FLAG.trim();
+    public void setCreate_BY(String create_BY) {
+        this.create_BY = create_BY;
     }
 
-    public String getCREATE_BY() {
-        return CREATE_BY;
+    public Date getCreate_DATE() {
+        return create_DATE;
     }
 
-    public void setCREATE_BY(String CREATE_BY) {
-        this.CREATE_BY = CREATE_BY == null ? null : CREATE_BY.trim();
+    public void setCreate_DATE(Date create_DATE) {
+        this.create_DATE = create_DATE;
     }
 
-    public Date getCREATE_DATE() {
-        return CREATE_DATE;
+    public String getUpdate_BY() {
+        return update_BY;
     }
 
-    public void setCREATE_DATE(Date CREATE_DATE) {
-        this.CREATE_DATE = CREATE_DATE;
+    public void setUpdate_BY(String update_BY) {
+        this.update_BY = update_BY;
     }
 
-    public String getUPDATE_BY() {
-        return UPDATE_BY;
+    public Date getUpdate_DATE() {
+        return update_DATE;
     }
 
-    public void setUPDATE_BY(String UPDATE_BY) {
-        this.UPDATE_BY = UPDATE_BY == null ? null : UPDATE_BY.trim();
+    public void setUpdate_DATE(Date update_DATE) {
+        this.update_DATE = update_DATE;
     }
 
-    public Date getUPDATE_DATE() {
-        return UPDATE_DATE;
+    public String getRemarks() {
+        return remarks;
     }
 
-    public void setUPDATE_DATE(Date UPDATE_DATE) {
-        this.UPDATE_DATE = UPDATE_DATE;
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
-    public String getREMARKS() {
-        return REMARKS;
+    public String getDel_FLAG() {
+        return del_FLAG;
     }
 
-    public void setREMARKS(String REMARKS) {
-        this.REMARKS = REMARKS == null ? null : REMARKS.trim();
+    public void setDel_FLAG(String del_FLAG) {
+        this.del_FLAG = del_FLAG;
     }
 
-    public String getDEL_FLAG() {
-        return DEL_FLAG;
+    public String getQrcode() {
+        return qrcode;
     }
 
-    public void setDEL_FLAG(String DEL_FLAG) {
-        this.DEL_FLAG = DEL_FLAG == null ? null : DEL_FLAG.trim();
+    public void setQrcode(String qrcode) {
+        this.qrcode = qrcode;
     }
 
-    public String getQRCODE() {
-        return QRCODE;
+    public String getSign() {
+        return sign;
     }
 
-    public void setQRCODE(String QRCODE) {
-        this.QRCODE = QRCODE == null ? null : QRCODE.trim();
+    public void setSign(String sign) {
+        this.sign = sign;
     }
 
-    public String getSIGN() {
-        return SIGN;
+    public String getGender() {
+        return gender;
     }
 
-    public void setSIGN(String SIGN) {
-        this.SIGN = SIGN == null ? null : SIGN.trim();
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public String getGENDER() {
-        return GENDER;
+    public String getPosition() {
+        return position;
     }
 
-    public void setGENDER(String GENDER) {
-        this.GENDER = GENDER == null ? null : GENDER.trim();
+    public void setPosition(String position) {
+        this.position = position;
     }
 
-    public String getPOSITION() {
-        return POSITION;
+    public String getPosition_REMARK() {
+        return position_REMARK;
     }
 
-    public void setPOSITION(String POSITION) {
-        this.POSITION = POSITION == null ? null : POSITION.trim();
+    public void setPosition_REMARK(String position_REMARK) {
+        this.position_REMARK = position_REMARK;
     }
 
-    public String getPOSITION_REMARK() {
-        return POSITION_REMARK;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setPOSITION_REMARK(String POSITION_REMARK) {
-        this.POSITION_REMARK = POSITION_REMARK == null ? null : POSITION_REMARK.trim();
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
-    public Date getBIRTHDAY() {
-        return BIRTHDAY;
+    public Short getWork_YEARS() {
+        return work_YEARS;
     }
 
-    public void setBIRTHDAY(Date BIRTHDAY) {
-        this.BIRTHDAY = BIRTHDAY;
+    public void setWork_YEARS(Short work_YEARS) {
+        this.work_YEARS = work_YEARS;
     }
 
-    public Short getWORK_YEARS() {
-        return WORK_YEARS;
+    public String getWork_STATE() {
+        return work_STATE;
     }
 
-    public void setWORK_YEARS(Short WORK_YEARS) {
-        this.WORK_YEARS = WORK_YEARS;
+    public void setWork_STATE(String work_STATE) {
+        this.work_STATE = work_STATE;
     }
 
-    public String getWORK_STATE() {
-        return WORK_STATE;
+    public String getDuty() {
+        return duty;
     }
 
-    public void setWORK_STATE(String WORK_STATE) {
-        this.WORK_STATE = WORK_STATE == null ? null : WORK_STATE.trim();
+    public void setDuty(String duty) {
+        this.duty = duty;
     }
 
-    public String getDUTY() {
-        return DUTY;
+    public String getPolitics() {
+        return politics;
     }
 
-    public void setDUTY(String DUTY) {
-        this.DUTY = DUTY == null ? null : DUTY.trim();
+    public void setPolitics(String politics) {
+        this.politics = politics;
     }
 
-    public String getPOLITICS() {
-        return POLITICS;
+    public Long getVersionstamp() {
+        return versionstamp;
     }
 
-    public void setPOLITICS(String POLITICS) {
-        this.POLITICS = POLITICS == null ? null : POLITICS.trim();
+    public void setVersionstamp(Long versionstamp) {
+        this.versionstamp = versionstamp;
     }
 
-    public Long getVERSIONSTAMP() {
-        return VERSIONSTAMP;
+    public String getDevicetype() {
+        return devicetype;
     }
 
-    public void setVERSIONSTAMP(Long VERSIONSTAMP) {
-        this.VERSIONSTAMP = VERSIONSTAMP;
+    public void setDevicetype(String devicetype) {
+        this.devicetype = devicetype;
     }
 
-    public String getDEVICETYPE() {
-        return DEVICETYPE;
+    public String getImei() {
+        return imei;
     }
 
-    public void setDEVICETYPE(String DEVICETYPE) {
-        this.DEVICETYPE = DEVICETYPE == null ? null : DEVICETYPE.trim();
+    public void setImei(String imei) {
+        this.imei = imei;
     }
 
-    public String getIMEI() {
-        return IMEI;
+    public Short getSort() {
+        return sort;
     }
 
-    public void setIMEI(String IMEI) {
-        this.IMEI = IMEI == null ? null : IMEI.trim();
+    public void setSort(Short sort) {
+        this.sort = sort;
     }
 
-    public Short getSORT() {
-        return SORT;
+    public String getOfficeName() {
+        return officeName;
     }
 
-    public void setSORT(Short SORT) {
-        this.SORT = SORT;
+    public void setOfficeName(String officeName) {
+        this.officeName = officeName;
     }
 }

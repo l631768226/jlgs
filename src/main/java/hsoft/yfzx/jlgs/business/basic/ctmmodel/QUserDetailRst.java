@@ -30,6 +30,16 @@ public class QUserDetailRst {
 
     private String politics;
 
+    private String officeName;
+
+    public String getOfficeName() {
+        return officeName;
+    }
+
+    public void setOfficeName(String officeName) {
+        this.officeName = officeName;
+    }
+
     public String getUserId() {
         return userId;
     }

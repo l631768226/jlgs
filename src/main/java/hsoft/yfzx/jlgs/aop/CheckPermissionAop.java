@@ -33,7 +33,7 @@ public class CheckPermissionAop {
 
     private Gson gson = new Gson();
 
-    @Pointcut(value = "execution(* hsoft.yfzx.jlgs.business..*.*(..))")
+    @Pointcut(value = "execution(* hsoft.yfzx.jlgs.business.*.controller..*.*(..))")
     public void CheckIMPermissionAop() {
     }
 
@@ -58,6 +58,10 @@ public class CheckPermissionAop {
             }
         } else if("/basic/user/login".equals(request.getServletPath())){
             //登录接口不需要校验token
+            return pjp.proceed();
+        }else if("/file/upload".equals(request.getServletPath()) ||
+                "/file/download".equals(request.getServletPath())){
+            //文件上传下载接口不需要校验token
             return pjp.proceed();
         }else {
             System.out.println("请求的地址为 = " + request.getServletPath());
@@ -122,10 +126,7 @@ public class CheckPermissionAop {
                     newRequestData.setOwner(owner);
                 }
             }
-            ResponseData<String> responseData = new ResponseData<>();
-            responseData.setStatus(ReturnStatus.ERR0012);
-            responseData.setExtInfo("无权限进行此操作");
-            return responseData;
+            return pjp.proceed();
         } catch (Exception e) {
             e.printStackTrace();
             // 校验失败，提示错误

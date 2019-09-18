@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hsoft.yfzx.jlgs.business.basic.mapper.LogininfoMapper">
+  <resultMap id="BaseResultMap" type="hsoft.yfzx.jlgs.business.basic.model.Logininfo">
+    <id column="USERID" jdbcType="VARCHAR" property="USERID" />
+    <result column="DEVICETYPE" jdbcType="VARCHAR" property="DEVICETYPE" />
+    <result column="IMEI" jdbcType="VARCHAR" property="IMEI" />
+    <result column="TOKEN" jdbcType="VARCHAR" property="TOKEN" />
+    <result column="LASTLOGINTIME" jdbcType="NUMERIC" property="LASTLOGINTIME" />
+    <result column="PICID" jdbcType="VARCHAR" property="PICID" />
+    <result column="REALNAME" jdbcType="VARCHAR" property="REALNAME" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="USERNAME" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    USERID, DEVICETYPE, IMEI, TOKEN, LASTLOGINTIME, PICID, REALNAME, USERNAME
+  </sql>
+  <select id="selectByExample" parameterType="hsoft.yfzx.jlgs.business.basic.model.LogininfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from LOGININFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from LOGININFO
+    where USERID = #{USERID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from LOGININFO
+    where USERID = #{USERID,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="hsoft.yfzx.jlgs.business.basic.model.LogininfoExample">
+    delete from LOGININFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="hsoft.yfzx.jlgs.business.basic.model.Logininfo">
+    insert into LOGININFO (USERID, DEVICETYPE, IMEI, 
+      TOKEN, LASTLOGINTIME, PICID, 
+      REALNAME, USERNAME)
+    values (#{USERID,jdbcType=VARCHAR}, #{DEVICETYPE,jdbcType=VARCHAR}, #{IMEI,jdbcType=VARCHAR}, 
+      #{TOKEN,jdbcType=VARCHAR}, #{LASTLOGINTIME,jdbcType=NUMERIC}, #{PICID,jdbcType=VARCHAR}, 
+      #{REALNAME,jdbcType=VARCHAR}, #{USERNAME,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="hsoft.yfzx.jlgs.business.basic.model.Logininfo">
+    insert into LOGININFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="USERID != null">
+        USERID,
+      </if>
+      <if test="DEVICETYPE != null">
+        DEVICETYPE,
+      </if>
+      <if test="IMEI != null">
+        IMEI,
+      </if>
+      <if test="TOKEN != null">
+        TOKEN,
+      </if>
+      <if test="LASTLOGINTIME != null">
+        LASTLOGINTIME,
+      </if>
+      <if test="PICID != null">
+        PICID,
+      </if>
+      <if test="REALNAME != null">
+        REALNAME,
+      </if>
+      <if test="USERNAME != null">
+        USERNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="USERID != null">
+        #{USERID,jdbcType=VARCHAR},
+      </if>
+      <if test="DEVICETYPE != null">
+        #{DEVICETYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="IMEI != null">
+        #{IMEI,jdbcType=VARCHAR},
+      </if>
+      <if test="TOKEN != null">
+        #{TOKEN,jdbcType=VARCHAR},
+      </if>
+      <if test="LASTLOGINTIME != null">
+        #{LASTLOGINTIME,jdbcType=NUMERIC},
+      </if>
+      <if test="PICID != null">
+        #{PICID,jdbcType=VARCHAR},
+      </if>
+      <if test="REALNAME != null">
+        #{REALNAME,jdbcType=VARCHAR},
+      </if>
+      <if test="USERNAME != null">
+        #{USERNAME,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="hsoft.yfzx.jlgs.business.basic.model.LogininfoExample" resultType="java.lang.Long">
+    select count(*) from LOGININFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update LOGININFO
+    <set>
+      <if test="record.USERID != null">
+        USERID = #{record.USERID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.DEVICETYPE != null">
+        DEVICETYPE = #{record.DEVICETYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.IMEI != null">
+        IMEI = #{record.IMEI,jdbcType=VARCHAR},
+      </if>
+      <if test="record.TOKEN != null">
+        TOKEN = #{record.TOKEN,jdbcType=VARCHAR},
+      </if>
+      <if test="record.LASTLOGINTIME != null">
+        LASTLOGINTIME = #{record.LASTLOGINTIME,jdbcType=NUMERIC},
+      </if>
+      <if test="record.PICID != null">
+        PICID = #{record.PICID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.REALNAME != null">
+        REALNAME = #{record.REALNAME,jdbcType=VARCHAR},
+      </if>
+      <if test="record.USERNAME != null">
+        USERNAME = #{record.USERNAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update LOGININFO
+    set USERID = #{record.USERID,jdbcType=VARCHAR},
+      DEVICETYPE = #{record.DEVICETYPE,jdbcType=VARCHAR},
+      IMEI = #{record.IMEI,jdbcType=VARCHAR},
+      TOKEN = #{record.TOKEN,jdbcType=VARCHAR},
+      LASTLOGINTIME = #{record.LASTLOGINTIME,jdbcType=NUMERIC},
+      PICID = #{record.PICID,jdbcType=VARCHAR},
+      REALNAME = #{record.REALNAME,jdbcType=VARCHAR},
+      USERNAME = #{record.USERNAME,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="hsoft.yfzx.jlgs.business.basic.model.Logininfo">
+    update LOGININFO
+    <set>
+      <if test="DEVICETYPE != null">
+        DEVICETYPE = #{DEVICETYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="IMEI != null">
+        IMEI = #{IMEI,jdbcType=VARCHAR},
+      </if>
+      <if test="TOKEN != null">
+        TOKEN = #{TOKEN,jdbcType=VARCHAR},
+      </if>
+      <if test="LASTLOGINTIME != null">
+        LASTLOGINTIME = #{LASTLOGINTIME,jdbcType=NUMERIC},
+      </if>
+      <if test="PICID != null">
+        PICID = #{PICID,jdbcType=VARCHAR},
+      </if>
+      <if test="REALNAME != null">
+        REALNAME = #{REALNAME,jdbcType=VARCHAR},
+      </if>
+      <if test="USERNAME != null">
+        USERNAME = #{USERNAME,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USERID = #{USERID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="hsoft.yfzx.jlgs.business.basic.model.Logininfo">
+    update LOGININFO
+    set DEVICETYPE = #{DEVICETYPE,jdbcType=VARCHAR},
+      IMEI = #{IMEI,jdbcType=VARCHAR},
+      TOKEN = #{TOKEN,jdbcType=VARCHAR},
+      LASTLOGINTIME = #{LASTLOGINTIME,jdbcType=NUMERIC},
+      PICID = #{PICID,jdbcType=VARCHAR},
+      REALNAME = #{REALNAME,jdbcType=VARCHAR},
+      USERNAME = #{USERNAME,jdbcType=VARCHAR}
+    where USERID = #{USERID,jdbcType=VARCHAR}
+  </update>
+</mapper>

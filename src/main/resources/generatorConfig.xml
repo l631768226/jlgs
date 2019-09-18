@@ -57,9 +57,9 @@
 
         <!-- 数据库连接的信息：驱动类、连接地址、用户名、密码 -->
         <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
-                        connectionURL="jdbc:oracle:thin:@192.168.24.118:1521/jsbgxt"
-                        userId="jsusr"
-                        password="jsusr123">
+                        connectionURL="jdbc:oracle:thin:@192.168.24.118:1521/JSBGXT"
+                        userId="jsxkjusr"
+                        password="jsxkjusr123">
             <!-- 这里面可以设置property属性，每一个property属性都设置到配置的Driver上 -->
         </jdbcConnection>
 
@@ -195,7 +195,7 @@
         -->
 
         <!-- 指定数据表 -->
-        <table tableName="LOGININFO">
+        <table tableName="">
             <!-- 参考 javaModelGenerator 的 constructorBased属性
             <property name="constructorBased" value="false"/>
             -->
