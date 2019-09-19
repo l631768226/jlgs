@@ -27,7 +27,7 @@ public class DeptMgrController {
      * @param requestData 部门id
      * @return
      */
-    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    @RequestMapping(value = "/deptList", method = RequestMethod.POST)
     public ResponseData<List<QDeptListRst>> deptList(@RequestBody RequestData<QDeptListRec> requestData)
     {
         ResponseData<List<QDeptListRst>> responseData = new ResponseData<List<QDeptListRst>>();

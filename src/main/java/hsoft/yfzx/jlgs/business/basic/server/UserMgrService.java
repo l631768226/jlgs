@@ -452,11 +452,90 @@ public class UserMgrService {
         ResponseData<List<QUserRst>> responseData = new ResponseData<List<QUserRst>>();
 
         List<QUserRst> qUserRstList = new ArrayList<>();
+
+        String deptId = data.getDeptId();
+
+        //设置调用内网查询用户列表参数
+        HsoftReqData<HUserListRec> hsoftReqData = new HsoftReqData<>();
+        HUserListRec hUserListRec = new HUserListRec();
+        hUserListRec.setDeptId(deptId);
+        hUserListRec.setSearchRule(data.getSearchRule());
+        hsoftReqData.setChangeableData(hUserListRec);
+
+        //设置调用内网查询人员列表接口参数
+        String dataStr = gson.toJson(hsoftReqData);
+
+        String url = serverUrl + "/user/listByDeptLimit";
+
+        List<SysUser> sysUserList = new ArrayList<>();
         //调用内网查询某组织下人员列表接口
+        String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+        if(resultStr.equals("fail") || resultStr.equals("error")){
+            responseData.setStatus(ReturnStatus.ERR0017);
+            responseData.setExtInfo("服务请求失败");
+            return responseData;
+        }else {
+            try {
+                HsoftRstData<List<SysUser>> hsoftRstData = gson.fromJson(resultStr, new TypeToken<HsoftRstData<List<SysUser>>>() {
+                }.getType());
 
+                if(hsoftRstData == null){
+                    responseData.setStatus(ReturnStatus.ERR0017);
+                    responseData.setExtInfo("服务请求失败,返回为空");
+                    return responseData;
+                }else{
+                    int code = hsoftRstData.getCode();
+                    if(code < 1){
+                        responseData.setStatus(ReturnStatus.ERR0004);
+                        responseData.setExtInfo(hsoftRstData.getMessage());
+                        return responseData;
+                    }else{
+                        sysUserList = hsoftRstData.getData();
+                    }
+                }
+            }catch (Exception e){
+                responseData.setStatus(ReturnStatus.ERR0017);
+                responseData.setExtInfo("服务请求失败,返回值解析失败");
+                return responseData;
+            }
+        }
 
+        if(sysUserList != null && sysUserList.size() > 0){
+            for(SysUser sysUser : sysUserList){
+                QUserRst qUserRst = new QUserRst();
+                qUserRst.setUserId(sysUser.getId());
+                qUserRst.setRealName(sysUser.getName());
+                qUserRst.setGender(sysUser.getGender());
+                qUserRst.setPhone(sysUser.getPhone());
+                qUserRst.setMobile(sysUser.getMobile());
+                qUserRst.setEmail(sysUser.getEmail());
+                qUserRst.setPhoto(sysUser.getPhoto());
+                qUserRst.setPosition(sysUser.getPosition());
+                qUserRst.setPositionRemark(sysUser.getPosition_REMARK());
+                if(sysUser.getBirthday() == null){
+                    qUserRst.setBirthday("");
+                }else{
+                    qUserRst.setBirthday(sysUser.getBirthday().toString());
+                }
+
+                if(sysUser.getWork_YEARS() == null){
+                    qUserRst.setWorkYears("");
+                }else{
+                    qUserRst.setWorkYears(sysUser.getWork_YEARS().toString());
+                }
+                qUserRst.setWorkState(sysUser.getWork_STATE());
+                qUserRst.setDuty(sysUser.getDuty());
+                qUserRst.setOfficeName(sysUser.getOfficeName());
+
+                qUserRstList.add(qUserRst);
+            }
+        }
+        //设置返回参数
         responseData.setStatus(ReturnStatus.OK);
         responseData.setResultSet(qUserRstList);
         return responseData;
     }
+
+
+
 }
