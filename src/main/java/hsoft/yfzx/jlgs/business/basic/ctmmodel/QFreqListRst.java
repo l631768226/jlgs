@@ -10,23 +10,23 @@ import java.util.List;
  */
 public class QFreqListRst {
 
-    private List<Freqcontact> contactList;
+    private List<QFreqRst> contactList;
 
-    private List<Freqgroup> groupList;
+    private List<QFreqRst> groupList;
 
-    public List<Freqcontact> getContactList() {
+    public List<QFreqRst> getContactList() {
         return contactList;
     }
 
-    public void setContactList(List<Freqcontact> contactList) {
+    public void setContactList(List<QFreqRst> contactList) {
         this.contactList = contactList;
     }
 
-    public List<Freqgroup> getGroupList() {
+    public List<QFreqRst> getGroupList() {
         return groupList;
     }
 
-    public void setGroupList(List<Freqgroup> groupList) {
+    public void setGroupList(List<QFreqRst> groupList) {
         this.groupList = groupList;
     }
 }

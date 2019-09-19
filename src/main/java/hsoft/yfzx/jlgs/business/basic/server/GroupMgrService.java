@@ -67,23 +67,34 @@ public class GroupMgrService {
         // 插入群组
         Groupinfo groupInfo = new Groupinfo();
         String newGroupId = Generator.getUUID();
-        BeanUtils.copyProperties(cGroupRec, groupInfo);
+        groupInfo.setGROUPNAME(cGroupRec.getGroupName());
+        groupInfo.setPICID(cGroupRec.getPicId());
+        groupInfo.setNOTICE(cGroupRec.getNotice());
+        groupInfo.setINTRODUCE(cGroupRec.getIntroduce());
         groupInfo.setGROUPID(newGroupId);
-        groupInfo.setCREATETIME(versionStamp);
+        groupInfo.setCREATETIME(Generator.getCurrentLongTime());
         groupInfo.setVERSIONSTAMP(versionStamp);
+        groupInfo.setDELFLAG("0");
         groupinfoMapper.insert(groupInfo);
 
         // 循环插入群组人员
         Usergroup userGroup = new Usergroup();
-        for (int i = 0; i < userList.size(); i++) {
-            CGroupsUserRec cGroupsUserRec = userList.get(i);
-            BeanUtils.copyProperties(cGroupsUserRec, userGroup);
+        for (CGroupsUserRec cGroupsUserRec : userList) {
+
+            userGroup.setUSERID(cGroupsUserRec.getUserId());
+            userGroup.setDEPTID(cGroupsUserRec.getDeptId());
+            userGroup.setPOSITIONCODELIST(cGroupsUserRec.getPositionCodeList());
+            userGroup.setUSER_LEVEL(cGroupsUserRec.getLevel());
             userGroup.setGROUPID(newGroupId);
-            short sort = 0;
-            userGroup.setSORT(sort);
+            String sort = cGroupsUserRec.getSort();
+            if(sort == null || "".equals(sort)){
+                sort = "0";
+            }
+            userGroup.setSORT(Short.valueOf(sort));
             userGroup.setCREATETIME(Generator.getLongTimeStamp());
             userGroup.setVERSIONSTAMP(Generator.getLongTimeStamp());
-            if (usergroupMapper.insert(userGroup) < 1) {
+            userGroup.setDELFLAG("0");
+            if (usergroupMapper.insertSelective(userGroup) < 1) {
                 responseData.setStatus(ReturnStatus.ERR0004);
                 responseData.setExtInfo("添加群组成员失败");
                 return responseData;
@@ -128,8 +139,9 @@ public class GroupMgrService {
             usergroup.setVERSIONSTAMP(versionStamp);
         }
 
+        Long delVersionStamp = Generator.getLongTimeStamp();
         //批量更新用户群组的删除标识和时间戳
-        int updateCount = ctmUserGroupMapper.updateDelFlag(userGroupList, groupId);
+        int updateCount = ctmUserGroupMapper.updateDelFlag(groupId, delVersionStamp);
 
         if(updateCount < 0){
             responseData.setStatus(ReturnStatus.ERR0004);

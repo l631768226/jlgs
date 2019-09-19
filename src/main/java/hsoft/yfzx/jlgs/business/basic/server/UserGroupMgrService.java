@@ -84,10 +84,14 @@ public class UserGroupMgrService {
             userGroup.setDEPTID(cGroupsUserRec.getDeptId());
             userGroup.setPOSITIONCODELIST(cGroupsUserRec.getPositionCodeList());
             userGroup.setGROUPID(cUserGroupRec.getGroupId());
-            Short sort = 0;
-            userGroup.setSORT(sort);
+            String sort = cUserGroupRec.getSort();
+            if(sort == null || "".equals(sort)){
+                sort = "0";
+            }
+            userGroup.setSORT(Short.valueOf(sort));
             userGroup.setCREATETIME(createStamp);
             userGroup.setVERSIONSTAMP(createStamp);
+            userGroup.setDELFLAG("0");
             usergroupMapper.insert(userGroup);
         }
         // 更新群组版本

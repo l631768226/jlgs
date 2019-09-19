@@ -9,6 +9,26 @@ public class Freqgroup {
 
     private String GROUPNAME;
 
+    private String objectName;
+
+    private String picId;
+
+    public String getPicId() {
+        return picId;
+    }
+
+    public void setPicId(String picId) {
+        this.picId = picId;
+    }
+
+    public String getObjectName() {
+        return objectName;
+    }
+
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
+    }
+
     public String getOWNERID() {
         return OWNERID;
     }

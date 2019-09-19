@@ -19,8 +19,8 @@ public interface CtmFreqMapper {
      * @param userId
      * @return
      */
-    @Select("select * from FREQCONTACT A, LOGININFO B where A.USERID = B.USERID and A.OWNERID = #{userId} " +
-            "and ROWNUM <= 3 ORDER BY A.\"SORT\" ")
+    @Select("select * from (select A.*, B.REALNAME objectName, B.PICID picId from FREQCONTACT A, LOGININFO B " +
+            "where A.OWNERID = #{userId} and A.USERID = B.USERID ORDER BY A.\"SORT\" ASC) where ROWNUM <= 3")
     List<Freqcontact> findContactByOwnerId(@Param("userId") String userId);
 
     /**
@@ -29,8 +29,9 @@ public interface CtmFreqMapper {
      * @param userId
      * @return
      */
-    @Select("select * from FREQGROUP A, GROUPINFO B where A.GROUPID = B.GROUPID and A.OWNERID = #{userId} " +
-            "and ROWNUM <= 3 ORDER BY A.\"SORT\" ")
+    @Select("select * from (select A.*, B.GROUPNAME objectName, B.PICID picId from FREQGROUP A, GROUPINFO B where " +
+            " A.OWNERID = #{userId} and A.GROUPID = B.GROUPID and B.DELFLAG = '0' ORDER BY A.\"SORT\" ASC) " +
+            "where ROWNUM <= 3 ")
     List<Freqgroup> findGroupByOwnerId(@Param("userId") String userId);
 
 
@@ -44,7 +45,7 @@ public interface CtmFreqMapper {
 //    })
 //    int updateGroupSort(@Param(value = "sortList") List<CtmFreqSortRec> sortList, @Param("userId") String userId);
     @Update("update FREQGROUP set \"SORT\" = #{sort} where GROUPID = #{objectId} and OWNERID = #{userId}")
-    int updateGroupSort(@Param(value = "sort") String sort, @Param("objectId") String objectId, @Param("userId") String ownerId);
+    int updateGroupSort(@Param("sort") String sort, @Param("objectId") String objectId, @Param("userId") String ownerId);
 
     //    @Update({
 //            "<script>",
@@ -56,7 +57,7 @@ public interface CtmFreqMapper {
 //    })
 //    int updateContactSort(@Param(value = "sortList") List<CtmFreqSortRec> sortList, @Param("userId") String userId);
     @Update("update FREQCONTACT set \"SORT\" = #{sort} where USERID = #{objectId} and OWNERID = #{userId}")
-    int updateContactSort(@Param(value = "sort") String sort, @Param("objectId") String objectId, @Param("userId") String ownerId);
+    int updateContactSort(@Param("sort") String sort, @Param("objectId") String objectId, @Param("userId") String ownerId);
 
     /**
      * 根据主人id和用户id删除
@@ -75,4 +76,22 @@ public interface CtmFreqMapper {
      */
     @Delete("delete from FREQGROUP where OWNERID = #{ownerId} and GROUPID = #{groupId}")
     int delFreqGroup(@Param("ownerId") String ownerId, @Param("groupId") String groupId);
+
+    /**
+     * 根据主人id和人员id查询常用联系人
+     * @param ownerId 主人id
+     * @param userId 联系人id
+     * @return
+     */
+    @Select("select * from FREQCONTACT where OWNERID = #{ownerId} and USERID = #{userId}")
+    Freqcontact findById(@Param("ownerId")String ownerId, @Param("userId")String userId);
+
+    /**
+     * 根据主人id和群组id查询常用联系人
+     * @param ownerId 主人id
+     * @param groupId 群组id
+     * @return
+     */
+    @Select("select * from FREQGROUP where OWNERID = #{ownerId} and GROUPID = #{groupId}")
+    Freqgroup findGroupById(@Param("ownerId")String ownerId, @Param("groupId")String groupId);
 }

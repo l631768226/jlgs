@@ -14,7 +14,6 @@ import hsoft.yfzx.jlgs.utils.model.http.HsoftRstData;
 import hsoft.yfzx.jlgs.utils.tool.Generator;
 import hsoft.yfzx.jlgs.utils.tool.HttpMethodTool;
 import hsoft.yfzx.jlgs.utils.tool.XmppOperator;
-import javapns.devices.Device;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,9 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.awt.*;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -147,11 +144,11 @@ public class UserMgrService {
         long lastLoginTime = Generator.getLongTimeStamp();
         logininfo.setLASTLOGINTIME(lastLoginTime);
 
-//        if(oldLogininfo == null){
-//            loginInfoMapper.insertSelective(logininfo);
-//        }else{
+        if(oldLogininfo == null){
+            loginInfoMapper.insertSelective(logininfo);
+        }else{
             loginInfoMapper.updateByPrimaryKeySelective(logininfo);
-//        }
+        }
 
         // 调用检测连接方法
         String checkResult = XmppOperator.checkSession(data.getUserName(), "mobile");

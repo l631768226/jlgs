@@ -17,6 +17,15 @@ public class CUserGroupRec extends AbstactBaseRec {
     private List<CGroupsUserRec> users;
     private String realName;
     private String userId;
+    private String sort;
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
 
     public String getGroupId() {
         return groupId;

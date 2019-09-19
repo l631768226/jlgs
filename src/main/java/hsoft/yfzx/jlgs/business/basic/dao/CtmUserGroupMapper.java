@@ -18,16 +18,17 @@ public interface CtmUserGroupMapper {
      * @param groupId 群组id
      * @return
      */
-    @Update({
-            "<script>",
-            "update USERGROUP ",
-            "<foreach collection = 'userGroupList' item = 'userGroup' index = 'index' separator = ','>",
-            "set DELFLAG = #{userGroup.DELFLAG}, VERSIONSTAMP = #{userGroup.VERSIONSTAMP} ",
-            "</foreach>",
-            " where GROUPID = #{groupId} ",
-            "</script>"
-    })
-    int updateDelFlag(@Param(value = "userGroupList") List<Usergroup> usergroupList, @Param("groupId") String groupId);
+//    @Update({
+//            "<script>",
+//            "update USERGROUP ",
+//            "<foreach collection = 'userGroupList' item = 'userGroup' index = 'index' separator = ','>",
+//            "set DELFLAG = #{userGroup.DELFLAG}, VERSIONSTAMP = #{userGroup.VERSIONSTAMP} ",
+//            "</foreach>",
+//            " where GROUPID = #{groupId} ",
+//            "</script>"
+//    })
+    @Update("update USERGROUP set DELFLAG = 1, VERSIONSTAMP = #{versionStamp} where GROUPID = #{groupId}")
+    int updateDelFlag(@Param("groupId") String groupId, @Param("versionStamp")Long versionStamp);
 
     /**
      * 根据用户id查询属于他的群组信息

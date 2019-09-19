@@ -122,6 +122,7 @@ public class GroupMgrController {
      * @param requestData
      * @return
      */
+    @RequestMapping(value = "/myList", method = RequestMethod.POST)
     public ResponseData<List<QGroupMyListRst>> groupMyList(@RequestBody RequestData<?> requestData){
         //获取用户id
         String userId = requestData.getOwner().getUserId();
