@@ -33,7 +33,9 @@ public class QUserRst {
 
     private String politics;
 
-    private String officeName;
+    private String deptId;
+
+    private String deptName;
 
     public String getUserId() {
         return userId;
@@ -147,11 +149,19 @@ public class QUserRst {
         this.politics = politics;
     }
 
-    public String getOfficeName() {
-        return officeName;
+    public String getDeptId() {
+        return deptId;
     }
 
-    public void setOfficeName(String officeName) {
-        this.officeName = officeName;
+    public void setDeptId(String deptId) {
+        this.deptId = deptId;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 }

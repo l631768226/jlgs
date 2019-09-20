@@ -47,7 +47,7 @@ public interface CtmUserGroupMapper {
     @Select("SELECT A.GROUPID groupId, A.USERID userId, A.CARD card, A.VERSIONSTAMP versionStamp, B.REALNAME realName, A.USER_LEVEL \"level\"" +
             "FROM \"USERGROUP\" A ,LOGININFO B " +
             "WHERE A.GROUPID = #{groupId} and A.USERID = B.USERID " +
-            "and B.REALNAME like #{searchRule} order by A.CREATETIME ASC ")
+            "and B.REALNAME like '%${searchRule}%' order by A.CREATETIME ASC ")
     List<QUserGroupListRst> selectGroupUser(@Param("groupId") String groupId, @Param("searchRule") String searchRule);
 
     /**

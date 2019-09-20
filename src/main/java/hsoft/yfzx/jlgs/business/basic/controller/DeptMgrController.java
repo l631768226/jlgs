@@ -2,10 +2,13 @@ package hsoft.yfzx.jlgs.business.basic.controller;
 
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.QDeptListRec;
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.QDeptListRst;
+import hsoft.yfzx.jlgs.business.basic.ctmmodel.QInfoListRec;
+import hsoft.yfzx.jlgs.business.basic.ctmmodel.QInfoListRst;
 import hsoft.yfzx.jlgs.business.basic.server.DeptMgrService;
 import hsoft.yfzx.jlgs.utils.model.common.RequestData;
 import hsoft.yfzx.jlgs.utils.model.common.ResponseData;
 import hsoft.yfzx.jlgs.utils.model.common.ReturnStatus;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +45,27 @@ public class DeptMgrController {
         }
 
         return deptMgrService.deptList(data);
+    }
+
+    /**
+     * 获取某组织机构下人员列表和组织机构列表信息
+     * @param requestData
+     * @return
+     */
+    @RequestMapping(value = "/infoList", method = RequestMethod.POST)
+    public ResponseData<QInfoListRst> infoList(@RequestBody RequestData<QInfoListRec> requestData){
+        ResponseData<QInfoListRst> responseData = new ResponseData<>();
+        QInfoListRec data = requestData.getData();
+        if (!data.validation())
+        {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
+            // 返回
+            return responseData;
+        }
+
+        return deptMgrService.infoList(data);
     }
 
 }

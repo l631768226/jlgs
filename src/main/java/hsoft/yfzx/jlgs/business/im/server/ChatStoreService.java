@@ -12,7 +12,6 @@ import hsoft.yfzx.jlgs.business.im.model.Chatstore;
 import hsoft.yfzx.jlgs.utils.model.common.ResponseData;
 import hsoft.yfzx.jlgs.utils.model.common.ReturnStatus;
 import hsoft.yfzx.jlgs.utils.tool.Generator;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,15 +64,17 @@ public class ChatStoreService {
 
             // 开始查询
             // 设置分页
-            PageHelper.startPage(1, data.getAccount());
+//            PageHelper.startPage(1, data.getAccount());
             // 消息列表
-            chatStoreList = ctmChatStoreMapper.queryGroupChatStoreInfo(objectType, data.getReceId(), versionStamp, userGroup.getCREATETIME());
+            chatStoreList = ctmChatStoreMapper.queryGroupChatStoreInfo(objectType, data.getReceId(),
+                    versionStamp, userGroup.getCREATETIME(), data.getAccount());
         } else {
             // 若为单人消息，则设置查询条件为
 
             // 设置分页
-            PageHelper.startPage(1, data.getAccount());
-            chatStoreList = ctmChatStoreMapper.queryChatStore(userId, data.getReceId(), data.getSendTime());
+//            PageHelper.startPage(1, data.getAccount());
+            chatStoreList = ctmChatStoreMapper.queryChatStore(userId, data.getReceId(),
+                    data.getSendTime(), data.getAccount());
         }
 
         // 将数据组拼成返回的格式
@@ -232,8 +233,18 @@ public class ChatStoreService {
                 if (chatStore != null) {
                     QChatStoreRst qChatStoreRst = new QChatStoreRst();
 
+                    qChatStoreRst.setChatStoreId(chatStore.getCHATSTOREID());
+                    qChatStoreRst.setContent(chatStore.getCONTENT());
+                    qChatStoreRst.setObjectType(chatStore.getOBJECTTYPE());
+                    qChatStoreRst.setSenderId(chatStore.getSENDERID());
+                    qChatStoreRst.setSenderName(chatStore.getSENDERNAME());
+                    qChatStoreRst.setReceId(chatStore.getRECEID());
+                    qChatStoreRst.setMsgType(chatStore.getMSGTYPE());
                     qChatStoreRst.setSendTime(chatStore.getSENDTIME());
+                    qChatStoreRst.setIsReceipted(chatStore.getISRECEIPTED());
                     qChatStoreRst.setVersionStamp(chatStore.getVERSIONSTAMP());
+                    qChatStoreRst.setPicId(chatStore.getPICID());
+
                     qChatStoreRstList.add(qChatStoreRst);
                 } else {
                     continue;

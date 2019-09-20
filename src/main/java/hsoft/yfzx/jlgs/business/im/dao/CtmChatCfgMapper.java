@@ -58,8 +58,8 @@ public interface CtmChatCfgMapper {
      */
     @Select("select * from ("
             + "select A.*, "
-            + "if(A.OBJECTTYPE = 0 , B.PICID, C.PICID) PICID, "
-            + "if(A.OBJECTTYPE = 0 , B.REALNAME, C.GROUPNAME) NAME "
+            + "\"DECODE\"(A.OBJECTTYPE, 0, B.PICID, C.PICID) as PICID, "
+            + "\"DECODE\"(A.OBJECTTYPE, 0, B.REALNAME, C.GROUPNAME) as NAME "
             + "from CHATCFG A "
             + "LEFT JOIN LOGININFO B on (A.OBJECTTYPE = 0 and A.OBJECTID = B.USERID) "
             + "LEFT JOIN GROUPINFO C on (A.OBJECTTYPE = 1 and A.OBJECTID = C.GROUPID) ) D"
@@ -75,8 +75,8 @@ public interface CtmChatCfgMapper {
      */
     @Select("select * from ("
             + "select A.*,"
-            + "if(A.OBJECTTYPE = 0 , B.PICID, C.PICID) PICID,"
-            + "if(A.OBJECTTYPE = 0 , B.REALNAME, C.GROUPNAME) NAME "
+            + "\"DECODE\"(A.OBJECTTYPE, 0, B.PICID, C.PICID) as PICID,"
+            + "\"DECODE\"(A.OBJECTTYPE, 0, B.REALNAME, C.GROUPNAME) as NAME "
             + "from CHATCFG A "
             + "LEFT JOIN LOGININFO B on (A.OBJECTTYPE = 0 and A.OBJECTID = B.USERID) "
             + "LEFT JOIN GROUPINFO C on (A.OBJECTTYPE = 1 and A.OBJECTID = C.GROUPID) ) D "

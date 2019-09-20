@@ -31,7 +31,7 @@ public class XmppController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/xmpp/send", method = RequestMethod.POST)
+    @RequestMapping(value = "/send", method = RequestMethod.POST)
     public ResponseData<CXmppRst> sendXmppInfo(HttpServletRequest request) throws IOException, ServletException {
         //获取参数
         String value = request.getParameter("json");

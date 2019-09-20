@@ -36,9 +36,14 @@ public class SearchMgrService {
      */
     public ResponseData<QSearchGroupAndUserRst> searchGroupAndUser(QSearchGroupAndUserRec qSearchGroupAndUserRec) {
         ResponseData<QSearchGroupAndUserRst> responseData = new ResponseData<>();
+
+        String condition = qSearchGroupAndUserRec.getCondition();
+        if(condition == null){
+            condition = "";
+        }
         // 搜索群组
         List<Groupinfo> groupList = ctmUserGroupMapper.selectGroupByCondition(qSearchGroupAndUserRec.getUserId(),
-                qSearchGroupAndUserRec.getCondition());
+                condition);
         List<QSearchGroupRst> searchGroupList = new ArrayList<>();
         // 赋值
         for (Groupinfo groupInfo : groupList) {
@@ -50,7 +55,7 @@ public class SearchMgrService {
         }
 
         //根据条件查询用户信息（姓名模糊查询）
-        List<Logininfo> userList = ctmUserInfoMapper.selectUserByCondition(qSearchGroupAndUserRec.getCondition());
+        List<Logininfo> userList = ctmUserInfoMapper.selectUserByCondition(condition);
 
         List<QSearchUserRst> searchUserList = new ArrayList<>();
         // 赋值

@@ -155,11 +155,15 @@ public class UserGroupMgrService {
         //获取群组id
         String groupId = qUserGroupListRec.getGroupId();
 
-        String content= "%" + qUserGroupListRec.getSearchRule() + "%";
+        String searchRule = qUserGroupListRec.getSearchRule();
+        if(searchRule == null){
+            searchRule = "";
+        }
+
         //根据条件查询群组内人员
 
         //此处的返回值需要测试
-        userGroupList = ctmUserGroupMapper.selectGroupUser(groupId, content);
+        userGroupList = ctmUserGroupMapper.selectGroupUser(groupId, searchRule);
 
         responseData.setStatus(ReturnStatus.OK);
         responseData.setResultSet(userGroupList);

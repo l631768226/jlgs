@@ -77,12 +77,18 @@
             <artifactId>commons-codec</artifactId>
             <version>1.13</version>
         </dependency>
-        <!-- 分页插件pagehelper -->
+        <!--        &lt;!&ndash; 分页插件pagehelper &ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.github.pagehelper</groupId>-->
+        <!--            <artifactId>pagehelper</artifactId>-->
+        <!--            <version>5.1.2</version>-->
+        <!--            <scope>provided</scope>-->
+        <!--        </dependency>-->
+
         <dependency>
             <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-            <version>5.1.2</version>
-            <scope>provided</scope>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>0.1.0</version>
         </dependency>
 
         <!-- joda-time -->

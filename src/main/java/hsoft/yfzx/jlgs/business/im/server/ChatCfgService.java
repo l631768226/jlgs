@@ -76,12 +76,13 @@ public class ChatCfgService {
             // 若查询结果为空，则说明此条数据不存在, 说明这是一条新的会话设置
             //新增会话设置
             Chatcfg chatCfg = new Chatcfg();
+            chatCfg.setUSERID(data.getUserId());
             chatCfg.setOBJECTID(data.getObjectId());
             chatCfg.setTOPSTATUS(data.getTopStatus());
             chatCfg.setOBJECTTYPE(data.getObjectType());
             chatCfg.setUNDISTURBED(data.getUndisturbed());
             chatCfg.setCHATCFGID(Generator.getUUID());
-            chatCfg.setCREATETIME(Generator.getLongTimeStamp());
+            chatCfg.setCREATETIME(Generator.getCurrentLongTime());
             chatCfg.setVERSIONSTAMP(Generator.getLongTimeStamp());
 
             chatcfgMapper.insertSelective(chatCfg);

@@ -41,6 +41,7 @@ public class XmppService {
 
     private Gson gson = new Gson();
 
+    @Autowired
     private FileService fileService;
 
     @Autowired
@@ -97,7 +98,7 @@ public class XmppService {
                 //如果使用mongodb
                 //获取文件id
                 fileId = fileService.uploadDBFile(request.getPart("file"));
-                imgResult = fileUrl + fileId;
+                imgResult = fileUrl + "?id=" + fileId;
 
                 System.out.println("img = " + imgResult);
                 XmppImgData xmppImgData = new XmppImgData();
@@ -118,7 +119,7 @@ public class XmppService {
 
                 //获取文件id
                 fileId = fileService.uploadDBFile(request.getPart("file"));
-                audioUrl = fileUrl + fileId;
+                audioUrl = fileUrl + "?id=" + fileId;
 
                 System.out.println("audio = " + audioUrl);
                 XmppAudioData xmppAudioData = new XmppAudioData();
@@ -139,9 +140,9 @@ public class XmppService {
 
                 //使用mongodb
                 String videoFilePath = fileService.uploadDBFile(request.getPart("file"));
-                videoUrl = fileUrl + videoFilePath;
+                videoUrl = fileUrl + "?id=" + videoFilePath;
 
-                firstFrameImageUrl = fileUrl + fileService.uploadDBFile(request.getPart("imgFile"));
+                firstFrameImageUrl = fileUrl + "?id=" + fileService.uploadDBFile(request.getPart("imgFile"));
 
                 XmppVideoData xmppVideoData = new XmppVideoData();
                 xmppVideoData.setUrl(videoUrl);
@@ -162,7 +163,7 @@ public class XmppService {
 
                 //mongodb
                 fileId = fileService.uploadDBFile(request.getPart("file"));
-                filesUrl = fileUrl + fileId;
+                filesUrl = fileUrl + "?id=" + fileId;
 
                 XmppFileData xmppFileData = new XmppFileData();
                 xmppFileData.setFileType(data.getFileType());

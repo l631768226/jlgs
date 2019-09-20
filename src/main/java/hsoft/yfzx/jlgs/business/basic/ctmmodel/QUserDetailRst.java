@@ -30,14 +30,24 @@ public class QUserDetailRst {
 
     private String politics;
 
-    private String officeName;
+    private String deptName;
 
-    public String getOfficeName() {
-        return officeName;
+    private String deptId;
+
+    public String getDeptName() {
+        return deptName;
     }
 
-    public void setOfficeName(String officeName) {
-        this.officeName = officeName;
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public String getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(String deptId) {
+        this.deptId = deptId;
     }
 
     public String getUserId() {

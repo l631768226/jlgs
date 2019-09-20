@@ -20,10 +20,11 @@ public interface CtmChatStoreMapper {
      * @param createTime
      * @return
      */
-    @Select("select * from CHATSTORE where OBJECTTYPE = #{objectType} and RECEID = #{receId} and SENDTIME < #{sendTime}"
-            + " and SENDTIME > #{createTime} order by SENDTIME desc ")
+    @Select("select * from (select * from CHATSTORE where OBJECTTYPE = #{objectType} and RECEID = #{receId} and SENDTIME < #{sendTime}"
+            + " and SENDTIME > #{createTime} order by SENDTIME desc) where ROWNUM <= ${account} ")
     List<Chatstore> queryGroupChatStoreInfo(@Param("objectType") String objectType, @Param("receId") String receId,
-                                            @Param("sendTime") BigDecimal sendTime, @Param("createTime") Long createTime);
+                                            @Param("sendTime") BigDecimal sendTime,
+                                            @Param("createTime") Long createTime, @Param("account") int account);
 
 
     /**
@@ -33,9 +34,10 @@ public interface CtmChatStoreMapper {
      * @param sendTime
      * @return
      */
-    @Select("select * from CHATSTORE where (SENDERID = #{senderId} and RECEID = #{receId}" + "or SENDERID = #{receId} and RECEID = #{senderId})"
-            + "and SENDTIME < #{sendTime} order by SENDTIME desc ")
-    List<Chatstore> queryChatStore(@Param("senderId") String senderId, @Param("receId") String receId, @Param("sendTime") BigDecimal sendTime);
+    @Select("select * from (select * from CHATSTORE where (SENDERID = #{senderId} and RECEID = #{receId}" + "or SENDERID = #{receId} and RECEID = #{senderId})"
+            + "and SENDTIME < #{sendTime} order by SENDTIME desc) where ROWNUM <= ${account} ")
+    List<Chatstore> queryChatStore(@Param("senderId") String senderId, @Param("receId") String receId,
+                                   @Param("sendTime") BigDecimal sendTime, @Param("account") int account);
 
 
     /**
@@ -45,16 +47,16 @@ public interface CtmChatStoreMapper {
      * @return
      */
     @Select("SELECT " +
-            "	A.*, C.REALNAME `NAME`,  C.PICID, B.REALNAME `OBJECTNAME`, B.PICID `OBJECTPICID` " +
+            "	A.*, C.REALNAME \"NAME\",  C.PICID, B.REALNAME \"OBJECTNAME\", B.PICID \"OBJECTPICID\" " +
             "FROM " +
             "	CHATSTORE A, LOGININFO B, LOGININFO C WHERE B.USERID = #{receId} " +
             "AND ( " +
-            "	SENDERID = #{senderId} " +
-            "	AND RECEID = #{receId} " +
-            "	OR RECEID = #{senderId} " +
-            "	AND SENDERID = #{receId} " +
+            "	A.SENDERID = #{senderId} " +
+            "	AND A.RECEID = #{receId} " +
+            "	OR A.RECEID = #{senderId} " +
+            "	AND A.SENDERID = #{receId} " +
             ") " +
-            "AND SENDTIME = ( " +
+            "AND A.SENDTIME = ( " +
             "	SELECT " +
             "		max(SENDTIME) " +
             "	FROM " +
@@ -79,7 +81,7 @@ public interface CtmChatStoreMapper {
             "FROM " +
             "	CHATSTORE A, GROUPINFO B, LOGININFO C where A.RECEID = #{receId} " +
             "AND A.RECEID = B.GROUPID " +
-            "AND SENDTIME = ( " +
+            "AND A.SENDTIME = ( " +
             "	SELECT " +
             "		MAX(SENDTIME) " +
             "	FROM " +
@@ -96,8 +98,9 @@ public interface CtmChatStoreMapper {
      * @param chatStoreId
      * @return
      */
-    @Select("select A.*, B.PICID PICID from CHATSTORE A " + "INNER JOIN LOGININFO B on A.OBJECTTYPE = 0 and A.CHATSTOREID = #{chatStoreId} "
-            + "and B.USERID = A.SENDERID order by A.SENDTIME desc;")
+    @Select("select A.*, B.PICID as PICID from CHATSTORE A " + "INNER JOIN LOGININFO B on A.OBJECTTYPE = 0 " +
+            "and A.CHATSTOREID = #{chatStoreId} "
+            + "and B.USERID = A.SENDERID order by A.SENDTIME desc")
     CtmChatStore queryDetailByUserId(@Param("chatStoreId") String chatStoreId);
 
     /**
@@ -105,8 +108,8 @@ public interface CtmChatStoreMapper {
      * @param chatStoreId
      * @return
      */
-    @Select("select A.*, B.PICID PICID from CHATSTORE A " + "INNER JOIN LOGININFO B on A.OBJECTTYPE = 1 and A.CHATSTOREID = #{chatStoreId} "
-            + "and A.SENDERID = B.USERID order by A.SENDTIME desc;")
+    @Select("select A.*, B.PICID as PICID from CHATSTORE A " + "INNER JOIN LOGININFO B on A.OBJECTTYPE = 1 and A.CHATSTOREID = #{chatStoreId} "
+            + "and A.SENDERID = B.USERID order by A.SENDTIME desc")
     CtmChatStore queryDetailByGroupId(@Param("chatStoreId") String chatStoreId);
 
     /**

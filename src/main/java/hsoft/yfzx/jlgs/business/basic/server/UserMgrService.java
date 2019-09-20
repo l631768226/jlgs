@@ -222,7 +222,8 @@ public class UserMgrService {
         qUserLoginRst.setPhoto(sysUser.getPhoto());
         qUserLoginRst.setPosition(sysUser.getPosition());
         qUserLoginRst.setPositionRemark(sysUser.getPosition_REMARK());
-        qUserLoginRst.setOfficeName(sysUser.getOfficeName());
+        qUserLoginRst.setDeptName(sysUser.getOfficeName());
+        qUserLoginRst.setDeptId(sysUser.getOffice_ID());
 
         if(sysUser.getWork_YEARS() != null){
             qUserLoginRst.setWorkYears(String.valueOf(sysUser.getWork_YEARS()));
@@ -365,7 +366,8 @@ public class UserMgrService {
         qUserDetailRst.setPhoto(sysUser.getPhoto());
         qUserDetailRst.setPosition(sysUser.getPosition());
         qUserDetailRst.setPositionRemark(sysUser.getPosition_REMARK());
-        qUserDetailRst.setOfficeName(sysUser.getOfficeName());
+        qUserDetailRst.setDeptName(sysUser.getOfficeName());
+        qUserDetailRst.setDeptId(sysUser.getOffice_ID());
 
         if(sysUser.getWork_YEARS() != null){
             qUserDetailRst.setWorkYears(String.valueOf(sysUser.getWork_YEARS()));
@@ -522,7 +524,8 @@ public class UserMgrService {
                 }
                 qUserRst.setWorkState(sysUser.getWork_STATE());
                 qUserRst.setDuty(sysUser.getDuty());
-                qUserRst.setOfficeName(sysUser.getOfficeName());
+                qUserRst.setDeptName(sysUser.getOfficeName());
+                qUserRst.setDeptId(sysUser.getOffice_ID());
 
                 qUserRstList.add(qUserRst);
             }
