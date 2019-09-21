@@ -242,11 +242,12 @@ public class XmppOperator {
 
     /**
      * 发送xmpp消息（带APNS推送）
+     *
      * @param userNameList 发送xmpp消息人员列表
-     * @param IMEIList 发送APNS推送人员的IMEI列表
-     * @param apnsContent APNS推送内容（对话框提示的内容）
-     * @param apnsTitle APNS推送标题
-     * @param msgInfo xmpp消息体
+     * @param IMEIList     发送APNS推送人员的IMEI列表
+     * @param apnsContent  APNS推送内容（对话框提示的内容）
+     * @param apnsTitle    APNS推送标题
+     * @param msgInfo      xmpp消息体
      * @throws SmackException
      * @throws IOException
      * @throws XMPPException
@@ -262,33 +263,35 @@ public class XmppOperator {
         //群发xmpp消息
         sendMultiXmpp(userNameList, msgInfo);
 
-        //发送APNS消息
-        if (IMEIList.size() > 0){
+        if (IMEIList != null && IMEIList.size() > 0) {
+            //发送APNS消息
             sendAPNS(IMEIList, apnsContent, apnsTitle, msgInfo);
+
         }
     }
 
     /**
      * 检查连接是否存在
+     *
      * @param userName 用户名
      * @param resource 资源名称
      * @return 1连接存在/-100连接不存在
      * @throws UnsupportedEncodingException
      */
-    @SuppressWarnings({ "unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public static String checkSession(String userName, String resource) throws UnsupportedEncodingException {
         String result = "";
         //根据传入的数据组拼jid
         String jid = userName + "@" + XMPP_DOMAIN + "/" + resource;
         //检查连接是否有效的接口地址
-        String url= XMPP_PLUGINS_SESSION_CHECK;
+        String url = XMPP_PLUGINS_SESSION_CHECK;
 
         //设置请求头
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
         //组拼请求数据
-        LinkedMultiValueMap<String, String> body=new LinkedMultiValueMap<String, String>();
+        LinkedMultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
         //FBase64加密
         jid = FBase64.encode(jid.getBytes("UTF-8"));
         body.add("value", jid);
@@ -297,10 +300,10 @@ public class XmppOperator {
         RestTemplate restTemplate = new RestTemplate();
 
         //发送请求并获取返回结果
-        try{
+        try {
             ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, (HttpEntity<String>) entity, String.class);
             result = responseEntity.getBody();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             result = "-200";
         }
@@ -310,25 +313,26 @@ public class XmppOperator {
 
     /**
      * 断开连接
+     *
      * @param userName 用户名
      * @param resource 资源代码
      * @return 1成功  -100连接不存在 -200断开失败
      * @throws UnsupportedEncodingException
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public static String closeSession(String userName, String resource) throws UnsupportedEncodingException{
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public static String closeSession(String userName, String resource) throws UnsupportedEncodingException {
         String result = "";
         //根据传入的数据组拼jid
         String jid = userName + "@" + XMPP_DOMAIN + "/" + resource;
         //检查连接是否有效的接口地址
-        String url=XMPP_PLUGINS_SESSION_MG;
+        String url = XMPP_PLUGINS_SESSION_MG;
 
         //设置请求头
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
         //组拼请求数据
-        LinkedMultiValueMap<String, String> body=new LinkedMultiValueMap<String, String>();
+        LinkedMultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
         //FBase64加密
         jid = FBase64.encode(jid.getBytes("UTF-8"));
         body.add("value", jid);
@@ -337,10 +341,10 @@ public class XmppOperator {
         RestTemplate restTemplate = new RestTemplate();
 
         //发送请求并获取返回结果
-        try{
+        try {
             ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, (HttpEntity<String>) entity, String.class);
             result = responseEntity.getBody();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             result = "-200";
         }

@@ -64,6 +64,11 @@ public class NoticeController {
         return noticeService.changeState(userId, data);
     }
 
+    /**
+     * 查询通知列表
+     * @param requestData
+     * @return
+     */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public ResponseData<List<QNoticeListRst>> queryList(@RequestBody RequestData<QNoticeListRec> requestData){
         ResponseData<List<QNoticeListRst>> responseData = new ResponseData<>();
