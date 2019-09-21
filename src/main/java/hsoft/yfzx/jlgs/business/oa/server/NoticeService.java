@@ -215,4 +215,59 @@ public class NoticeService {
         return responseData;
     }
 
+    /**
+     * 查询未读通知数量
+     * @param userId
+     * @return
+     */
+    public ResponseData<QNoticeCountRst> unreadCount(String userId){
+        ResponseData<QNoticeCountRst> responseData = new ResponseData<>();
+
+        QNoticeCountRst qNoticeCountRst = new QNoticeCountRst();
+
+        HNoticeCountRec hNoticeCountRec = new HNoticeCountRec();
+        hNoticeCountRec.setUserId(userId);
+        HsoftReqData<HNoticeCountRec> hsoftReqData = new HsoftReqData<>();
+        hsoftReqData.setChangeableData(hNoticeCountRec);
+        //传入参数
+        String dataStr = gson.toJson(hsoftReqData);
+        //接口地址
+        String url = serverUrl + "/notice/unreadCount";
+
+        String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+        if(resultStr.equals("fail") || resultStr.equals("error")){
+            responseData.setStatus(ReturnStatus.ERR0017);
+            responseData.setExtInfo("服务请求失败");
+            return responseData;
+        }else {
+            try {
+                HsoftRstData<QNoticeCountRst> hsoftRstData = gson.fromJson(resultStr,
+                        new TypeToken<HsoftRstData<QNoticeCountRst>>() {}.getType());
+
+                if(hsoftRstData == null){
+                    responseData.setStatus(ReturnStatus.ERR0017);
+                    responseData.setExtInfo("服务请求失败,返回为空");
+                    return responseData;
+                }else{
+                    int code = hsoftRstData.getCode();
+                    if(code < 1){
+                        responseData.setStatus(ReturnStatus.ERR0004);
+                        responseData.setExtInfo(hsoftRstData.getMessage());
+                        return responseData;
+                    }else {
+                        qNoticeCountRst = hsoftRstData.getData();
+                    }
+                }
+            }catch (Exception e){
+                responseData.setStatus(ReturnStatus.ERR0017);
+                responseData.setExtInfo("服务请求失败,返回值解析失败");
+                return responseData;
+            }
+        }
+
+        responseData.setStatus(ReturnStatus.OK);
+        responseData.setResultSet(qNoticeCountRst);
+        return responseData;
+    }
+
 }

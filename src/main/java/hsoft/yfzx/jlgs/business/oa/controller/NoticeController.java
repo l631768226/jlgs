@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.ws.Response;
 import java.util.List;
 
 @RestController
@@ -86,5 +87,15 @@ public class NoticeController {
         return noticeService.queryList(userId, data);
     }
 
+    /**
+     * 查询未读通知数量
+     * @param requestData
+     * @return
+     */
+    @RequestMapping(value = "/unreadCount", method = RequestMethod.POST)
+    public ResponseData<QNoticeCountRst> unreadCount(@RequestBody RequestData requestData){
+        String userId = requestData.getOwner().getUserId();
+        return noticeService.unreadCount(userId);
+    }
 
 }
