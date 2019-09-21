@@ -34,6 +34,16 @@ public class QUserDetailRst {
 
     private String deptId;
 
+    private String freqFlag = "0";
+
+    public String getFreqFlag() {
+        return freqFlag;
+    }
+
+    public void setFreqFlag(String freqFlag) {
+        this.freqFlag = freqFlag;
+    }
+
     public String getDeptName() {
         return deptName;
     }

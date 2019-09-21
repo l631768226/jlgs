@@ -14,7 +14,7 @@ public interface CtmUserGroupMapper {
 
     /**
      * 批量更新 群组用户表 的删除标识和时间戳
-     * @param usergroupList 群组用户表
+     * @param versionStamp 版本时间戳
      * @param groupId 群组id
      * @return
      */
@@ -35,7 +35,8 @@ public interface CtmUserGroupMapper {
      * @param userId 用户id
      * @return
      */
-    @Select("select B.* from USERGROUP A, GROUPINFO B where A.GROUPID = B.GROUPID and A.USERID = #{userId}")
+    @Select("select B.* from USERGROUP A, GROUPINFO B where A.GROUPID = B.GROUPID and A.USERID = #{userId} " +
+            "ORDER BY B.SORT ASC")
     List<Groupinfo> findMyGroupList(@Param("userId") String userId);
 
     /**

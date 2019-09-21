@@ -162,7 +162,7 @@ public class DeptMgrService {
                 return responseData;
             }
         }
-
+        //组拼部门信息
         List<QDeptListRst> dtlist = new ArrayList<QDeptListRst>();
         //将数据查询结果拷贝到返回信息中
         if(officeList != null && officeList.size() > 0){
@@ -183,7 +183,7 @@ public class DeptMgrService {
             }
         }
         qInfoListRst.setDeptList(dtlist);
-
+        //组拼人员信息
         List<QUserRst> userList = new ArrayList<>();
         if(sysUserList != null && sysUserList.size() > 0){
             for(SysUser sysUser : sysUserList){
@@ -217,6 +217,7 @@ public class DeptMgrService {
             }
         }
         qInfoListRst.setUserList(userList);
+        //返回值
         responseData.setStatus(ReturnStatus.OK);
         responseData.setResultSet(qInfoListRst);
         return responseData;

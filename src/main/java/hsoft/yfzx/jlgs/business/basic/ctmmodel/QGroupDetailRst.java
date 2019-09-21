@@ -8,6 +8,15 @@ public class QGroupDetailRst {
     private String picId;
     private String createTime;
     private String versionStamp;
+    private String freqFlag = "0";
+
+    public String getFreqFlag() {
+        return freqFlag;
+    }
+
+    public void setFreqFlag(String freqFlag) {
+        this.freqFlag = freqFlag;
+    }
 
     public String getGroupId() {
         return groupId;

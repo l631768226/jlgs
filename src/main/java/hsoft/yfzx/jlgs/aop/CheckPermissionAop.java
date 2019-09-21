@@ -63,6 +63,9 @@ public class CheckPermissionAop {
                 "/file/download".equals(request.getServletPath())){
             //文件上传下载接口不需要校验token
             return pjp.proceed();
+        }else if("/im/push".equals(request.getServletPath())){
+            //消息推送接口不需要校验token
+            return pjp.proceed();
         }else {
 //            System.out.println("请求的地址为 = " + request.getServletPath());
             // json形式传入

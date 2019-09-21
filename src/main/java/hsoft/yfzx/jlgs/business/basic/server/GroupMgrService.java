@@ -1,13 +1,11 @@
 package hsoft.yfzx.jlgs.business.basic.server;
 
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.*;
+import hsoft.yfzx.jlgs.business.basic.dao.CtmFreqMapper;
 import hsoft.yfzx.jlgs.business.basic.dao.CtmUserGroupMapper;
 import hsoft.yfzx.jlgs.business.basic.mapper.GroupinfoMapper;
 import hsoft.yfzx.jlgs.business.basic.mapper.UsergroupMapper;
-import hsoft.yfzx.jlgs.business.basic.model.Groupinfo;
-import hsoft.yfzx.jlgs.business.basic.model.GroupinfoExample;
-import hsoft.yfzx.jlgs.business.basic.model.Usergroup;
-import hsoft.yfzx.jlgs.business.basic.model.UsergroupExample;
+import hsoft.yfzx.jlgs.business.basic.model.*;
 import hsoft.yfzx.jlgs.business.im.dao.CtmChatCfgMapper;
 import hsoft.yfzx.jlgs.utils.model.common.ResponseData;
 import hsoft.yfzx.jlgs.utils.model.common.ReturnStatus;
@@ -35,6 +33,9 @@ public class GroupMgrService {
 
     @Autowired
     private CtmChatCfgMapper ctmChatCfgMapper;
+
+    @Autowired
+    private CtmFreqMapper ctmFreqMapper;
 
     /**
      * 创建群组
@@ -213,8 +214,11 @@ public class GroupMgrService {
      */
     public ResponseData<QGroupDetailRst> groupDetail(QGroupDetailRec qGroupDetailRec, String userId) {
         ResponseData<QGroupDetailRst> responseData = new ResponseData<>();
+        //获取群组id
+        String groupId = qGroupDetailRec.getGroupId();
+
         //根据群组id查询群组信息
-        List<Groupinfo> list = checkGroup(qGroupDetailRec.getGroupId());
+        List<Groupinfo> list = checkGroup(groupId);
         QGroupDetailRst qGroupDetailRst = new QGroupDetailRst();
         if (list.isEmpty()) {
             responseData.setStatus(ReturnStatus.ERR0003);
@@ -232,7 +236,13 @@ public class GroupMgrService {
         qGroupDetailRst.setPicId(groupInfo.getPICID());
         qGroupDetailRst.setCreateTime(String.valueOf(groupInfo.getCREATETIME()));
         qGroupDetailRst.setVersionStamp(groupInfo.getVERSIONSTAMP().toString());
-
+        //查询是否为该人员的常用群组
+        String freqFlag = "0";
+        Freqgroup freqgroup = ctmFreqMapper.findGroupById(userId, groupId);
+        if(freqgroup != null){
+            freqFlag = "1";
+        }
+        qGroupDetailRst.setFreqFlag(freqFlag);
         responseData.setStatus(ReturnStatus.OK);
         responseData.setResultSet(qGroupDetailRst);
         return responseData;

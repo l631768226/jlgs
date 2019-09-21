@@ -2,8 +2,11 @@ package hsoft.yfzx.jlgs.business.basic.server;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import hsoft.yfzx.jlgs.business.basic.controller.FreqController;
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.*;
+import hsoft.yfzx.jlgs.business.basic.dao.CtmFreqMapper;
 import hsoft.yfzx.jlgs.business.basic.mapper.LogininfoMapper;
+import hsoft.yfzx.jlgs.business.basic.model.Freqcontact;
 import hsoft.yfzx.jlgs.business.basic.model.Logininfo;
 import hsoft.yfzx.jlgs.business.basic.model.SysUser;
 import hsoft.yfzx.jlgs.utils.model.common.ResponseData;
@@ -41,6 +44,9 @@ public class UserMgrService {
 
     @Autowired
     private LogininfoMapper loginInfoMapper;
+
+    @Autowired
+    private CtmFreqMapper ctmFreqMapper;
 
     private Gson gson = new Gson();
 
@@ -308,8 +314,16 @@ public class UserMgrService {
     public ResponseData<QUserDetailRst> queryDetail(String userId, QUserDetailRec data) {
         // 构建返回结果的数据对象
         ResponseData<QUserDetailRst> responseData = new ResponseData<QUserDetailRst>();
-        // 如果传入的用户id不为空则userId取传入的值否则userid取登录者的
+
+        Freqcontact freqcontact = new Freqcontact();
+        String freqFlag = "0";
+        // 如果传入的用户id不为空则userId取传入的值 否则userid取登录者的
         if (!"".equals(data.getUserId()) && data.getUserId() != null) {
+            //查询是否为此人的常用联系人
+            freqcontact = ctmFreqMapper.findById(userId, data.getUserId());
+            if(freqcontact != null){
+                freqFlag = "1";
+            }
             userId = data.getUserId();
         }
 
@@ -377,6 +391,8 @@ public class UserMgrService {
         qUserDetailRst.setWorkState(sysUser.getWork_STATE());
         qUserDetailRst.setDuty(sysUser.getDuty());
         qUserDetailRst.setPolitics(sysUser.getPolitics());
+        qUserDetailRst.setFreqFlag(freqFlag);
+
 
         responseData.setStatus(ReturnStatus.OK);
         responseData.setResultSet(qUserDetailRst);

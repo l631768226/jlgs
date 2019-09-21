@@ -87,7 +87,7 @@ public interface CtmFreqMapper {
     Freqcontact findById(@Param("ownerId")String ownerId, @Param("userId")String userId);
 
     /**
-     * 根据主人id和群组id查询常用联系人
+     * 根据主人id和群组id查询常用群组
      * @param ownerId 主人id
      * @param groupId 群组id
      * @return
