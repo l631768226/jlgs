@@ -1,7 +1,5 @@
 package hsoft.yfzx.jlgs.business.basic.model;
 
-import java.util.Date;
-
 public class SysUser {
     private String id;
 
@@ -29,17 +27,17 @@ public class SysUser {
 
     private String login_IP;
 
-    private Date login_DATE;
+    private String login_DATE;
 
     private String login_FLAG;
 
     private String create_BY;
 
-    private Date create_DATE;
+    private String create_DATE;
 
     private String update_BY;
 
-    private Date update_DATE;
+    private String update_DATE;
 
     private String remarks;
 
@@ -55,7 +53,7 @@ public class SysUser {
 
     private String position_REMARK;
 
-    private Date birthday;
+    private String birthday;
 
     private Short work_YEARS;
 
@@ -179,14 +177,6 @@ public class SysUser {
         this.login_IP = login_IP;
     }
 
-    public Date getLogin_DATE() {
-        return login_DATE;
-    }
-
-    public void setLogin_DATE(Date login_DATE) {
-        this.login_DATE = login_DATE;
-    }
-
     public String getLogin_FLAG() {
         return login_FLAG;
     }
@@ -203,28 +193,12 @@ public class SysUser {
         this.create_BY = create_BY;
     }
 
-    public Date getCreate_DATE() {
-        return create_DATE;
-    }
-
-    public void setCreate_DATE(Date create_DATE) {
-        this.create_DATE = create_DATE;
-    }
-
     public String getUpdate_BY() {
         return update_BY;
     }
 
     public void setUpdate_BY(String update_BY) {
         this.update_BY = update_BY;
-    }
-
-    public Date getUpdate_DATE() {
-        return update_DATE;
-    }
-
-    public void setUpdate_DATE(Date update_DATE) {
-        this.update_DATE = update_DATE;
     }
 
     public String getRemarks() {
@@ -281,14 +255,6 @@ public class SysUser {
 
     public void setPosition_REMARK(String position_REMARK) {
         this.position_REMARK = position_REMARK;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
     }
 
     public Short getWork_YEARS() {
@@ -361,5 +327,37 @@ public class SysUser {
 
     public void setOfficeName(String officeName) {
         this.officeName = officeName;
+    }
+
+    public String getLogin_DATE() {
+        return login_DATE;
+    }
+
+    public void setLogin_DATE(String login_DATE) {
+        this.login_DATE = login_DATE;
+    }
+
+    public String getCreate_DATE() {
+        return create_DATE;
+    }
+
+    public void setCreate_DATE(String create_DATE) {
+        this.create_DATE = create_DATE;
+    }
+
+    public String getUpdate_DATE() {
+        return update_DATE;
+    }
+
+    public void setUpdate_DATE(String update_DATE) {
+        this.update_DATE = update_DATE;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 }

@@ -4,7 +4,7 @@ import hsoft.yfzx.jlgs.business.im.ctmmodel.CtmPushRec;
 import hsoft.yfzx.jlgs.utils.model.common.ResponseData;
 import hsoft.yfzx.jlgs.utils.model.common.ReturnStatus;
 import hsoft.yfzx.jlgs.utils.tool.FBase64;
-import hsoft.yfzx.jlgs.utils.tool.XmppOperator;
+import hsoft.yfzx.xmpppush.XmppOperator;
 import javapns.communication.exceptions.CommunicationException;
 import javapns.communication.exceptions.KeystoreException;
 import javapns.devices.exceptions.InvalidDeviceTokenFormatException;

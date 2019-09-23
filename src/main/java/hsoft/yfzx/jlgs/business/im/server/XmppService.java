@@ -16,7 +16,8 @@ import hsoft.yfzx.jlgs.utils.model.common.ReturnStatus;
 import hsoft.yfzx.jlgs.utils.model.push.*;
 import hsoft.yfzx.jlgs.utils.tool.FBase64;
 import hsoft.yfzx.jlgs.utils.tool.Generator;
-import hsoft.yfzx.jlgs.utils.tool.XmppOperator;
+
+import hsoft.yfzx.xmpppush.XmppOperator;
 import javapns.communication.exceptions.CommunicationException;
 import javapns.communication.exceptions.KeystoreException;
 import javapns.devices.exceptions.InvalidDeviceTokenFormatException;

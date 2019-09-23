@@ -26,6 +26,9 @@ public class NoticeService {
     @Value("${custom.serverUrl}")
     private String serverUrl;
 
+    @Value("${custom.js.serverUrl}")
+    String jsServerUrl;
+
     /**
      * 查询通知详情
      * @param data
@@ -43,7 +46,7 @@ public class NoticeService {
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
 
-        String url = serverUrl + "/notice/detail";
+        String url = jsServerUrl + "/notice/detail";
 
         OaNotify notice = new OaNotify();
 
@@ -112,7 +115,7 @@ public class NoticeService {
         //请求数据
         String dataStr = gson.toJson(hsoftReqData);
         //请求地址
-        String url = serverUrl + "/notice/changeState";
+        String url = jsServerUrl + "/notice/changeState";
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
         if(resultStr.equals("fail") || resultStr.equals("error")){
@@ -163,7 +166,7 @@ public class NoticeService {
         //传入参数
         String dataStr = gson.toJson(hsoftReqData);
         //请求地址
-        String url = serverUrl + "/notice/list";
+        String url = jsServerUrl + "/notice/list";
 
         List<OaNotify> oaNotifyList = new ArrayList<>();
 
@@ -232,7 +235,7 @@ public class NoticeService {
         //传入参数
         String dataStr = gson.toJson(hsoftReqData);
         //接口地址
-        String url = serverUrl + "/notice/unreadCount";
+        String url = jsServerUrl + "/notice/unreadCount";
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
         if(resultStr.equals("fail") || resultStr.equals("error")){

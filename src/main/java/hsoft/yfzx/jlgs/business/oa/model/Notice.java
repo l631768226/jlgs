@@ -1,7 +1,5 @@
 package hsoft.yfzx.jlgs.business.oa.model;
 
-import java.util.Date;
-
 public class Notice {
     private String id;
 
@@ -17,7 +15,7 @@ public class Notice {
 
     private String create_BY;
 
-    private Date create_DATE;
+    private String create_DATE;
 
     private String del_flag;
 
@@ -77,11 +75,11 @@ public class Notice {
         this.create_BY = create_BY;
     }
 
-    public Date getCreate_DATE() {
+    public String getCreate_DATE() {
         return create_DATE;
     }
 
-    public void setCreate_DATE(Date create_DATE) {
+    public void setCreate_DATE(String create_DATE) {
         this.create_DATE = create_DATE;
     }
 

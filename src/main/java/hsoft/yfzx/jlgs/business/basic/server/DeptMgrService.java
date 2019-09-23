@@ -26,6 +26,9 @@ public class DeptMgrService {
     @Value("${custom.serverUrl}")
     private String serverUrl;
 
+    @Value("${custom.js.serverUrl}")
+    String jsServerUrl;
+
     private Gson gson = new Gson();
 
     /**
@@ -46,7 +49,7 @@ public class DeptMgrService {
         //转换成请求数据json字符串
         String dataStr = gson.toJson(hsoftReqData);
         //拼接请求地址
-        String url = serverUrl + "/dept/deptList";
+        String url = jsServerUrl + "/dept/deptList";
 
         List<SysOffice> officeList = new ArrayList<>();
 
@@ -126,7 +129,7 @@ public class DeptMgrService {
         //请求参数
         String dataStr = gson.toJson(hsoftReqData);
         //请求地址
-        String url = serverUrl + "/user/infoList";
+        String url = jsServerUrl + "/user/infoList";
 
         List<SysOffice> officeList = new ArrayList<>();
         List<SysUser> sysUserList = new ArrayList<>();

@@ -2,7 +2,6 @@ package hsoft.yfzx.jlgs.business.basic.server;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import hsoft.yfzx.jlgs.business.basic.controller.FreqController;
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.*;
 import hsoft.yfzx.jlgs.business.basic.dao.CtmFreqMapper;
 import hsoft.yfzx.jlgs.business.basic.mapper.LogininfoMapper;
@@ -16,7 +15,7 @@ import hsoft.yfzx.jlgs.utils.model.http.HsoftReqData;
 import hsoft.yfzx.jlgs.utils.model.http.HsoftRstData;
 import hsoft.yfzx.jlgs.utils.tool.Generator;
 import hsoft.yfzx.jlgs.utils.tool.HttpMethodTool;
-import hsoft.yfzx.jlgs.utils.tool.XmppOperator;
+import hsoft.yfzx.xmpppush.XmppOperator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,6 +55,9 @@ public class UserMgrService {
     @Value("${custom.serverUrl}")
     String serverUrl;
 
+    @Value("${custom.js.serverUrl}")
+    String jsServerUrl;
+
     /**
      * 登录接口
      * @param data
@@ -81,12 +83,13 @@ public class UserMgrService {
 
         hsoftReqData.setChangeableData(hLoginRec);
 
-        String url = serverUrl + "/user/login";
+        String url = jsServerUrl + "/user/login";
 
         String dataStr = gson.toJson(hsoftReqData);
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
         SysUser sysUser = new SysUser();
+        System.out.println(resultStr);
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
@@ -111,6 +114,7 @@ public class UserMgrService {
                     }
                 }
             }catch (Exception e){
+                e.printStackTrace();
                 responseData.setStatus(ReturnStatus.ERR0017);
                 responseData.setExtInfo("服务请求失败,返回值解析失败");
                 return responseData;
@@ -262,7 +266,7 @@ public class UserMgrService {
 
         //调用内网修改密码接口，传入用户id、新密码和旧密码，获取返回值
 
-        String url = serverUrl + "/user/updatePwd";
+        String url = jsServerUrl + "/user/updatePwd";
 
         HsoftReqData hsoftReqData = new HsoftReqData();
         HPwdRec hPwdRec = new HPwdRec();
@@ -334,7 +338,7 @@ public class UserMgrService {
         hsoftReqData.setChangeableData(hUserDetailRec);
 
         String dataStr = gson.toJson(hsoftReqData);
-        String url = serverUrl + "/user/detail";
+        String url = jsServerUrl + "/user/detail";
 
         SysUser sysUser = new SysUser();
 
@@ -423,7 +427,7 @@ public class UserMgrService {
         //调用内网接口更新IMEI信息
 
         String dataStr = gson.toJson(hsoftReqData);
-        String url = serverUrl + "/user/updateMobileInfo";
+        String url = jsServerUrl + "/user/updateMobileInfo";
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
@@ -480,7 +484,7 @@ public class UserMgrService {
         //设置调用内网查询人员列表接口参数
         String dataStr = gson.toJson(hsoftReqData);
 
-        String url = serverUrl + "/user/listByDeptLimit";
+        String url = jsServerUrl + "/user/listByDeptLimit";
 
         List<SysUser> sysUserList = new ArrayList<>();
         //调用内网查询某组织下人员列表接口

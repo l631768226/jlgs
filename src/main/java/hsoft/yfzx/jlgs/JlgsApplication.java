@@ -1,8 +1,7 @@
 package hsoft.yfzx.jlgs;
 
-import hsoft.yfzx.jlgs.utils.tool.XmppOperator;
+import hsoft.yfzx.xmpppush.XmppOperator;
 import org.mybatis.spring.annotation.MapperScan;
-import org.mybatis.spring.annotation.MapperScans;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

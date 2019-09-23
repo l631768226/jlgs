@@ -9,7 +9,7 @@ import hsoft.yfzx.jlgs.utils.model.common.ResponseData;
 import hsoft.yfzx.jlgs.utils.model.common.ReturnStatus;
 import hsoft.yfzx.jlgs.utils.model.common.UserCacheData;
 import hsoft.yfzx.jlgs.utils.tool.Generator;
-import hsoft.yfzx.jlgs.utils.tool.XmppOperator;
+import hsoft.yfzx.xmpppush.XmppOperator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
