@@ -226,4 +226,112 @@ public class DeptMgrService {
         return responseData;
     }
 
+    /**
+     * 获取某组织机构下人员列表信息和部门列表信息
+     * @return
+     */
+    public ResponseData<QInfoListRst> allInfoList(){
+        ResponseData<QInfoListRst> responseData = new ResponseData<>();
+        QInfoListRst qInfoListRst = new QInfoListRst();
+
+        //请求参数
+        String dataStr = "";
+        //请求地址
+        String url = jsServerUrl + "/user/allInfoList";
+
+        List<SysOffice> officeList = new ArrayList<>();
+        List<SysUser> sysUserList = new ArrayList<>();
+        String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+        if(resultStr.equals("fail") || resultStr.equals("error")){
+            responseData.setStatus(ReturnStatus.ERR0017);
+            responseData.setExtInfo("服务请求失败");
+            return responseData;
+        }else {
+            try {
+                HsoftRstData<CtmInfoListRst> hsoftRstData = gson.fromJson(resultStr, new TypeToken<HsoftRstData
+                        <CtmInfoListRst>>() {}.getType());
+
+                if(hsoftRstData == null){
+                    responseData.setStatus(ReturnStatus.ERR0017);
+                    responseData.setExtInfo("服务请求失败,返回为空");
+                    return responseData;
+                }else{
+                    int code = hsoftRstData.getCode();
+                    if(code < 1){
+                        responseData.setStatus(ReturnStatus.ERR0004);
+                        responseData.setExtInfo(hsoftRstData.getMessage());
+                        return responseData;
+                    }else{
+                        //获取部门信息列表
+                        officeList = hsoftRstData.getData().getDeptList();
+                        sysUserList = hsoftRstData.getData().getUserList();
+                    }
+                }
+            }catch (Exception e){
+                responseData.setStatus(ReturnStatus.ERR0017);
+                responseData.setExtInfo("服务请求失败,返回值解析失败");
+                return responseData;
+            }
+        }
+        //组拼部门信息
+        List<QDeptListRst> dtlist = new ArrayList<QDeptListRst>();
+        //将数据查询结果拷贝到返回信息中
+        if(officeList != null && officeList.size() > 0){
+            for(SysOffice sysOffice : officeList){
+                QDeptListRst qOfficeListRst = new QDeptListRst();
+                qOfficeListRst.setDeptId(sysOffice.getId());
+                qOfficeListRst.setDeptName(sysOffice.getName());
+                qOfficeListRst.setParentId(sysOffice.getParent_ID());
+                //获取部门排序信息
+                Double sort = sysOffice.getSort();
+                if(sort != null){
+                    qOfficeListRst.setSort(String.valueOf(sort));
+                }else{
+                    qOfficeListRst.setSort("");
+                }
+                qOfficeListRst.setGrade(sysOffice.getGrade());
+                dtlist.add(qOfficeListRst);
+            }
+        }
+        qInfoListRst.setDeptList(dtlist);
+        //组拼人员信息
+        List<QUserRst> userList = new ArrayList<>();
+        if(sysUserList != null && sysUserList.size() > 0){
+            for(SysUser sysUser : sysUserList){
+                QUserRst qUserRst = new QUserRst();
+                qUserRst.setUserId(sysUser.getId());
+                qUserRst.setRealName(sysUser.getName());
+                qUserRst.setGender(sysUser.getGender());
+                qUserRst.setPhone(sysUser.getPhone());
+                qUserRst.setMobile(sysUser.getMobile());
+                qUserRst.setEmail(sysUser.getEmail());
+                qUserRst.setPhoto(sysUser.getPhoto());
+                qUserRst.setPosition(sysUser.getPosition());
+                qUserRst.setPositionRemark(sysUser.getPosition_REMARK());
+                if(sysUser.getBirthday() == null){
+                    qUserRst.setBirthday("");
+                }else{
+                    qUserRst.setBirthday(sysUser.getBirthday().toString());
+                }
+
+                if(sysUser.getWork_YEARS() == null){
+                    qUserRst.setWorkYears("");
+                }else{
+                    qUserRst.setWorkYears(sysUser.getWork_YEARS().toString());
+                }
+                qUserRst.setWorkState(sysUser.getWork_STATE());
+                qUserRst.setDuty(sysUser.getDuty());
+                qUserRst.setDeptName(sysUser.getOfficeName());
+                qUserRst.setDeptId(sysUser.getOffice_ID());
+
+                userList.add(qUserRst);
+            }
+        }
+        qInfoListRst.setUserList(userList);
+        //返回值
+        responseData.setStatus(ReturnStatus.OK);
+        responseData.setResultSet(qInfoListRst);
+        return responseData;
+    }
+
 }

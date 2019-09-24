@@ -68,4 +68,16 @@ public class DeptMgrController {
         return deptMgrService.infoList(data);
     }
 
+    /**
+     * 获取全部人员列表和组织机构列表信息
+     * @param requestData
+     * @return
+     */
+    @RequestMapping(value = "/allInfoList", method = RequestMethod.POST)
+    public ResponseData<QInfoListRst> allInfoList(@RequestBody RequestData requestData){
+        ResponseData<QInfoListRst> responseData = new ResponseData<>();
+
+        return deptMgrService.allInfoList();
+    }
+
 }
