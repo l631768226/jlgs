@@ -21,7 +21,7 @@ public class QUserLoginRst {
 
     private String email;
 
-    private String photo;
+    private String picId;
 
     private String position;
 
@@ -123,12 +123,12 @@ public class QUserLoginRst {
         this.email = email;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getPicId() {
+        return picId;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setPicId(String picId) {
+        this.picId = picId;
     }
 
     public String getPosition() {

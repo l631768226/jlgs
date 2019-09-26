@@ -11,6 +11,16 @@ public class QNoticeListRec extends AbstactBaseRec {
 
     private String type;
 
+    private String urgency;
+
+    public String getUrgency() {
+        return urgency;
+    }
+
+    public void setUrgency(String urgency) {
+        this.urgency = urgency;
+    }
+
     public String getState() {
         return state;
     }

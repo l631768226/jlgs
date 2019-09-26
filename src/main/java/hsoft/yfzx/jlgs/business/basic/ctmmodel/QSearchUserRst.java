@@ -6,6 +6,26 @@ public class QSearchUserRst {
     private String realName;
     private String picId;
 
+    private String mobile;
+
+    private String position;
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
     public String getUserId() {
         return userId;
     }

@@ -15,6 +15,26 @@ public class QFreqRst {
 
     private String ownerId;
 
+    private String mobile;
+
+    private String position;
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
     public String getOwnerId() {
         return ownerId;
     }

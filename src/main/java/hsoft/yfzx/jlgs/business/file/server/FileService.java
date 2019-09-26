@@ -21,8 +21,11 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -37,8 +40,12 @@ public class FileService {
     @Value("${custom.fileUrl}")
     private String baseUrl;
 
+    @Value("${custom.js.baseUrl}")
+    private String serverBaseUrl;
+
     /**
      * 文件上传
+     *
      * @param request
      * @return
      */
@@ -104,6 +111,7 @@ public class FileService {
 
     /**
      * 查询文件详情
+     *
      * @param data
      * @return
      */
@@ -136,6 +144,7 @@ public class FileService {
 
     /**
      * 文件下载
+     *
      * @param filename
      * @param id
      * @param response
@@ -165,8 +174,8 @@ public class FileService {
 
             response.setHeader("Content-Disposition", "attachment;filename=" + as);
 
-            System.out.println(response.getHeaderNames() + response.getHeader("X-Application-Context")
-                    + response.getHeader("Transfer-Encoding"));
+//            System.out.println(response.getHeaderNames() + response.getHeader("X-Application-Context")
+//                    + response.getHeader("Transfer-Encoding"));
 
             InputStream inputStream = null;
             ServletOutputStream outputStream = null;
@@ -175,15 +184,15 @@ public class FileService {
                 GridFsResource gridFsResource = gridFsTemplate.getResource(gfsfile);
 
                 inputStream = gridFsResource.getInputStream();
-                byte bs[]=new byte[1024];
+                byte bs[] = new byte[1024];
                 outputStream = response.getOutputStream();
-                while (inputStream.read(bs)>0){
+                while (inputStream.read(bs) > 0) {
                     outputStream.write(bs);
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
-            }finally {
+            } finally {
                 inputStream.close();
 
                 outputStream.close();
@@ -219,4 +228,59 @@ public class FileService {
         return result;
     }
 
+    public void downloadPic(String id, HttpServletResponse response) {
+        String destUrl = serverBaseUrl + id;
+        destUrl = "http://192.168.4.224:8080/jeesite/userfiles/16c0e7fdd9c14b2da53134e7f5bd94f9/images/photo/2019/09/%E5%8F%91%E7%A5%A8%E4%BF%A1%E6%81%AF.png";
+        System.out.println(destUrl);
+        InputStream bis = null;
+        ServletOutputStream outputStream = null;
+
+        try {
+//            String as = "发票图片.png";
+//            as = new String(as.getBytes("utf8"), "ISO_8859_1");
+//            response.setHeader("Content-Disposition", "attachment;filename=" + as);
+
+            HttpURLConnection connection = (HttpURLConnection) new URL(destUrl).openConnection();
+            connection.setReadTimeout(30000);
+            connection.setConnectTimeout(30000);
+            connection.setRequestMethod("GET");
+            connection.connect();
+
+            bis = connection.getInputStream();
+//            String count = String.valueOf(bis.available());
+//            int length = connection.getContentLength();
+//            System.out.println(count + " " + length);
+
+            byte[] data = readInputStream(bis);
+            outputStream = response.getOutputStream();
+            outputStream.write(data);
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static byte[] readInputStream(InputStream ins) throws IOException {
+        // TODO 自动生成的方法存根
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len = 0;
+        while ((len = ins.read(buffer)) != -1) {
+            out.write(buffer, 0, len);
+
+        }
+        ins.close();
+
+        return out.toByteArray();
+    }
 }

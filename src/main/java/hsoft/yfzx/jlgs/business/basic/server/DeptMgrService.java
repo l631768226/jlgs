@@ -134,6 +134,8 @@ public class DeptMgrService {
         List<SysOffice> officeList = new ArrayList<>();
         List<SysUser> sysUserList = new ArrayList<>();
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+        System.out.println(resultStr);
+
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
@@ -214,7 +216,7 @@ public class DeptMgrService {
                 qUserRst.setWorkState(sysUser.getWork_STATE());
                 qUserRst.setDuty(sysUser.getDuty());
                 qUserRst.setDeptName(sysUser.getOfficeName());
-                qUserRst.setDeptId(sysUser.getOffice_ID());
+                qUserRst.setDeptId(sysUser.getOfficeId());
 
                 userList.add(qUserRst);
             }
@@ -322,7 +324,7 @@ public class DeptMgrService {
                 qUserRst.setWorkState(sysUser.getWork_STATE());
                 qUserRst.setDuty(sysUser.getDuty());
                 qUserRst.setDeptName(sysUser.getOfficeName());
-                qUserRst.setDeptId(sysUser.getOffice_ID());
+                qUserRst.setDeptId(sysUser.getOfficeId());
 
                 userList.add(qUserRst);
             }

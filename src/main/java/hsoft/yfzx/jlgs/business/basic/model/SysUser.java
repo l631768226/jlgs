@@ -5,7 +5,7 @@ public class SysUser {
 
     private String company_ID;
 
-    private String office_ID;
+    private String officeId;
 
     private String login_NAME;
 
@@ -89,12 +89,12 @@ public class SysUser {
         this.company_ID = company_ID;
     }
 
-    public String getOffice_ID() {
-        return office_ID;
+    public String getOfficeId() {
+        return officeId;
     }
 
-    public void setOffice_ID(String office_ID) {
-        this.office_ID = office_ID;
+    public void setOfficeId(String officeId) {
+        this.officeId = officeId;
     }
 
     public String getLogin_NAME() {
@@ -360,4 +360,6 @@ public class SysUser {
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
+
+
 }

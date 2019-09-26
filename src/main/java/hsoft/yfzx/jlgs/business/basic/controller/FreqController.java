@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/basic/freq")
 public class FreqController {
@@ -156,6 +158,39 @@ public class FreqController {
 
         String userId = requestData.getOwner().getUserId();
         return freqService.contactSort(userId, data);
+    }
+
+    @RequestMapping(value = "/searchContact", method = RequestMethod.POST)
+    public ResponseData<List<QFreqRst>> searchContact(@RequestBody RequestData<QFreqSearchRec> requestData){
+        ResponseData<List<QFreqRst>> responseData = new ResponseData<>();
+        QFreqSearchRec data = requestData.getData();
+        if (data == null || !data.validation())
+        {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
+            // 返回
+            return responseData;
+        }
+        String userId = requestData.getOwner().getUserId();
+        return freqService.searchContact(userId, data);
+    }
+
+
+    @RequestMapping(value = "/searchGroup", method = RequestMethod.POST)
+    public ResponseData<List<QFreqRst>> searchGroup(@RequestBody RequestData<QFreqSearchRec> requestData){
+        ResponseData<List<QFreqRst>> responseData = new ResponseData<>();
+        QFreqSearchRec data = requestData.getData();
+        if (data == null || !data.validation())
+        {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
+            // 返回
+            return responseData;
+        }
+        String userId = requestData.getOwner().getUserId();
+        return freqService.searchGroup(userId, data);
     }
 
 }

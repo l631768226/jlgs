@@ -17,6 +17,16 @@ public class QNoticeDetailRst {
 
     private String createTime;
 
+    private String urgency;
+
+    public String getUrgency() {
+        return urgency;
+    }
+
+    public void setUrgency(String urgency) {
+        this.urgency = urgency;
+    }
+
     public String getNoticeId() {
         return noticeId;
     }

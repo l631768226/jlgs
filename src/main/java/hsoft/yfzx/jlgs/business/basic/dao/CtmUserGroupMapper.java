@@ -4,6 +4,7 @@ import hsoft.yfzx.jlgs.business.basic.ctmmodel.CtmGroupUser;
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.QUserGroupListRst;
 import hsoft.yfzx.jlgs.business.basic.model.Groupinfo;
 import hsoft.yfzx.jlgs.business.basic.model.Usergroup;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -45,7 +46,7 @@ public interface CtmUserGroupMapper {
      * @param searchRule
      * @return
      */
-    @Select("SELECT A.GROUPID groupId, A.USERID userId, A.CARD card, A.VERSIONSTAMP versionStamp, B.REALNAME realName, A.USER_LEVEL \"level\"" +
+    @Select("SELECT A.*, B.REALNAME realName, A.USER_LEVEL \"level\", B.PICID picId " +
             "FROM \"USERGROUP\" A ,LOGININFO B " +
             "WHERE A.GROUPID = #{groupId} and A.USERID = B.USERID " +
             "and B.REALNAME like '%${searchRule}%' order by A.CREATETIME ASC ")
@@ -78,4 +79,8 @@ public interface CtmUserGroupMapper {
      */
     @Select("select USERID from \"USERGROUP\" where GROUPID = #{groupId};")
     List<String> queryUserId(@Param("groupId") String groupId);
+
+
+    @Delete("delete from \"USERGROUP\" where GROUPID = #{groupId}")
+    int deleteByGroupId(@Param("groupId") String groupId);
 }

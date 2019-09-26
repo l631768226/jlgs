@@ -27,7 +27,7 @@ public class CheckController {
      * @return
      * @throws UnsupportedEncodingException
      */
-    @RequestMapping(value = "/check/token", method = RequestMethod.POST)
+    @RequestMapping(value = "/token", method = RequestMethod.POST)
     public ResponseData<QCheckTokenRst> checkToken(@RequestBody RequestData<QCheckTokenRec> requestData) throws UnsupportedEncodingException{
         //当token失效时进入下面处理
         ResponseData<QCheckTokenRst> responseData = new ResponseData<>();

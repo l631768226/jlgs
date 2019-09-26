@@ -94,4 +94,20 @@ public interface CtmFreqMapper {
      */
     @Select("select * from FREQGROUP where OWNERID = #{ownerId} and GROUPID = #{groupId}")
     Freqgroup findGroupById(@Param("ownerId")String ownerId, @Param("groupId")String groupId);
+
+
+    /**
+     * 根据条件查询常用联系人
+     * @param userId 主人id
+     * @param searchRule 查询条件
+     * @return
+     */
+    @Select("select B.*, A.REALNAME objectName from LOGININFO A, FREQCONTACT B where A.USERID = B.USERID " +
+            "and A.REALNAME like '%${searchRule}%' and B.OWNERID = #{userId}")
+    List<Freqcontact> searchContact(@Param("userId") String userId, @Param("searchRule")String searchRule);
+
+
+    @Select("select B.*, A.GROUPNAME objectName from GROUPINFO A, FREQGROUP B where A.GROUPID = B.GROUPID " +
+            "and A.GROUPNAME like '%${searchRule}%' and B.OWNERID = #{userId}")
+    List<Freqgroup> searchGroup(@Param("userId") String userId, @Param("searchRule")String searchRule);
 }

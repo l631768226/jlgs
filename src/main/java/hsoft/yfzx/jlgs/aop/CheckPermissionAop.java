@@ -60,7 +60,8 @@ public class CheckPermissionAop {
             //登录接口不需要校验token
             return pjp.proceed();
         }else if("/file/upload".equals(request.getServletPath()) ||
-                "/file/download".equals(request.getServletPath())){
+                "/file/download".equals(request.getServletPath())||
+                "/file/pic".equals(request.getServletPath())){
             //文件上传下载接口不需要校验token
             return pjp.proceed();
         }else if("/im/push".equals(request.getServletPath())){

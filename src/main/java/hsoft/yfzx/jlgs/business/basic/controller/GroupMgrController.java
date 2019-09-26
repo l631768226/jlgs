@@ -130,6 +130,40 @@ public class GroupMgrController {
         return groupMgrService.groupMyList(userId);
     }
 
+    /**
+     * 群组修改
+     * @param requestData
+     * @return
+     */
+    @RequestMapping(value = "/change", method = RequestMethod.POST)
+    public ResponseData<String> chagne(@RequestBody RequestData<UGroupChangeRec> requestData){
+        ResponseData<String> responseData = new ResponseData<>();
+        UGroupChangeRec data = requestData.getData();
 
+        if (data == null || !data.validation())
+        {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses() + "群组信息");
+            // 返回
+            return responseData;
+        }
+
+        List<CGroupsUserRec> list = data.getUsers();
+        for (int i = 0; i < list.size(); i++)
+        {
+            if (!list.get(i).validation())
+            {
+                // 数据校验不通过
+                responseData.setStatus(ReturnStatus.ERR0001);
+                responseData.setExtInfo(data.getFailCauses());
+                // 返回
+                return responseData;
+            }
+
+        }
+
+        return groupMgrService.change(data);
+    }
 
 }

@@ -140,4 +140,20 @@ public class UserMgrController {
         }
         return userMgrService.listByDeptLimit(data);
     }
+
+    @RequestMapping(value = "/change", method = RequestMethod.POST)
+    public ResponseData<QUserDetailRst> changeUserInfo(@RequestBody RequestData<UUserInfoRec> requestData){
+        ResponseData<QUserDetailRst> responseData = new ResponseData<>();
+        UUserInfoRec data = requestData.getData();
+        if (!data.validation() || data == null)
+        {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
+            // 返回
+            return responseData;
+        }
+        String userId = requestData.getOwner().getUserId();
+        return userMgrService.changeUserInfo(userId, data);
+    }
 }

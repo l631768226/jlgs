@@ -46,7 +46,7 @@ public interface CtmChatCfgMapper {
      * @return
      */
     @Update("update CHATCFG set TOPSTATUS = #{topStatus}, UNDISTURBED = #{undisturbed} "
-            + "where USERID = #{userId} and OBJECTID = #{objectId};")
+            + "where USERID = #{userId} and OBJECTID = #{objectId}")
     int updateById(@Param("topStatus") String topStatus, @Param("undisturbed") String undisturbed,
                    @Param("userId") String userId, @Param("objectId") String objectId);
 

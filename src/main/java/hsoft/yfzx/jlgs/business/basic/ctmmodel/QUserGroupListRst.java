@@ -10,6 +10,24 @@ public class QUserGroupListRst {
     private String card;
     private String picId;
     private String versionStamp;
+    private String deptId;
+    private String positioncodeList;
+
+    public String getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(String deptId) {
+        this.deptId = deptId;
+    }
+
+    public String getPositioncodeList() {
+        return positioncodeList;
+    }
+
+    public void setPositioncodeList(String positioncodeList) {
+        this.positioncodeList = positioncodeList;
+    }
 
     public String getUserId() {
         return userId;

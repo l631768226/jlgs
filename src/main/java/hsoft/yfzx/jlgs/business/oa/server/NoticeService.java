@@ -86,7 +86,8 @@ public class NoticeService {
         qNoticeDetailRst.setContent(notice.getContent());
 //        qNoticeDetailRst.setRelationId(notice.get);
         qNoticeDetailRst.setTitle(notice.getTitle());
-        qNoticeDetailRst.setType(notice.getType());
+        qNoticeDetailRst.setType(notice.getNotice_TYPE());
+        qNoticeDetailRst.setUrgency(notice.getType());
 
         qNoticeDetailRst.setCreateTime(notice.getCreate_DATE());
 
@@ -156,11 +157,13 @@ public class NoticeService {
 
         String state = data.getState();
         String type = data.getType();
+        String urgency = data.getUrgency();
 
         HNoticeListRec hNoticeListRec = new HNoticeListRec();
         hNoticeListRec.setState(state);
         hNoticeListRec.setType(type);
         hNoticeListRec.setUserId(userId);
+        hNoticeListRec.setUrgency(urgency);
         HsoftReqData<HNoticeListRec> hsoftReqData = new HsoftReqData<>();
         hsoftReqData.setChangeableData(hNoticeListRec);
         //传入参数
@@ -208,7 +211,9 @@ public class NoticeService {
                 qNoticeListRst.setId(oaNotify.getId());
                 qNoticeListRst.setCreateTime(oaNotify.getCreate_DATE());
                 qNoticeListRst.setState(oaNotify.getStatus());
-                qNoticeListRst.setType(oaNotify.getType());
+                qNoticeListRst.setUrgency(oaNotify.getType());
+                qNoticeListRst.setTitle(oaNotify.getTitle());
+                qNoticeListRst.setType(oaNotify.getNotice_TYPE());
                 qNoticeListRsts.add(qNoticeListRst);
             }
         }

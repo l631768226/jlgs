@@ -49,7 +49,7 @@ public class FileController {
      * @param requestData
      * @return
      */
-    @RequestMapping(value = "/detail", method = RequestMethod.POST)
+    @RequestMapping(value = "/detail", method = {RequestMethod.POST, RequestMethod.GET})
     public ResponseData<QFileDetailRst> fileDetail(@RequestBody RequestData<QFileDetailRec> requestData){
         ResponseData<QFileDetailRst> responseData = new ResponseData<>();
 
@@ -64,6 +64,12 @@ public class FileController {
         }
 
         return fileService.queryFileDetail(data);
+    }
+
+
+    @RequestMapping(value = "/pic", method = {RequestMethod.POST, RequestMethod.GET})
+    public void downloadPic(@RequestParam(name = "id", required = true) String id, HttpServletResponse response){
+        fileService.downloadPic(id, response);
     }
 
 }

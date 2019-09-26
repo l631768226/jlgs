@@ -17,6 +17,7 @@ import hsoft.yfzx.jlgs.utils.tool.Generator;
 import hsoft.yfzx.jlgs.utils.tool.HttpMethodTool;
 import hsoft.yfzx.xmpppush.XmppOperator;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -24,6 +25,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.util.resources.cldr.zh.CalendarData_zh_Hans_CN;
 
 import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
@@ -69,9 +71,11 @@ public class UserMgrService {
         ResponseData<QUserLoginRst> responseData = new ResponseData<QUserLoginRst>();
         //传入的密码进行MD5加密
         String password = data.getPassword();
+        ;
+//        System.out.println("password" + password);
         //获取用户名
         String userName = data.getUserName();
-
+//        System.out.println("userName" + userName);
         //调用内网登录接口
         HsoftReqData<HLoginRec> hsoftReqData = new HsoftReqData<>();
 
@@ -229,11 +233,11 @@ public class UserMgrService {
         qUserLoginRst.setPhone(sysUser.getPhone());
         qUserLoginRst.setMobile(sysUser.getMobile());
         qUserLoginRst.setEmail(sysUser.getEmail());
-        qUserLoginRst.setPhoto(sysUser.getPhoto());
+        qUserLoginRst.setPicId(sysUser.getPhoto());
         qUserLoginRst.setPosition(sysUser.getPosition());
         qUserLoginRst.setPositionRemark(sysUser.getPosition_REMARK());
         qUserLoginRst.setDeptName(sysUser.getOfficeName());
-        qUserLoginRst.setDeptId(sysUser.getOffice_ID());
+        qUserLoginRst.setDeptId(sysUser.getOfficeId());
 
         if(sysUser.getWork_YEARS() != null){
             qUserLoginRst.setWorkYears(String.valueOf(sysUser.getWork_YEARS()));
@@ -243,6 +247,8 @@ public class UserMgrService {
         qUserLoginRst.setWorkState(sysUser.getWork_STATE());
         qUserLoginRst.setDuty(sysUser.getDuty());
         qUserLoginRst.setPolitics(sysUser.getPolitics());
+        qUserLoginRst.setBirthday(sysUser.getBirthday());
+
 
         responseData.setStatus(ReturnStatus.OK);
         responseData.setResultSet(qUserLoginRst);
@@ -385,7 +391,7 @@ public class UserMgrService {
         qUserDetailRst.setPosition(sysUser.getPosition());
         qUserDetailRst.setPositionRemark(sysUser.getPosition_REMARK());
         qUserDetailRst.setDeptName(sysUser.getOfficeName());
-        qUserDetailRst.setDeptId(sysUser.getOffice_ID());
+        qUserDetailRst.setDeptId(sysUser.getOfficeId());
 
         if(sysUser.getWork_YEARS() != null){
             qUserDetailRst.setWorkYears(String.valueOf(sysUser.getWork_YEARS()));
@@ -396,7 +402,7 @@ public class UserMgrService {
         qUserDetailRst.setDuty(sysUser.getDuty());
         qUserDetailRst.setPolitics(sysUser.getPolitics());
         qUserDetailRst.setFreqFlag(freqFlag);
-
+        qUserDetailRst.setBirthday(sysUser.getBirthday());
 
         responseData.setStatus(ReturnStatus.OK);
         responseData.setResultSet(qUserDetailRst);
@@ -545,7 +551,7 @@ public class UserMgrService {
                 qUserRst.setWorkState(sysUser.getWork_STATE());
                 qUserRst.setDuty(sysUser.getDuty());
                 qUserRst.setDeptName(sysUser.getOfficeName());
-                qUserRst.setDeptId(sysUser.getOffice_ID());
+                qUserRst.setDeptId(sysUser.getOfficeId());
 
                 qUserRstList.add(qUserRst);
             }
@@ -556,6 +562,93 @@ public class UserMgrService {
         return responseData;
     }
 
+    /**
+     * 修改用户信息
+     * @param userId
+     * @param data
+     * @return
+     */
+    public ResponseData<QUserDetailRst> changeUserInfo(String userId, UUserInfoRec data){
+        ResponseData<QUserDetailRst> responseData = new ResponseData<>();
 
+        HChangeUserInfoRec hChangeUserInfoRec = new HChangeUserInfoRec();
+//        BeanUtils.copyProperties(data, hChangeUserInfoRec);
+
+        hChangeUserInfoRec.setUserId(userId);
+        hChangeUserInfoRec.setBirthday(data.getBirthday());
+        hChangeUserInfoRec.setDuty(data.getDuty());
+        hChangeUserInfoRec.setGender(data.getGender());
+        hChangeUserInfoRec.setMobile(data.getMobile());
+        hChangeUserInfoRec.setPhone(data.getPhone());
+        hChangeUserInfoRec.setPhoto(data.getPhoto());
+        hChangeUserInfoRec.setPosition(data.getPosition());
+        hChangeUserInfoRec.setPolitics(data.getPolitics());
+        hChangeUserInfoRec.setWorkState(data.getWorkState());
+
+        HsoftReqData<HChangeUserInfoRec> hsoftReqData = new HsoftReqData<>();
+        hsoftReqData.setChangeableData(hChangeUserInfoRec);
+        String dataStr = gson.toJson(hsoftReqData);
+        System.out.println(dataStr);
+        String url = jsServerUrl + "/user/change";
+
+        SysUser sysUser = new SysUser();
+
+        String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+        if(resultStr.equals("fail") || resultStr.equals("error")){
+            responseData.setStatus(ReturnStatus.ERR0017);
+            responseData.setExtInfo("服务请求失败");
+            return responseData;
+        }else {
+            try {
+                HsoftRstData<SysUser> hsoftRstData = gson.fromJson(resultStr, new TypeToken<HsoftRstData<SysUser>>() {
+                }.getType());
+
+                if(hsoftRstData == null){
+                    responseData.setStatus(ReturnStatus.ERR0017);
+                    responseData.setExtInfo("服务请求失败,返回为空");
+                    return responseData;
+                }else{
+                    int code = hsoftRstData.getCode();
+                    if(code < 1){
+                        responseData.setStatus(ReturnStatus.ERR0004);
+                        responseData.setExtInfo(hsoftRstData.getMessage());
+                        return responseData;
+                    }else{
+                        sysUser = hsoftRstData.getData();
+                    }
+                }
+            }catch (Exception e){
+                responseData.setStatus(ReturnStatus.ERR0017);
+                responseData.setExtInfo("服务请求失败,返回值解析失败");
+                return responseData;
+            }
+        }
+
+        //将数据set到返回model中
+        QUserDetailRst qUserDetailRst = new QUserDetailRst();
+        qUserDetailRst.setUserId(userId);
+        qUserDetailRst.setRealName(sysUser.getName());
+        qUserDetailRst.setGender(sysUser.getGender());
+        qUserDetailRst.setPhone(sysUser.getPhone());
+        qUserDetailRst.setMobile(sysUser.getMobile());
+        qUserDetailRst.setEmail(sysUser.getEmail());
+        qUserDetailRst.setPhoto(sysUser.getPhoto());
+        qUserDetailRst.setPosition(sysUser.getPosition());
+        qUserDetailRst.setPositionRemark(sysUser.getPosition_REMARK());
+        qUserDetailRst.setDeptName(sysUser.getOfficeName());
+        qUserDetailRst.setDeptId(sysUser.getOfficeId());
+        if(sysUser.getWork_YEARS() != null){
+            qUserDetailRst.setWorkYears(String.valueOf(sysUser.getWork_YEARS()));
+        }else{
+            qUserDetailRst.setWorkYears("");
+        }
+        qUserDetailRst.setWorkState(sysUser.getWork_STATE());
+        qUserDetailRst.setDuty(sysUser.getDuty());
+        qUserDetailRst.setPolitics(sysUser.getPolitics());
+        qUserDetailRst.setBirthday(sysUser.getBirthday());
+        responseData.setStatus(ReturnStatus.OK);
+        responseData.setResultSet(qUserDetailRst);
+        return responseData;
+    }
 
 }

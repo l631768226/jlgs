@@ -276,4 +276,93 @@ public class GroupMgrService {
         responseData.setResultSet(list);
         return responseData;
     }
+
+    /**
+     * 修改群组
+     * @param data
+     * @return
+     */
+    public ResponseData<String> change(UGroupChangeRec data){
+        ResponseData<String> responseData = new ResponseData<>();
+
+        List<Groupinfo> list = checkGroup(data.getGroupId());
+        if (list.isEmpty()) {
+            responseData.setStatus(ReturnStatus.ERR0003);
+            responseData.setExtInfo("修改的群组在数据库中不存在");
+            return responseData;
+        }
+
+        // 判断群组人员与人员的组织机构是否关联并且存在
+        List<CGroupsUserRec> userList = data.getUsers();
+        int ownerNum = 0;
+        for (int i = 0; i < userList.size(); i++) {
+            // 群组内只允许有一个群主
+            if (userList.get(i).getLevel().equals("1")) {
+                ownerNum++;
+            }
+            if (ownerNum > 1) {
+                responseData.setStatus(ReturnStatus.ERR0002);
+                responseData.setExtInfo("群组内只可以有一个群主");
+                return responseData;
+            }
+        }
+        if (ownerNum < 1) {
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo("群组内必须有一个群主");
+            return responseData;
+        }
+
+        // 添加修改历史
+        Groupinfo oldGroupInfo = list.get(0);
+
+        // 修改
+        oldGroupInfo.setGROUPNAME(data.getGroupName());
+        oldGroupInfo.setINTRODUCE(data.getIntroduce());
+        oldGroupInfo.setNOTICE(data.getNotice());
+        oldGroupInfo.setPICID(data.getPicId());
+        oldGroupInfo.setVERSIONSTAMP(Generator.getLongTimeStamp());
+        int updateCount = groupinfoMapper.updateByPrimaryKey(oldGroupInfo);
+        if(updateCount < 0){
+            responseData.setStatus(ReturnStatus.ERR0004);
+            responseData.setExtInfo("数据库更新失败");
+            return responseData;
+        }
+
+        ctmUserGroupMapper.deleteByGroupId(data.getGroupId());
+
+        // 循环插入群组人员
+        Usergroup userGroup = new Usergroup();
+        for (CGroupsUserRec cGroupsUserRec : userList) {
+
+            userGroup.setUSERID(cGroupsUserRec.getUserId());
+            userGroup.setDEPTID(cGroupsUserRec.getDeptId());
+            userGroup.setPOSITIONCODELIST(cGroupsUserRec.getPositionCodeList());
+            userGroup.setUSER_LEVEL(cGroupsUserRec.getLevel());
+            userGroup.setGROUPID(data.getGroupId());
+            String sort = cGroupsUserRec.getSort();
+            if(sort == null || "".equals(sort)){
+                sort = "0";
+            }
+            userGroup.setSORT(Short.valueOf(sort));
+            userGroup.setCREATETIME(Generator.getLongTimeStamp());
+            userGroup.setVERSIONSTAMP(Generator.getLongTimeStamp());
+            userGroup.setDELFLAG("0");
+            if (usergroupMapper.insertSelective(userGroup) < 1) {
+                responseData.setStatus(ReturnStatus.ERR0004);
+                responseData.setExtInfo("添加群组成员失败");
+                return responseData;
+            }
+        }
+
+        Long createStamp = Generator.getLongTimeStamp();
+
+        // 更新群组版本
+        Groupinfo groupInfo = groupinfoMapper.selectByPrimaryKey(data.getGroupId());
+        groupInfo.setVERSIONSTAMP(createStamp);
+        groupinfoMapper.updateByPrimaryKeySelective(groupInfo);
+
+        responseData.setStatus(ReturnStatus.OK);
+        return responseData;
+    }
+
 }

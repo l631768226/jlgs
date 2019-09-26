@@ -11,6 +11,16 @@ public class HNoticeListRec {
 
     private String type;
 
+    private String urgency;
+
+    public String getUrgency() {
+        return urgency;
+    }
+
+    public void setUrgency(String urgency) {
+        this.urgency = urgency;
+    }
+
     public String getUserId() {
         return userId;
     }
