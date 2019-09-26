@@ -144,7 +144,7 @@ public class GroupMgrController {
         {
             // 数据校验不通过
             responseData.setStatus(ReturnStatus.ERR0001);
-            responseData.setExtInfo(data.getFailCauses() + "群组信息");
+            responseData.setExtInfo(data.getFailCauses());
             // 返回
             return responseData;
         }

@@ -11,7 +11,7 @@ public class QUserGroupListRst {
     private String picId;
     private String versionStamp;
     private String deptId;
-    private String positioncodeList;
+    private String positionCodeList;
 
     public String getDeptId() {
         return deptId;
@@ -21,12 +21,12 @@ public class QUserGroupListRst {
         this.deptId = deptId;
     }
 
-    public String getPositioncodeList() {
-        return positioncodeList;
+    public String getPositionCodeList() {
+        return positionCodeList;
     }
 
-    public void setPositioncodeList(String positioncodeList) {
-        this.positioncodeList = positioncodeList;
+    public void setPositionCodeList(String positionCodeList) {
+        this.positionCodeList = positionCodeList;
     }
 
     public String getUserId() {
