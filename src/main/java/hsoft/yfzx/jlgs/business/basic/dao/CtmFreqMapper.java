@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -22,6 +23,11 @@ public interface CtmFreqMapper {
     @Select("select * from (select A.*, B.REALNAME objectName, B.PICID picId from FREQCONTACT A, LOGININFO B " +
             "where A.OWNERID = #{userId} and A.USERID = B.USERID ORDER BY A.\"SORT\" ASC) where ROWNUM <= 3")
     List<Freqcontact> findContactByOwnerId(@Param("userId") String userId);
+
+
+    @Select("select A.*, B.REALNAME objectName, B.PICID picId from FREQCONTACT A, LOGININFO B " +
+            "where A.OWNERID = #{userId} and A.USERID = B.USERID ORDER BY A.\"SORT\" ASC")
+    List<Freqcontact> findContactList(@Param("userId") String userId);
 
     /**
      * 根据ownerId联表查询常用群组列表

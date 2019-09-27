@@ -44,6 +44,8 @@ public class DeptMgrService {
 
         HDeptListRec hDeptListRec = new HDeptListRec();
         hDeptListRec.setDeptId(data.getDeptId());
+        hDeptListRec.setPage(data.getPage());
+        hDeptListRec.setPageSize(data.getPageSize());
         HsoftReqData<HDeptListRec> hsoftReqData = new HsoftReqData<>();
         hsoftReqData.setChangeableData(hDeptListRec);
         //转换成请求数据json字符串

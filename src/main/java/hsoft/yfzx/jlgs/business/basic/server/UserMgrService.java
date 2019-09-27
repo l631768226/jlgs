@@ -484,6 +484,8 @@ public class UserMgrService {
         HsoftReqData<HUserListRec> hsoftReqData = new HsoftReqData<>();
         HUserListRec hUserListRec = new HUserListRec();
         hUserListRec.setDeptId(deptId);
+        hUserListRec.setPageSize(data.getPageSize());
+        hUserListRec.setPage(data.getPage());
         hUserListRec.setSearchRule(data.getSearchRule());
         hsoftReqData.setChangeableData(hUserListRec);
 

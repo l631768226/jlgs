@@ -193,4 +193,16 @@ public class FreqController {
         return freqService.searchGroup(userId, data);
     }
 
+    /**
+     * 查询我的常用联系人列表
+     * @param requestData
+     * @return
+     */
+    @RequestMapping(value = "/contactList", method = RequestMethod.POST)
+    public ResponseData<List<QFreqRst>> contactList(@RequestBody RequestData requestData){
+
+        String userId = requestData.getOwner().getUserId();
+        return freqService.contactList(userId);
+    }
+
 }

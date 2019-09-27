@@ -472,4 +472,92 @@ public class FreqService {
         return responseData;
     }
 
+    /**
+     * 查询我的常用联系人列表
+     * @param ownerId
+     * @return
+     */
+    public ResponseData<List<QFreqRst>> contactList(String ownerId) {
+
+        ResponseData<List<QFreqRst>> responseData = new ResponseData<>();
+
+        //常用联系人列表
+        List<QFreqRst> freqContactList = new ArrayList<>();
+
+        //根据用户id查询常用联系人
+        List<Freqcontact> freqcontactList = ctmFreqMapper.findContactList(ownerId);
+        List<String> userIdList = new ArrayList<>();
+        if (freqcontactList != null && freqcontactList.size() > 0) {
+            for (Freqcontact freqcontact : freqcontactList) {
+                QFreqRst qFreqRst = new QFreqRst();
+                qFreqRst.setObjectId(freqcontact.getUSERID());
+                qFreqRst.setObjectName(freqcontact.getObjectName());
+                qFreqRst.setOwnerId(freqcontact.getOWNERID());
+                qFreqRst.setPicId(freqcontact.getPicId());
+                qFreqRst.setSort(freqcontact.getSORT().toString());
+                freqContactList.add(qFreqRst);
+                userIdList.add(freqcontact.getUSERID());
+            }
+        }
+
+        //根据用户id列表查询内网用户信息
+        HQueryByIdsRec hQueryByIdsRec = new HQueryByIdsRec();
+        hQueryByIdsRec.setUserIdList(userIdList);
+        HsoftReqData<HQueryByIdsRec> hsoftReqData = new HsoftReqData<>();
+        hsoftReqData.setChangeableData(hQueryByIdsRec);
+
+        String dataStr = gson.toJson(hsoftReqData);
+        String url = jsServerUrl + "/user/queryByIds";
+
+        List<SysUser> sysUserList = new ArrayList<>();
+
+        String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+        if (resultStr.equals("fail") || resultStr.equals("error")) {
+            responseData.setStatus(ReturnStatus.ERR0017);
+            responseData.setExtInfo("服务请求失败");
+            return responseData;
+        } else {
+            try {
+                HsoftRstData<List<SysUser>> hsoftRstData = gson.fromJson(resultStr, new TypeToken<HsoftRstData<List<SysUser>>>() {
+                }.getType());
+
+                if (hsoftRstData == null) {
+                    responseData.setStatus(ReturnStatus.ERR0017);
+                    responseData.setExtInfo("服务请求失败,返回为空");
+                    return responseData;
+                } else {
+                    int code = hsoftRstData.getCode();
+                    if (code < 1) {
+                        responseData.setStatus(ReturnStatus.ERR0004);
+                        responseData.setExtInfo(hsoftRstData.getMessage());
+                        return responseData;
+                    } else {
+                        sysUserList = hsoftRstData.getData();
+                    }
+                }
+            } catch (Exception e) {
+                responseData.setStatus(ReturnStatus.ERR0017);
+                responseData.setExtInfo("服务请求失败,返回值解析失败");
+                return responseData;
+            }
+        }
+
+        if (sysUserList != null && sysUserList.size() > 0) {
+            for (SysUser sysUser : sysUserList) {
+                for (QFreqRst qFreqRst : freqContactList) {
+                    if (sysUser.getId().equals(qFreqRst.getObjectId())) {
+                        qFreqRst.setMobile(sysUser.getMobile());
+                        qFreqRst.setPosition(sysUser.getPosition());
+                        break;
+                    } else {
+                        continue;
+                    }
+                }
+            }
+        }
+        responseData.setStatus(ReturnStatus.OK);
+        responseData.setResultSet(freqContactList);
+        return responseData;
+    }
+
 }
