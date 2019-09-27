@@ -13,6 +13,26 @@ public class HNoticeListRec {
 
     private String urgency;
 
+    private String del;
+
+    private String searchRule;
+
+    public String getDel() {
+        return del;
+    }
+
+    public void setDel(String del) {
+        this.del = del;
+    }
+
+    public String getSearchRule() {
+        return searchRule;
+    }
+
+    public void setSearchRule(String searchRule) {
+        this.searchRule = searchRule;
+    }
+
     public String getUrgency() {
         return urgency;
     }

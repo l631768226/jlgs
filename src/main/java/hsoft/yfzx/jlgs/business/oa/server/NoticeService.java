@@ -158,12 +158,16 @@ public class NoticeService {
         String state = data.getState();
         String type = data.getType();
         String urgency = data.getUrgency();
+        String del = data.getDel();
+        String searchRule = data.getSearchRule();
 
         HNoticeListRec hNoticeListRec = new HNoticeListRec();
         hNoticeListRec.setState(state);
         hNoticeListRec.setType(type);
         hNoticeListRec.setUserId(userId);
         hNoticeListRec.setUrgency(urgency);
+        hNoticeListRec.setSearchRule(searchRule);
+        hNoticeListRec.setDel(del);
         HsoftReqData<HNoticeListRec> hsoftReqData = new HsoftReqData<>();
         hsoftReqData.setChangeableData(hNoticeListRec);
         //传入参数
