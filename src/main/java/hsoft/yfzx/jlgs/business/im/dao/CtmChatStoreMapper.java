@@ -77,7 +77,7 @@ public interface CtmChatStoreMapper {
      * @return
      */
     @Select("SELECT " +
-            "	A.*, C.REALNAME `NAME`, C.PICID, B.GROUPNAME `OBJECTNAME`, B.PICID `OBJECTPICID` " +
+            "	A.*, C.REALNAME \"NAME\", C.PICID, B.GROUPNAME \"OBJECTNAME\", B.PICID \"OBJECTPICID\" " +
             "FROM " +
             "	CHATSTORE A, GROUPINFO B, LOGININFO C where A.RECEID = #{receId} " +
             "AND A.RECEID = B.GROUPID " +
