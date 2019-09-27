@@ -160,10 +160,21 @@ public class UserGroupMgrService {
             searchRule = "";
         }
 
-        //根据条件查询群组内人员
+        String page = qUserGroupListRec.getPage();
 
-        //此处的返回值需要测试
-        userGroupList = ctmUserGroupMapper.selectGroupUser(groupId, searchRule);
+        String pageSize = qUserGroupListRec.getPageSize();
+
+        if(page != null && pageSize != null){
+            Integer iPage = Integer.valueOf(page);
+            Integer iPageSize = Integer.valueOf(pageSize);
+
+            int start = (iPage - 1) * iPageSize;
+            int end = iPage * iPageSize;
+
+            userGroupList = ctmUserGroupMapper.selectGroupUserPage(groupId, searchRule, start, end);
+        }else{
+            userGroupList = ctmUserGroupMapper.selectGroupUser(groupId, searchRule);
+        }
 
         responseData.setStatus(ReturnStatus.OK);
         responseData.setResultSet(userGroupList);

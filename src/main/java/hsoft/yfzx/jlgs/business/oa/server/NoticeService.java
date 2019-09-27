@@ -159,6 +159,12 @@ public class NoticeService {
         String type = data.getType();
         String urgency = data.getUrgency();
         String del = data.getDel();
+        String page = data.getPage();
+        String pageSize = data.getPageSize();
+
+        if(del == null){
+            del = "0";
+        }
         String searchRule = data.getSearchRule();
 
         HNoticeListRec hNoticeListRec = new HNoticeListRec();
@@ -168,6 +174,8 @@ public class NoticeService {
         hNoticeListRec.setUrgency(urgency);
         hNoticeListRec.setSearchRule(searchRule);
         hNoticeListRec.setDel(del);
+        hNoticeListRec.setPage(page);
+        hNoticeListRec.setPageSize(pageSize);
         HsoftReqData<HNoticeListRec> hsoftReqData = new HsoftReqData<>();
         hsoftReqData.setChangeableData(hNoticeListRec);
         //传入参数

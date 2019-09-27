@@ -57,6 +57,13 @@ public class NoticeController {
             // 返回
             return responseData;
         }
+        if(!data.validation()){
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
+            // 返回
+            return responseData;
+        }
         //获取用户id
         String userId = requestData.getOwner().getUserId();
 

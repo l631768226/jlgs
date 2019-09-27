@@ -52,6 +52,24 @@ public interface CtmUserGroupMapper {
             "and B.REALNAME like '%${searchRule}%' order by A.CREATETIME ASC ")
     List<QUserGroupListRst> selectGroupUser(@Param("groupId") String groupId, @Param("searchRule") String searchRule);
 
+
+
+    @Select("select * from "
+
+            + "(select AA.*, ROWNUM AS rowno from "
+
+            + "(SELECT A.*, B.REALNAME realName, A.USER_LEVEL \"level\", B.PICID picId " +
+            " FROM \"USERGROUP\" A ,LOGININFO B " +
+            " WHERE A.GROUPID = #{groupId} and A.USERID = B.USERID " +
+            " and B.REALNAME like '%${searchRule}%' order by A.CREATETIME ASC ) AA "
+
+            + "where ROWNUM <= ${end}) AAA "
+
+            + "where AAA.rowno > ${start}")
+    List<QUserGroupListRst> selectGroupUserPage(@Param("groupId") String groupId, @Param("searchRule") String searchRule,
+                                                @Param("start")int start, @Param("end")int end);
+
+
     /**
      * 根据条件查询某人的群组
      * @param userId 用户id
