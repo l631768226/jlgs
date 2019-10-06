@@ -151,11 +151,13 @@ public class LeaveService {
         ResponseData<String> responseData = new ResponseData<>();
 
         String leaveId = data.getLeaveId();
+        String comment = data.getComment();
 
         HsoftReqData<HLeaveApproveRec> hsoftReqData = new HsoftReqData<>();
         HLeaveApproveRec hLeaveApproveRec = new HLeaveApproveRec();
         hLeaveApproveRec.setLeaveId(leaveId);
         hLeaveApproveRec.setUserId(userId);
+        hLeaveApproveRec.setComment(comment);
         hsoftReqData.setChangeableData(hLeaveApproveRec);
 
         //请求内网地址
@@ -204,11 +206,13 @@ public class LeaveService {
         ResponseData<String> responseData = new ResponseData<>();
 
         String leaveId = data.getLeaveId();
+        String comment = data.getComment();
 
         HsoftReqData<HLeaveRejectRec> hsoftReqData = new HsoftReqData<>();
         HLeaveRejectRec hLeaveRejectRec = new HLeaveRejectRec();
         hLeaveRejectRec.setLeaveId(leaveId);
         hLeaveRejectRec.setUserId(userId);
+        hLeaveRejectRec.setComment(comment);
         hsoftReqData.setChangeableData(hLeaveRejectRec);
 
         //请求内网地址

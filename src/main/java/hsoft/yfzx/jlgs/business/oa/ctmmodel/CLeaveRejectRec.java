@@ -9,10 +9,20 @@ import hsoft.yfzx.jlgs.utils.validation.DataValidation;
  */
 public class CLeaveRejectRec extends AbstactBaseRec {
 
-    @DataValidation(description = "用户id", dataType = DataType.STRING, required = true, length = 36)
+    @DataValidation(description = "用户id", dataType = DataType.STRING, required = false, length = 36)
     private String userId;
     @DataValidation(description = "请休假id", dataType = DataType.STRING, required = true, length = 36)
     private String leaveId;
+
+    private String comment;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public String getUserId() {
         return userId;
