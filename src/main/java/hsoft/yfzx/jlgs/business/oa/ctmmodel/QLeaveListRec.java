@@ -13,6 +13,36 @@ public class QLeaveListRec extends AbstactBaseRec {
 
     private String status;
 
+    private String page;
+
+    private String pageSize;
+
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getPage() {
+        return page;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
+    }
+
+    public String getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(String pageSize) {
+        this.pageSize = pageSize;
+    }
+
     public String getUserId() {
         return userId;
     }

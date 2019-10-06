@@ -34,15 +34,21 @@ public class LeaveService {
         ResponseData<List<QLeaveListRst>> responseData = new ResponseData<>();
 
         String status = data.getStatus();
+        String pageNo = data.getPage();
+        String pageSize = data.getPageSize();
+        String type = data.getType();
 
         HsoftReqData<HLeaveListRec> hsoftReqData = new HsoftReqData<>();
         HLeaveListRec hLeaveListRec = new HLeaveListRec();
         hLeaveListRec.setStatus(status);
         hLeaveListRec.setUserId(userId);
+        hLeaveListRec.setPageNo(pageNo);
+        hLeaveListRec.setPageSize(pageSize);
+        hLeaveListRec.setType(type);
         hsoftReqData.setChangeableData(hLeaveListRec);
 
         //请求内网地址
-        String url = jsServerUrl + "";
+        String url = jsServerUrl + "/oa/leave/page";
         //传入数据
         String dataStr = gson.toJson(hsoftReqData);
 
@@ -102,7 +108,7 @@ public class LeaveService {
         hsoftReqData.setChangeableData(hLeaveDetailRec);
 
         //请求内网地址
-        String url = jsServerUrl + "";
+        String url = jsServerUrl + "/oa/leave/detail";
         //传入数据
         String dataStr = gson.toJson(hsoftReqData);
 
@@ -161,7 +167,7 @@ public class LeaveService {
         hsoftReqData.setChangeableData(hLeaveApproveRec);
 
         //请求内网地址
-        String url = jsServerUrl + "";
+        String url = jsServerUrl + "/oa/leave/approve";
         //传入数据
         String dataStr = gson.toJson(hsoftReqData);
 
@@ -216,7 +222,7 @@ public class LeaveService {
         hsoftReqData.setChangeableData(hLeaveRejectRec);
 
         //请求内网地址
-        String url = jsServerUrl + "";
+        String url = jsServerUrl + "/oa/leave/reject";
         //传入数据
         String dataStr = gson.toJson(hsoftReqData);
 

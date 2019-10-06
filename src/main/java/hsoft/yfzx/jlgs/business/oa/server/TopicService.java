@@ -30,16 +30,25 @@ public class TopicService {
      * @param userId
      * @return
      */
-    public ResponseData<List<QTopicListRst>> list(String userId){
+    public ResponseData<List<QTopicListRst>> list(QTopicListRec data, String userId){
         ResponseData<List<QTopicListRst>> responseData = new ResponseData<>();
+
+        String loginName = data.getUserName();
+        String page = data.getPage();
+        String pageSize = data.getPageSize();
 
         HsoftReqData<HTopicListRec> hsoftReqData = new HsoftReqData<>();
         HTopicListRec hTopicListRec = new HTopicListRec();
         hTopicListRec.setUserId(userId);
+        hTopicListRec.setPageSize(pageSize);
+        hTopicListRec.setPageNo(page);
+        hTopicListRec.setLoginName(loginName);
         hsoftReqData.setChangeableData(hTopicListRec);
 
-        String url = jsServerUrl + "";
+        System.out.println(gson.toJson(hsoftReqData));
 
+//        String url = jsServerUrl + "/topic/topicCheckList";
+        String url = "http://192.168.4.218:8088/jeesite/a/mobile/topic/topicCheckList";
         String dataStr = gson.toJson(hsoftReqData);
 
         List<QTopicListRst> qTopicListRstList = new ArrayList<>();
@@ -207,7 +216,9 @@ public class TopicService {
         hTopicDetailRec.setTopicId(data.getTopicId());
         hsoftReqData.setChangeableData(hTopicDetailRec);
 
-        String url = jsServerUrl + "";
+//        String url = jsServerUrl + "";
+        String url = "http://192.168.4.218:8088/jeesite/a/mobile/topic/topicDetail";
+
 
         String dataStr = gson.toJson(hsoftReqData);
 

@@ -26,10 +26,29 @@ public class TopicController {
      * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public ResponseData<List<QTopicListRst>> list(@RequestBody RequestData requestData){
+    public ResponseData<List<QTopicListRst>> list(@RequestBody RequestData<QTopicListRec> requestData){
+        ResponseData<List<QTopicListRst>> responseData = new ResponseData<>();
+        QTopicListRec data = requestData.getData();
+
+        if (data == null)
+        {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo("无数据需要修改");
+            // 返回
+            return responseData;
+        }
+        if (!data.validation()) {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
+            // 返回
+            return responseData;
+        }
+
         String userId = requestData.getOwner().getUserId();
 
-        return topicService.list(userId);
+        return topicService.list(data, userId);
     }
 
     /**

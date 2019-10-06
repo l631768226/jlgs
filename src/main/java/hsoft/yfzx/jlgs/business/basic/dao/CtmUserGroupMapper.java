@@ -95,7 +95,7 @@ public interface CtmUserGroupMapper {
      *        群组id
      * @return
      */
-    @Select("select USERID from \"USERGROUP\" where GROUPID = #{groupId};")
+    @Select("select USERID from \"USERGROUP\" where GROUPID = #{groupId}")
     List<String> queryUserId(@Param("groupId") String groupId);
 
 
