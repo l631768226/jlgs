@@ -29,6 +29,16 @@ public class OaNotify {
 
     private String notice_ID;
 
+    private String realname;
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
     public String getId() {
         return id;
     }

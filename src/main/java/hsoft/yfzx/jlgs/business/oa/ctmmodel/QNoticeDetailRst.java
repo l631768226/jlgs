@@ -19,6 +19,16 @@ public class QNoticeDetailRst {
 
     private String urgency;
 
+    private String realname;
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
     public String getUrgency() {
         return urgency;
     }

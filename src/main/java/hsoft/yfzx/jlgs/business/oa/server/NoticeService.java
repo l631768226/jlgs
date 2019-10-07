@@ -88,7 +88,7 @@ public class NoticeService {
         qNoticeDetailRst.setTitle(notice.getTitle());
         qNoticeDetailRst.setType(notice.getNotice_TYPE());
         qNoticeDetailRst.setUrgency(notice.getType());
-
+        qNoticeDetailRst.setRealname(notice.getRealname());
         qNoticeDetailRst.setCreateTime(notice.getCreate_DATE());
 
         responseData.setStatus(ReturnStatus.OK);
