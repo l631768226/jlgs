@@ -141,6 +141,11 @@ public class UserMgrController {
         return userMgrService.listByDeptLimit(data);
     }
 
+    /**
+     * 修改个人信息
+     * @param requestData
+     * @return
+     */
     @RequestMapping(value = "/change", method = RequestMethod.POST)
     public ResponseData<QUserDetailRst> changeUserInfo(@RequestBody RequestData<UUserInfoRec> requestData){
         ResponseData<QUserDetailRst> responseData = new ResponseData<>();
@@ -155,5 +160,15 @@ public class UserMgrController {
         }
         String userId = requestData.getOwner().getUserId();
         return userMgrService.changeUserInfo(userId, data);
+    }
+
+    /**
+     * 查询局领导
+     * @param requestData
+     * @return
+     */
+    @RequestMapping(value = "/master", method = RequestMethod.POST)
+    public ResponseData<List<QMasterListRst>> master(@RequestBody RequestData requestData){
+        return userMgrService.master();
     }
 }

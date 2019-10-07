@@ -18,6 +18,46 @@ public class QHistoicFlowRst {
 
     private String taskId;
 
+    private String officeId;
+
+    private String officeName;
+
+    private String status;
+
+    private String position;
+
+    public String getOfficeId() {
+        return officeId;
+    }
+
+    public void setOfficeId(String officeId) {
+        this.officeId = officeId;
+    }
+
+    public String getOfficeName() {
+        return officeName;
+    }
+
+    public void setOfficeName(String officeName) {
+        this.officeName = officeName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
     public String getProcInsId() {
         return procInsId;
     }

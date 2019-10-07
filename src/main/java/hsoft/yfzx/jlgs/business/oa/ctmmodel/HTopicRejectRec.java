@@ -6,6 +6,16 @@ public class HTopicRejectRec {
 
     private String userId;
 
+    private String comment;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     public String getTopicId() {
         return topicId;
     }

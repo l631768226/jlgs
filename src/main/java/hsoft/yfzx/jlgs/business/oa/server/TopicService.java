@@ -2,6 +2,7 @@ package hsoft.yfzx.jlgs.business.oa.server;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import hsoft.yfzx.jlgs.business.basic.ctmmodel.UModifyRec;
 import hsoft.yfzx.jlgs.business.basic.model.SysUser;
 import hsoft.yfzx.jlgs.business.oa.ctmmodel.*;
 import hsoft.yfzx.jlgs.utils.model.common.ResponseData;
@@ -47,8 +48,8 @@ public class TopicService {
 
         System.out.println(gson.toJson(hsoftReqData));
 
-//        String url = jsServerUrl + "/topic/topicCheckList";
-        String url = "http://192.168.4.218:8088/jeesite/a/mobile/topic/topicCheckList";
+        String url = jsServerUrl + "/topic/topicCheckList";
+//        String url = "http://192.168.4.218:8088/jeesite/a/mobile/topic/topicCheckList";
         String dataStr = gson.toJson(hsoftReqData);
 
         List<QTopicListRst> qTopicListRstList = new ArrayList<>();
@@ -101,14 +102,15 @@ public class TopicService {
     public ResponseData<String> approve(String userId, CTopicApproveRec data){
         ResponseData<String> responseData = new ResponseData<>();
         String topicId = data.getTopicId();
-
+        String comment = data.getComment();
         HsoftReqData<HTopicApproveRec> hsoftReqData = new HsoftReqData<>();
         HTopicApproveRec hTopicApproveRec = new HTopicApproveRec();
         hTopicApproveRec.setTopicId(topicId);
         hTopicApproveRec.setUserId(userId);
+        hTopicApproveRec.setComment(comment);
         hsoftReqData.setChangeableData(hTopicApproveRec);
 
-        String url = jsServerUrl + "";
+        String url = jsServerUrl + "/topic/topicApprove";
 
         String dataStr = gson.toJson(hsoftReqData);
 
@@ -156,17 +158,18 @@ public class TopicService {
     public ResponseData<String> reject(String userId, CTopicRejectRec data){
         ResponseData<String> responseData = new ResponseData<>();
         String topicId = data.getTopicId();
+        String comment = data.getComment();
 
         HsoftReqData<HTopicRejectRec> hsoftReqData = new HsoftReqData<>();
         HTopicRejectRec hTopicRejectRec = new HTopicRejectRec();
         hTopicRejectRec.setTopicId(topicId);
         hTopicRejectRec.setUserId(userId);
+        hTopicRejectRec.setComment(comment);
         hsoftReqData.setChangeableData(hTopicRejectRec);
 
-        String url = jsServerUrl + "";
+        String url = jsServerUrl + "/topic/topicReject";
 
         String dataStr = gson.toJson(hsoftReqData);
-
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
         if(resultStr.equals("fail") || resultStr.equals("error")){
@@ -216,8 +219,8 @@ public class TopicService {
         hTopicDetailRec.setTopicId(data.getTopicId());
         hsoftReqData.setChangeableData(hTopicDetailRec);
 
-//        String url = jsServerUrl + "";
-        String url = "http://192.168.4.218:8088/jeesite/a/mobile/topic/topicDetail";
+        String url = jsServerUrl + "/topic/topicDetail";
+//        String url = "http://192.168.4.218:8088/jeesite/a/mobile/topic/topicDetail";
 
 
         String dataStr = gson.toJson(hsoftReqData);
@@ -262,5 +265,50 @@ public class TopicService {
         responseData.setResultSet(qTopicListRst);
         return responseData;
     }
+
+    public ResponseData<String> modify(String userId, UModifyRec data){
+        ResponseData<String> responseData = new ResponseData<>();
+
+        HsoftReqData<UModifyRec> hsoftReqData = new HsoftReqData<>();
+        hsoftReqData.setChangeableData(data);
+
+        String url = jsServerUrl + "/topic/topicModify";
+
+        String dataStr = gson.toJson(hsoftReqData);
+
+        String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+        if(resultStr.equals("fail") || resultStr.equals("error")){
+            responseData.setStatus(ReturnStatus.ERR0017);
+            responseData.setExtInfo("服务请求失败");
+            return responseData;
+        }else {
+            try {
+                HsoftRstData hsoftRstData = gson.fromJson(resultStr,
+                        new TypeToken<HsoftRstData>() {
+                        }.getType());
+
+                if(hsoftRstData == null){
+                    responseData.setStatus(ReturnStatus.ERR0017);
+                    responseData.setExtInfo("服务请求失败,返回为空");
+                    return responseData;
+                }else{
+                    int code = hsoftRstData.getCode();
+                    if(code < 1){
+                        responseData.setStatus(ReturnStatus.ERR0013);
+                        responseData.setExtInfo(hsoftRstData.getMessage());
+                        return responseData;
+                    }
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                responseData.setStatus(ReturnStatus.ERR0017);
+                responseData.setExtInfo("服务请求失败,返回值解析失败");
+                return responseData;
+            }
+        }
+        responseData.setStatus(ReturnStatus.OK);
+        return responseData;
+    }
+
 
 }

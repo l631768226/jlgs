@@ -1,5 +1,6 @@
 package hsoft.yfzx.jlgs.business.oa.controller;
 
+import hsoft.yfzx.jlgs.business.basic.ctmmodel.UModifyRec;
 import hsoft.yfzx.jlgs.business.oa.ctmmodel.*;
 import hsoft.yfzx.jlgs.business.oa.server.TopicService;
 import hsoft.yfzx.jlgs.utils.model.common.RequestData;
@@ -116,6 +117,39 @@ public class TopicController {
     }
 
     /**
+     * 会议议题审批修改
+     * @param requestData
+     * @return
+     */
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    public ResponseData<String> modify(@RequestBody RequestData<UModifyRec> requestData){
+        ResponseData<String> responseData = new ResponseData<>();
+
+        UModifyRec data = requestData.getData();
+
+        if (data == null)
+        {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo("无数据需要修改");
+            // 返回
+            return responseData;
+        }
+        if (!data.validation()) {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
+            // 返回
+            return responseData;
+        }
+
+        String userId = requestData.getOwner().getUserId();
+
+        return topicService.modify(userId, data);
+    }
+
+
+    /**
      * 会议议题详情
      * @param requestData
      * @return
@@ -146,5 +180,7 @@ public class TopicController {
 
         return topicService.detail(userId, data);
     }
+
+
 
 }

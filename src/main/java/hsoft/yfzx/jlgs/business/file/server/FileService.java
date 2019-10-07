@@ -230,7 +230,7 @@ public class FileService {
 
     public void downloadPic(String id, HttpServletResponse response) {
         String destUrl = serverBaseUrl + id;
-        destUrl = "http://192.168.4.224:8080/jeesite/userfiles/16c0e7fdd9c14b2da53134e7f5bd94f9/images/photo/2019/09/%E5%8F%91%E7%A5%A8%E4%BF%A1%E6%81%AF.png";
+//        destUrl = "http://192.168.4.224:8080/jeesite/userfiles/16c0e7fdd9c14b2da53134e7f5bd94f9/images/photo/2019/09/%E5%8F%91%E7%A5%A8%E4%BF%A1%E6%81%AF.png";
         System.out.println(destUrl);
         InputStream bis = null;
         ServletOutputStream outputStream = null;

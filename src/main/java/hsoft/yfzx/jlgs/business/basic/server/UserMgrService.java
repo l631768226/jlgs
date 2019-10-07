@@ -653,4 +653,59 @@ public class UserMgrService {
         return responseData;
     }
 
+
+    public ResponseData<List<QMasterListRst>> master(){
+        ResponseData<List<QMasterListRst>> responseData = new ResponseData<>();
+        List<QMasterListRst> qMasterListRstList = new ArrayList<>();
+
+        String url = jsServerUrl + "/user/master";
+
+        List<SysUser> sysUserList = new ArrayList<>();
+        //调用内网查询某组织下人员列表接口
+        String resultStr = HttpMethodTool.getJson(url, "", "POST");
+        if(resultStr.equals("fail") || resultStr.equals("error")){
+            responseData.setStatus(ReturnStatus.ERR0017);
+            responseData.setExtInfo("服务请求失败");
+            return responseData;
+        }else {
+            try {
+                HsoftRstData<List<SysUser>> hsoftRstData = gson.fromJson(resultStr, new TypeToken<HsoftRstData<List<SysUser>>>() {
+                }.getType());
+
+                if(hsoftRstData == null){
+                    responseData.setStatus(ReturnStatus.ERR0017);
+                    responseData.setExtInfo("服务请求失败,返回为空");
+                    return responseData;
+                }else{
+                    int code = hsoftRstData.getCode();
+                    if(code < 1){
+                        responseData.setStatus(ReturnStatus.ERR0004);
+                        responseData.setExtInfo(hsoftRstData.getMessage());
+                        return responseData;
+                    }else{
+                        sysUserList = hsoftRstData.getData();
+                    }
+                }
+            }catch (Exception e){
+                responseData.setStatus(ReturnStatus.ERR0017);
+                responseData.setExtInfo("服务请求失败,返回值解析失败");
+                return responseData;
+            }
+        }
+
+        if(sysUserList != null && sysUserList.size() > 0) {
+            for (SysUser sysUser : sysUserList) {
+                QMasterListRst qMasterListRst = new QMasterListRst();
+                qMasterListRst.setName(sysUser.getName());
+                qMasterListRst.setUserId(sysUser.getId());
+                qMasterListRst.setPicId(sysUser.getPhoto());
+                qMasterListRst.setPosition(sysUser.getPosition());
+                qMasterListRstList.add(qMasterListRst);
+            }
+        }
+        responseData.setStatus(ReturnStatus.OK);
+        responseData.setResultSet(qMasterListRstList);
+        return responseData;
+    }
+
 }

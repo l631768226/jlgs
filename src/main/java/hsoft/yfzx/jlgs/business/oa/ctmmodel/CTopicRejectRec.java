@@ -9,6 +9,16 @@ public class CTopicRejectRec extends AbstactBaseRec {
     @DataValidation(description = "议题id", dataType = DataType.STRING, required = true, length = 36)
     private String topicId;
 
+    private String comment;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     public String getTopicId() {
         return topicId;
     }
