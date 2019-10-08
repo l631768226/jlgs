@@ -37,6 +37,9 @@ public class TopicService {
         String loginName = data.getUserName();
         String page = data.getPage();
         String pageSize = data.getPageSize();
+        String topicName = data.getTopicName();
+        String status = data.getStatus();
+        String type = data.getType();
 
         HsoftReqData<HTopicListRec> hsoftReqData = new HsoftReqData<>();
         HTopicListRec hTopicListRec = new HTopicListRec();
@@ -44,6 +47,9 @@ public class TopicService {
         hTopicListRec.setPageSize(pageSize);
         hTopicListRec.setPageNo(page);
         hTopicListRec.setLoginName(loginName);
+        hTopicListRec.setStatus(status);
+        hTopicListRec.setTopicName(topicName);
+        hTopicListRec.setType(type);
         hsoftReqData.setChangeableData(hTopicListRec);
 
         System.out.println(gson.toJson(hsoftReqData));
@@ -268,7 +274,7 @@ public class TopicService {
 
     public ResponseData<String> modify(String userId, UModifyRec data){
         ResponseData<String> responseData = new ResponseData<>();
-
+        data.setUserId(userId);
         HsoftReqData<UModifyRec> hsoftReqData = new HsoftReqData<>();
         hsoftReqData.setChangeableData(data);
 

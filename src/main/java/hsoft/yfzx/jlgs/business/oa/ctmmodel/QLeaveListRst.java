@@ -23,6 +23,16 @@ public class QLeaveListRst {
 
     private String createDate;
 
+    private String current;
+
+    public String getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(String current) {
+        this.current = current;
+    }
+
     public String getCreateDate() {
         return createDate;
     }

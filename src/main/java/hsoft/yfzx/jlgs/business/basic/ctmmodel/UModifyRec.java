@@ -22,6 +22,8 @@ public class UModifyRec extends AbstactBaseRec {
     @DataValidation(description = "分管局领导id", dataType = DataType.STRING, required = true, length = 36)
     private String duty;
 
+    private String userId;
+
     private String comment;
 
     public String getTopicId() {
@@ -30,6 +32,14 @@ public class UModifyRec extends AbstactBaseRec {
 
     public void setTopicId(String topicId) {
         this.topicId = topicId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getType() {

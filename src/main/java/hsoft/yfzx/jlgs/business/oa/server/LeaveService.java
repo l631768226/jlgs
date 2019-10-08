@@ -55,6 +55,7 @@ public class LeaveService {
         List<QLeaveListRst> qLeaveListRstList = new ArrayList<>();
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+        System.out.println("请休假列表" + resultStr);
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");

@@ -17,6 +17,46 @@ public class QTopicListRst {
 
     private String reporterName;
 
+    private String createDate;
+
+    private String createrDept;
+
+    private String createrName;
+
+    private String current;
+
+    public String getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(String current) {
+        this.current = current;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getCreaterDept() {
+        return createrDept;
+    }
+
+    public void setCreaterDept(String createrDept) {
+        this.createrDept = createrDept;
+    }
+
+    public String getCreaterName() {
+        return createrName;
+    }
+
+    public void setCreaterName(String createrName) {
+        this.createrName = createrName;
+    }
+
     public String getTopicId() {
         return topicId;
     }
