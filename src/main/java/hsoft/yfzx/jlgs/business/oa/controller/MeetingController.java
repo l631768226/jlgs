@@ -22,7 +22,7 @@ public class MeetingController {
     private MeetingService meetingService;
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public ResponseData<List<QMeetingListRst>> list(@RequestBody RequestData requestData){
+    public ResponseData<List<QMeetingListRst>> list(@RequestBody RequestData requestData) {
 
         String userId = requestData.getOwner().getUserId();
 
@@ -31,15 +31,15 @@ public class MeetingController {
 
     /**
      * 查询会议详情
+     *
      * @param requestData
      * @return
      */
     @RequestMapping(value = "/detail", method = RequestMethod.POST)
-    public ResponseData<QMeetingDetailRst> detail(@RequestBody RequestData<QMeetingDetailRec> requestData){
+    public ResponseData<QMeetingDetailRst> detail(@RequestBody RequestData<QMeetingDetailRec> requestData) {
         ResponseData<QMeetingDetailRst> responseData = new ResponseData<>();
         QMeetingDetailRec data = requestData.getData();
-        if (data == null)
-        {
+        if (data == null) {
             // 数据校验不通过
             responseData.setStatus(ReturnStatus.ERR0001);
             responseData.setExtInfo("无数据需要修改");
@@ -59,16 +59,16 @@ public class MeetingController {
 
     /**
      * 确认参加会议
+     *
      * @param requestData
      * @return
      */
     @RequestMapping(value = "/confirm", method = RequestMethod.POST)
-    public ResponseData<String> confirm(@RequestBody RequestData<CConfirmRec> requestData){
+    public ResponseData<String> confirm(@RequestBody RequestData<CConfirmRec> requestData) {
         ResponseData<String> responseData = new ResponseData<>();
         CConfirmRec data = requestData.getData();
 
-        if (data == null)
-        {
+        if (data == null) {
             // 数据校验不通过
             responseData.setStatus(ReturnStatus.ERR0001);
             responseData.setExtInfo("无数据需要修改");
@@ -89,16 +89,16 @@ public class MeetingController {
 
     /**
      * 会议请假
+     *
      * @param requestData
      * @return
      */
     @RequestMapping(value = "/leave", method = RequestMethod.POST)
-    public ResponseData<String> leave(@RequestBody RequestData<CMeetingLeaveRec> requestData){
+    public ResponseData<String> leave(@RequestBody RequestData<CMeetingLeaveRec> requestData) {
         ResponseData<String> responseData = new ResponseData<>();
         CMeetingLeaveRec data = requestData.getData();
 
-        if (data == null)
-        {
+        if (data == null) {
             // 数据校验不通过
             responseData.setStatus(ReturnStatus.ERR0001);
             responseData.setExtInfo("无数据需要修改");
@@ -119,16 +119,16 @@ public class MeetingController {
 
     /**
      * 会议审批列表
+     *
      * @param requestData
      * @return
      */
     @RequestMapping(value = "/approveList", method = RequestMethod.POST)
-    public ResponseData<QMeetingAproveListRst> approveList(@RequestBody RequestData<QMeetingAproveListRec> requestData){
+    public ResponseData<QMeetingAproveListRst> approveList(@RequestBody RequestData<QMeetingAproveListRec> requestData) {
         ResponseData<QMeetingAproveListRst> responseData = new ResponseData<>();
         QMeetingAproveListRec data = requestData.getData();
 
-        if (data == null)
-        {
+        if (data == null) {
             // 数据校验不通过
             responseData.setStatus(ReturnStatus.ERR0001);
             responseData.setExtInfo("无数据需要修改");
@@ -149,17 +149,17 @@ public class MeetingController {
 
     /**
      * 会议审批详情
+     *
      * @param requestData
      * @return
      */
     @RequestMapping(value = "/approveDetail", method = RequestMethod.POST)
     public ResponseData<List<QMeetingApproveDetailRst>> approveDetail(
-            @RequestBody RequestData<QMeetingApproveDetailRec> requestData ){
+            @RequestBody RequestData<QMeetingApproveDetailRec> requestData) {
         ResponseData<List<QMeetingApproveDetailRst>> responseData = new ResponseData<>();
         QMeetingApproveDetailRec data = requestData.getData();
 
-        if (data == null)
-        {
+        if (data == null) {
             // 数据校验不通过
             responseData.setStatus(ReturnStatus.ERR0001);
             responseData.setExtInfo("无数据需要修改");
@@ -180,16 +180,16 @@ public class MeetingController {
 
     /**
      * 会议办理
+     *
      * @param requestData
      * @return
      */
     @RequestMapping(value = "/approve", method = RequestMethod.POST)
-    public ResponseData<String> approve(@RequestBody RequestData<CMeetingApproveRec> requestData ) {
+    public ResponseData<String> approve(@RequestBody RequestData<CMeetingApproveRec> requestData) {
         ResponseData<String> responseData = new ResponseData<>();
         CMeetingApproveRec data = requestData.getData();
 
-        if (data == null)
-        {
+        if (data == null) {
             // 数据校验不通过
             responseData.setStatus(ReturnStatus.ERR0001);
             responseData.setExtInfo("无数据需要修改");
@@ -210,16 +210,16 @@ public class MeetingController {
 
     /**
      * 会议驳回
+     *
      * @param requestData
      * @return
      */
     @RequestMapping(value = "/reject", method = RequestMethod.POST)
-    public ResponseData<String> reject(@RequestBody RequestData<CMeetingRejectRec> requestData ) {
+    public ResponseData<String> reject(@RequestBody RequestData<CMeetingRejectRec> requestData) {
         ResponseData<String> responseData = new ResponseData<>();
         CMeetingRejectRec data = requestData.getData();
 
-        if (data == null)
-        {
+        if (data == null) {
             // 数据校验不通过
             responseData.setStatus(ReturnStatus.ERR0001);
             responseData.setExtInfo("无数据需要修改");
@@ -240,16 +240,16 @@ public class MeetingController {
 
     /**
      * 会议审批修改并通过(处长)
+     *
      * @param requestData
      * @return
      */
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
-    public ResponseData<String> modify(@RequestBody RequestData<UMeetingModifyRec> requestData){
+    public ResponseData<String> modify(@RequestBody RequestData<UMeetingModifyRec> requestData) {
         ResponseData<String> responseData = new ResponseData<>();
         UMeetingModifyRec data = requestData.getData();
 
-        if (data == null)
-        {
+        if (data == null) {
             // 数据校验不通过
             responseData.setStatus(ReturnStatus.ERR0001);
             responseData.setExtInfo("无数据需要修改");
@@ -270,6 +270,7 @@ public class MeetingController {
 
     /**
      * 为上会议题列表查询（不分页）
+     *
      * @param requestData
      * @return
      */
@@ -278,8 +279,7 @@ public class MeetingController {
         ResponseData<List<QMeetingNoTopicRst>> responseData = new ResponseData<>();
         QMeetingNoTopicRec data = requestData.getData();
 
-        if (data == null)
-        {
+        if (data == null) {
             // 数据校验不通过
             responseData.setStatus(ReturnStatus.ERR0001);
             responseData.setExtInfo("无数据需要修改");
@@ -300,16 +300,16 @@ public class MeetingController {
 
     /**
      * 议题修改
+     *
      * @param requestData
      * @return
      */
     @RequestMapping(value = "/updateTopic", method = RequestMethod.POST)
-    public ResponseData<String> updateTopic(@RequestBody RequestData<UUpdateTopicRec> requestData){
+    public ResponseData<String> updateTopic(@RequestBody RequestData<UUpdateTopicRec> requestData) {
         ResponseData<String> responseData = new ResponseData<>();
         UUpdateTopicRec data = requestData.getData();
 
-        if (data == null)
-        {
+        if (data == null) {
             // 数据校验不通过
             responseData.setStatus(ReturnStatus.ERR0001);
             responseData.setExtInfo("无数据需要修改");
