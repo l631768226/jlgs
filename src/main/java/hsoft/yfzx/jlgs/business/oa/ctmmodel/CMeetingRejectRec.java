@@ -12,6 +12,16 @@ public class CMeetingRejectRec extends AbstactBaseRec {
     @DataValidation(description = "会议id", dataType = DataType.STRING, required = true, length = 36)
     private String meetingId;
 
+    private String comment;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     public String getMeetingId() {
         return meetingId;
     }

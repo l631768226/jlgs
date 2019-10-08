@@ -3,7 +3,6 @@ package hsoft.yfzx.jlgs.business.oa.server;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.UModifyRec;
-import hsoft.yfzx.jlgs.business.basic.model.SysUser;
 import hsoft.yfzx.jlgs.business.oa.ctmmodel.*;
 import hsoft.yfzx.jlgs.utils.model.common.ResponseData;
 import hsoft.yfzx.jlgs.utils.model.common.ReturnStatus;
@@ -40,6 +39,7 @@ public class TopicService {
         String topicName = data.getTopicName();
         String status = data.getStatus();
         String type = data.getType();
+        String deptId = data.getDeptId();
 
         HsoftReqData<HTopicListRec> hsoftReqData = new HsoftReqData<>();
         HTopicListRec hTopicListRec = new HTopicListRec();
@@ -50,6 +50,7 @@ public class TopicService {
         hTopicListRec.setStatus(status);
         hTopicListRec.setTopicName(topicName);
         hTopicListRec.setType(type);
+        hTopicListRec.setUserDepId(deptId);
         hsoftReqData.setChangeableData(hTopicListRec);
 
 //        System.out.println(gson.toJson(hsoftReqData));

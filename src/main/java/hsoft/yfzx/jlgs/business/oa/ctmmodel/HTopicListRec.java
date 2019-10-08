@@ -16,6 +16,16 @@ public class HTopicListRec {
 
     private String topicName;
 
+    private String userDepId;
+
+    public String getUserDepId() {
+        return userDepId;
+    }
+
+    public void setUserDepId(String userDepId) {
+        this.userDepId = userDepId;
+    }
+
     public String getStatus() {
         return status;
     }

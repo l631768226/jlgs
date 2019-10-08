@@ -27,6 +27,26 @@ public class QMeetingAproveListRst {
 
     private String create_date;
 
+    private String current;
+
+    private String updateFlag;
+
+    public String getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(String current) {
+        this.current = current;
+    }
+
+    public String getUpdateFlag() {
+        return updateFlag;
+    }
+
+    public void setUpdateFlag(String updateFlag) {
+        this.updateFlag = updateFlag;
+    }
+
     public String getMeetingId() {
         return meetingId;
     }

@@ -16,6 +16,16 @@ public class QTopicListRec extends AbstactBaseRec {
 
     private String type;
 
+    private String deptId;
+
+    public String getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(String deptId) {
+        this.deptId = deptId;
+    }
+
     public String getTopicName() {
         return topicName;
     }

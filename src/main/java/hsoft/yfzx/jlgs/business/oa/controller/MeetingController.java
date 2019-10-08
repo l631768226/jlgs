@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.ws.Response;
 import java.util.List;
 
 @RestController
@@ -235,6 +236,96 @@ public class MeetingController {
         String userId = requestData.getOwner().getUserId();
 
         return meetingService.reject(userId, data);
+    }
+
+    /**
+     * 会议审批修改并通过(处长)
+     * @param requestData
+     * @return
+     */
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    public ResponseData<String> modify(@RequestBody RequestData<UMeetingModifyRec> requestData){
+        ResponseData<String> responseData = new ResponseData<>();
+        UMeetingModifyRec data = requestData.getData();
+
+        if (data == null)
+        {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo("无数据需要修改");
+            // 返回
+            return responseData;
+        }
+        if (!data.validation()) {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
+            // 返回
+            return responseData;
+        }
+        String userId = requestData.getOwner().getUserId();
+
+        return meetingService.modify(userId, data);
+    }
+
+    /**
+     * 为上会议题列表查询（不分页）
+     * @param requestData
+     * @return
+     */
+    @RequestMapping(value = "/notopic", method = RequestMethod.POST)
+    public ResponseData<List<QMeetingNoTopicRst>> notopic(@RequestBody RequestData<QMeetingNoTopicRec> requestData) {
+        ResponseData<List<QMeetingNoTopicRst>> responseData = new ResponseData<>();
+        QMeetingNoTopicRec data = requestData.getData();
+
+        if (data == null)
+        {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo("无数据需要修改");
+            // 返回
+            return responseData;
+        }
+        if (!data.validation()) {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
+            // 返回
+            return responseData;
+        }
+        String userId = requestData.getOwner().getUserId();
+
+        return meetingService.notopic(userId, data);
+    }
+
+    /**
+     * 议题修改
+     * @param requestData
+     * @return
+     */
+    @RequestMapping(value = "/updateTopic", method = RequestMethod.POST)
+    public ResponseData<String> updateTopic(@RequestBody RequestData<UUpdateTopicRec> requestData){
+        ResponseData<String> responseData = new ResponseData<>();
+        UUpdateTopicRec data = requestData.getData();
+
+        if (data == null)
+        {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo("无数据需要修改");
+            // 返回
+            return responseData;
+        }
+        if (!data.validation()) {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
+            // 返回
+            return responseData;
+        }
+        String userId = requestData.getOwner().getUserId();
+
+        return meetingService.updateTopic(userId, data);
     }
 
 }

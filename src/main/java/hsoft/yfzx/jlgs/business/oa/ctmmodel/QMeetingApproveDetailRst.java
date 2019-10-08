@@ -1,6 +1,10 @@
 package hsoft.yfzx.jlgs.business.oa.ctmmodel;
 
+import java.util.List;
+
 public class QMeetingApproveDetailRst {
+
+    private String proInsId;
 
     private String userId;
 
@@ -11,6 +15,114 @@ public class QMeetingApproveDetailRst {
     private String opinion;
 
     private String realName;
+
+    private String type;
+
+    private String name;
+
+    private String startTime;
+
+    private String finishTime;
+
+    private String meetingroom;
+
+    private String host;
+
+    private String hostName;
+
+    private String deputy;
+
+    private String submasterNames;
+
+    private List<QMeetingTopicRst> topicList;
+
+    public String getProInsId() {
+        return proInsId;
+    }
+
+    public void setProInsId(String proInsId) {
+        this.proInsId = proInsId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(String finishTime) {
+        this.finishTime = finishTime;
+    }
+
+    public String getMeetingroom() {
+        return meetingroom;
+    }
+
+    public void setMeetingroom(String meetingroom) {
+        this.meetingroom = meetingroom;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public String getHostName() {
+        return hostName;
+    }
+
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
+    }
+
+    public String getDeputy() {
+        return deputy;
+    }
+
+    public void setDeputy(String deputy) {
+        this.deputy = deputy;
+    }
+
+    public String getSubmasterNames() {
+        return submasterNames;
+    }
+
+    public void setSubmasterNames(String submasterNames) {
+        this.submasterNames = submasterNames;
+    }
+
+    public List<QMeetingTopicRst> getTopicList() {
+        return topicList;
+    }
+
+    public void setTopicList(List<QMeetingTopicRst> topicList) {
+        this.topicList = topicList;
+    }
 
     public String getRealName() {
         return realName;

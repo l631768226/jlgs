@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.HMeetingDetailRec;
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.HMeetingListRec;
+import hsoft.yfzx.jlgs.business.basic.ctmmodel.UUserInfoRec;
 import hsoft.yfzx.jlgs.business.oa.ctmmodel.*;
 import hsoft.yfzx.jlgs.utils.model.common.ResponseData;
 import hsoft.yfzx.jlgs.utils.model.common.ReturnStatus;
@@ -270,17 +271,26 @@ public class MeetingService {
         //状态（1待我办理 2经我办理 3我发起的）
         String status = data.getStatus();
 
+        String userName = data.getUserName();
+        String page = data.getPage();
+        String pageSize = data.getPageSize();
+        String name = data.getName();
+
         HsoftReqData<HMeetingApproveListRec> hsoftReqData = new HsoftReqData<>();
         HMeetingApproveListRec hMeetingApproveRec = new HMeetingApproveListRec();
         hMeetingApproveRec.setUserId(userId);
         hMeetingApproveRec.setStatus(status);
         hMeetingApproveRec.setType(type);
+        hMeetingApproveRec.setPage(page);
+        hMeetingApproveRec.setPageSize(pageSize);
+        hMeetingApproveRec.setName(name);
+        hMeetingApproveRec.setUserName(userName);
         hsoftReqData.setChangeableData(hMeetingApproveRec);
 
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
-        String url = jsServerUrl + "";
+        String url = jsServerUrl + "/oa/meeting/approveList";
 
         QMeetingAproveListRst qMeetingAproveListRst = new QMeetingAproveListRst();
 
@@ -343,7 +353,7 @@ public class MeetingService {
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
-        String url = jsServerUrl + "";
+        String url = jsServerUrl + "/oa/meeting/approveDetail";
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
         if(resultStr.equals("fail") || resultStr.equals("error")){
@@ -391,17 +401,19 @@ public class MeetingService {
         ResponseData<String> responseData = new ResponseData<>();
         //获取会议id
         String meetingId = data.getMeetingId();
+        String comment = data.getComment();
 
         HsoftReqData<HMeetingApproveRec> hsoftReqData = new HsoftReqData<>();
         HMeetingApproveRec hApproveRec = new HMeetingApproveRec();
         hApproveRec.setMeetingId(meetingId);
         hApproveRec.setUserId(userId);
+        hApproveRec.setComment(comment);
         hsoftReqData.setChangeableData(hApproveRec);
 
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
-        String url = jsServerUrl + "";
+        String url = jsServerUrl + "/oa/meeting/approve";
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
         if(resultStr.equals("fail") || resultStr.equals("error")){
@@ -443,17 +455,174 @@ public class MeetingService {
         ResponseData<String> responseData = new ResponseData<>();
         //会议id
         String meetingId = data.getMeetingId();
+        String comment = data.getComment();
 
         HsoftReqData<HRejectRec> hsoftReqData = new HsoftReqData<>();
         HRejectRec hRejectRec = new HRejectRec();
         hRejectRec.setMeetingId(meetingId);
         hRejectRec.setUserId(userId);
+        hRejectRec.setComment(comment);
         hsoftReqData.setChangeableData(hRejectRec);
 
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
-        String url = jsServerUrl + "";
+        String url = jsServerUrl + "/oa/meeting/reject";
+
+        String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+        if(resultStr.equals("fail") || resultStr.equals("error")){
+            responseData.setStatus(ReturnStatus.ERR0017);
+            responseData.setExtInfo("服务请求失败");
+            return responseData;
+        }else {
+            try {
+                HsoftRstData hsoftRstData = gson.fromJson(resultStr,
+                        new TypeToken<HsoftRstData>() {
+                        }.getType());
+
+                if(hsoftRstData == null){
+                    responseData.setStatus(ReturnStatus.ERR0017);
+                    responseData.setExtInfo("服务请求失败,返回为空");
+                    return responseData;
+                }else{
+                    int code = hsoftRstData.getCode();
+                    if(code < 1){
+                        responseData.setStatus(ReturnStatus.ERR0004);
+                        responseData.setExtInfo(hsoftRstData.getMessage());
+                        return responseData;
+                    }
+                }
+            }catch (Exception e){
+                responseData.setStatus(ReturnStatus.ERR0017);
+                responseData.setExtInfo("服务请求失败,返回值解析失败");
+                return responseData;
+            }
+        }
+        responseData.setStatus(ReturnStatus.OK);
+        return responseData;
+    }
+
+    /**
+     * 会议审批修改并通过（处长）
+     * @param userId
+     * @param data
+     * @return
+     */
+    public ResponseData<String> modify(String userId, UMeetingModifyRec data){
+        ResponseData<String> responseData = new ResponseData<>();
+        data.setUserId(userId);
+        HsoftReqData<UMeetingModifyRec> hsoftReqData = new HsoftReqData<>();
+        hsoftReqData.setChangeableData(data);
+
+        //内网请求数据
+        String dataStr = gson.toJson(hsoftReqData);
+        //请求内网地址
+        String url = jsServerUrl + "/oa/meeting/modify";
+
+        String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+        if(resultStr.equals("fail") || resultStr.equals("error")){
+            responseData.setStatus(ReturnStatus.ERR0017);
+            responseData.setExtInfo("服务请求失败");
+            return responseData;
+        }else {
+            try {
+                HsoftRstData hsoftRstData = gson.fromJson(resultStr,
+                        new TypeToken<HsoftRstData>() {
+                        }.getType());
+
+                if(hsoftRstData == null){
+                    responseData.setStatus(ReturnStatus.ERR0017);
+                    responseData.setExtInfo("服务请求失败,返回为空");
+                    return responseData;
+                }else{
+                    int code = hsoftRstData.getCode();
+                    if(code < 1){
+                        responseData.setStatus(ReturnStatus.ERR0004);
+                        responseData.setExtInfo(hsoftRstData.getMessage());
+                        return responseData;
+                    }
+                }
+            }catch (Exception e){
+                responseData.setStatus(ReturnStatus.ERR0017);
+                responseData.setExtInfo("服务请求失败,返回值解析失败");
+                return responseData;
+            }
+        }
+        responseData.setStatus(ReturnStatus.OK);
+        return responseData;
+    }
+
+    /**
+     * 未上会议题列表查询（处长）
+     * @param userId
+     * @param data
+     * @return
+     */
+    public ResponseData<List<QMeetingNoTopicRst>> notopic(String userId, QMeetingNoTopicRec data){
+        ResponseData<List<QMeetingNoTopicRst>> responseData = new ResponseData<>();
+        data.setUserId(userId);
+        HsoftReqData<QMeetingNoTopicRec> hsoftReqData = new HsoftReqData<>();
+        hsoftReqData.setChangeableData(data);
+
+        //内网请求数据
+        String dataStr = gson.toJson(hsoftReqData);
+        //请求内网地址
+        String url = jsServerUrl + "/oa/meeting/notopic";
+
+        List<QMeetingNoTopicRst> qMeetingNoTopicRstList = new ArrayList<>();
+
+        String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+        if(resultStr.equals("fail") || resultStr.equals("error")){
+            responseData.setStatus(ReturnStatus.ERR0017);
+            responseData.setExtInfo("服务请求失败");
+            return responseData;
+        }else {
+            try {
+                HsoftRstData<List<QMeetingNoTopicRst>> hsoftRstData = gson.fromJson(resultStr,
+                        new TypeToken<HsoftRstData<List<QMeetingNoTopicRst>>>() {
+                        }.getType());
+
+                if(hsoftRstData == null){
+                    responseData.setStatus(ReturnStatus.ERR0017);
+                    responseData.setExtInfo("服务请求失败,返回为空");
+                    return responseData;
+                }else{
+                    int code = hsoftRstData.getCode();
+                    if(code < 1){
+                        responseData.setStatus(ReturnStatus.ERR0004);
+                        responseData.setExtInfo(hsoftRstData.getMessage());
+                        return responseData;
+                    }else{
+                        qMeetingNoTopicRstList = hsoftRstData.getData();
+                    }
+                }
+            }catch (Exception e){
+                responseData.setStatus(ReturnStatus.ERR0017);
+                responseData.setExtInfo("服务请求失败,返回值解析失败");
+                return responseData;
+            }
+        }
+        responseData.setStatus(ReturnStatus.OK);
+        responseData.setResultSet(qMeetingNoTopicRstList);
+        return responseData;
+    }
+
+    /**
+     * 议题修改
+     * @param userId
+     * @param data
+     * @return
+     */
+    public ResponseData<String> updateTopic(String userId, UUpdateTopicRec data){
+        ResponseData<String> responseData = new ResponseData<>();
+        data.setUserId(userId);
+        HsoftReqData<UUpdateTopicRec> hsoftReqData = new HsoftReqData<>();
+        hsoftReqData.setChangeableData(data);
+
+        //内网请求数据
+        String dataStr = gson.toJson(hsoftReqData);
+        //请求内网地址
+        String url = jsServerUrl + "/oa/meeting/updateTopic";
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
         if(resultStr.equals("fail") || resultStr.equals("error")){

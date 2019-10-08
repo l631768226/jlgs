@@ -8,6 +8,46 @@ public class HMeetingApproveListRec {
 
     private String status;
 
+    private String page;
+
+    private String pageSize;
+
+    private String name;
+
+    private String userName;
+
+    public String getPage() {
+        return page;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
+    }
+
+    public String getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(String pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public String getUserId() {
         return userId;
     }
