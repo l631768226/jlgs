@@ -27,6 +27,8 @@ public class QTopicDetailRst {
 
     private String countersignName;
 
+    private String deputy;
+
     private String deputyName;
 
     private String procInsId;
@@ -41,6 +43,14 @@ public class QTopicDetailRst {
 
     public void setUpdateFlag(String updateFlag) {
         this.updateFlag = updateFlag;
+    }
+
+    public String getDeputy() {
+        return deputy;
+    }
+
+    public void setDeputy(String deputy) {
+        this.deputy = deputy;
     }
 
     public String getType() {

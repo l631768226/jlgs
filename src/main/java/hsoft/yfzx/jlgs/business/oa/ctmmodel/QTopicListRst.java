@@ -25,6 +25,16 @@ public class QTopicListRst {
 
     private String current;
 
+    private String updateFlag;
+
+    public String getUpdateFlag() {
+        return updateFlag;
+    }
+
+    public void setUpdateFlag(String updateFlag) {
+        this.updateFlag = updateFlag;
+    }
+
     public String getCurrent() {
         return current;
     }

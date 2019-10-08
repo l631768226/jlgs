@@ -52,7 +52,7 @@ public class TopicService {
         hTopicListRec.setType(type);
         hsoftReqData.setChangeableData(hTopicListRec);
 
-        System.out.println(gson.toJson(hsoftReqData));
+//        System.out.println(gson.toJson(hsoftReqData));
 
         String url = jsServerUrl + "/topic/topicCheckList";
 //        String url = "http://192.168.4.218:8088/jeesite/a/mobile/topic/topicCheckList";
