@@ -25,6 +25,8 @@ public class QTopicDetailRst {
 
     private String createDate;
 
+    private String countersign;
+
     private String countersignName;
 
     private String deputy;
@@ -36,6 +38,14 @@ public class QTopicDetailRst {
     private String taskId;
 
     private String updateFlag;
+
+    public String getCountersign() {
+        return countersign;
+    }
+
+    public void setCountersign(String countersign) {
+        this.countersign = countersign;
+    }
 
     public String getUpdateFlag() {
         return updateFlag;

@@ -22,6 +22,11 @@ public class MeetingController {
     @Autowired
     private MeetingService meetingService;
 
+    /**
+     * 查询会议列表
+     * @param requestData
+     * @return
+     */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public ResponseData<List<QMeetingListRst>> list(@RequestBody RequestData<QMeetingListRec> requestData) {
         ResponseData<List<QMeetingListRst>> responseData = new ResponseData<>();

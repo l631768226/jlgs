@@ -53,6 +53,7 @@ public class MeetingService {
         String dataStr = gson.toJson(hsoftReqData);
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+        System.out.println("meetingList " + resultStr);
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
@@ -302,7 +303,7 @@ public class MeetingService {
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
-        String url = jsServerUrl + "/oa/meeting/approveList";
+        String url = jsServerUrl + "/oa/meeting/page";
 
         QMeetingAproveListRst qMeetingAproveListRst = new QMeetingAproveListRst();
 
@@ -365,7 +366,7 @@ public class MeetingService {
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
-        String url = jsServerUrl + "/oa/meeting/approveDetail";
+        String url = jsServerUrl + "/oa/meeting/detail";
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
         if(resultStr.equals("fail") || resultStr.equals("error")){
@@ -529,7 +530,7 @@ public class MeetingService {
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
-        String url = jsServerUrl + "/oa/meeting/modify";
+        String url = jsServerUrl + "/oa/meeting/meetingModify";
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
         if(resultStr.equals("fail") || resultStr.equals("error")){

@@ -53,16 +53,16 @@ public class TopicService {
         hTopicListRec.setUserDepId(deptId);
         hsoftReqData.setChangeableData(hTopicListRec);
 
-//        System.out.println(gson.toJson(hsoftReqData));
+        System.out.println(gson.toJson(hsoftReqData));
 
-        String url = jsServerUrl + "/topic/topicCheckList";
+        String url = jsServerUrl + "/topic/topicList";
 //        String url = "http://192.168.4.218:8088/jeesite/a/mobile/topic/topicCheckList";
         String dataStr = gson.toJson(hsoftReqData);
 
         List<QTopicListRst> qTopicListRstList = new ArrayList<>();
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
-
+        System.out.println("result = " + resultStr);
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
@@ -235,7 +235,6 @@ public class TopicService {
         QTopicDetailRst qTopicListRst = new QTopicDetailRst();
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
-
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
@@ -284,6 +283,7 @@ public class TopicService {
         String dataStr = gson.toJson(hsoftReqData);
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");

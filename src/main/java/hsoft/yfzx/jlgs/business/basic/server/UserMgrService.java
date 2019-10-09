@@ -238,7 +238,7 @@ public class UserMgrService {
         qUserLoginRst.setPositionRemark(sysUser.getPosition_REMARK());
         qUserLoginRst.setDeptName(sysUser.getOfficeName());
         qUserLoginRst.setDeptId(sysUser.getOfficeId());
-
+        qUserLoginRst.setUserName(userName);
         if(sysUser.getWork_YEARS() != null){
             qUserLoginRst.setWorkYears(String.valueOf(sysUser.getWork_YEARS()));
         }else{
