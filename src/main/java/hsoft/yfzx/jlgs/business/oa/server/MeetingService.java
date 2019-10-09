@@ -2,6 +2,7 @@ package hsoft.yfzx.jlgs.business.oa.server;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import hsoft.yfzx.jlgs.business.basic.controller.QMeetingListRec;
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.HMeetingDetailRec;
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.HMeetingListRec;
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.UUserInfoRec;
@@ -32,17 +33,22 @@ public class MeetingService {
      * @param userId
      * @return
      */
-    public ResponseData<List<QMeetingListRst>> list(String userId){
+    public ResponseData<List<QMeetingListRst>> list(String userId, QMeetingListRec data){
         ResponseData<List<QMeetingListRst>> responseData = new ResponseData<>();
+
+        String flag = data.getFlag();
+        String searchKey = data.getSearchKey();
 
         List<QMeetingListRst> qMeetingListRstList = new ArrayList<>();
         //构造内网会议列表请求数据
         HsoftReqData<HMeetingListRec> hsoftReqData = new HsoftReqData<>();
         HMeetingListRec hMeetingListRec = new HMeetingListRec();
         hMeetingListRec.setUserId(userId);
+        hMeetingListRec.setFlag(flag);
+        hMeetingListRec.setSearchKey(searchKey);
         hsoftReqData.setChangeableData(hMeetingListRec);
         //请求内网地址
-        String url = jsServerUrl + "";
+        String url = jsServerUrl + "/meeting/api/list";
         //传入数据
         String dataStr = gson.toJson(hsoftReqData);
 
@@ -101,7 +107,7 @@ public class MeetingService {
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
-        String url = jsServerUrl + "";
+        String url = jsServerUrl + "/meeting/api/detail";
 
         QMeetingDetailRst qMeetingDetailRst = new QMeetingDetailRst();
 
@@ -150,17 +156,23 @@ public class MeetingService {
         ResponseData<String> responseData = new ResponseData<>();
         //获取会议id
         String meetingId = data.getMeetingId();
+        String state = data.getState();
+        String reason = data.getReason();
+        String replaceId = data.getReplaceId();
 
         HsoftReqData<HConfirmRec> hsoftReqData = new HsoftReqData<>();
         HConfirmRec hConfirmRec = new HConfirmRec();
         hConfirmRec.setMeetingId(meetingId);
         hConfirmRec.setUserId(userId);
+        hConfirmRec.setState(state);
+        hConfirmRec.setReason(reason);
+        hConfirmRec.setReplaceId(replaceId);
         hsoftReqData.setChangeableData(hConfirmRec);
 
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
-        String url = jsServerUrl + "";
+        String url = jsServerUrl + "/meeting/api/confirm";
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
         if(resultStr.equals("fail") || resultStr.equals("error")){

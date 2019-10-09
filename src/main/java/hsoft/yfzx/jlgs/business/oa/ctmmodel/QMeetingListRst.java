@@ -5,7 +5,7 @@ package hsoft.yfzx.jlgs.business.oa.ctmmodel;
  */
 public class QMeetingListRst {
 
-    private String meetingId;
+    private String id;
 
     private String type;
 
@@ -13,27 +13,23 @@ public class QMeetingListRst {
 
     private String name;
 
-    private String start;
+    private String state;
+
+    private String startTime;
+
+    private String finishTime;
 
     private String meetingRoom;
 
     private String host;
 
-    private String createDept;
+    private String hostName;
 
-    private String state;
+    private String createDep;
 
-    private String create_by;
+    private String createBy;
 
-    private String create_date;
-
-    public String getMeetingId() {
-        return meetingId;
-    }
-
-    public void setMeetingId(String meetingId) {
-        this.meetingId = meetingId;
-    }
+    private String createDate;
 
     public String getType() {
         return type;
@@ -59,14 +55,6 @@ public class QMeetingListRst {
         this.name = name;
     }
 
-    public String getStart() {
-        return start;
-    }
-
-    public void setStart(String start) {
-        this.start = start;
-    }
-
     public String getMeetingRoom() {
         return meetingRoom;
     }
@@ -83,14 +71,6 @@ public class QMeetingListRst {
         this.host = host;
     }
 
-    public String getCreateDept() {
-        return createDept;
-    }
-
-    public void setCreateDept(String createDept) {
-        this.createDept = createDept;
-    }
-
     public String getState() {
         return state;
     }
@@ -99,19 +79,59 @@ public class QMeetingListRst {
         this.state = state;
     }
 
-    public String getCreate_by() {
-        return create_by;
+    public String getId() {
+        return id;
     }
 
-    public void setCreate_by(String create_by) {
-        this.create_by = create_by;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getCreate_date() {
-        return create_date;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setCreate_date(String create_date) {
-        this.create_date = create_date;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(String finishTime) {
+        this.finishTime = finishTime;
+    }
+
+    public String getHostName() {
+        return hostName;
+    }
+
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
+    }
+
+    public String getCreateDep() {
+        return createDep;
+    }
+
+    public void setCreateDep(String createDep) {
+        this.createDep = createDep;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 }

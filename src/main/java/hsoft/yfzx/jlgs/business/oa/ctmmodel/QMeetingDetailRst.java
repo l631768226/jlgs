@@ -7,21 +7,25 @@ import java.util.List;
  */
 public class QMeetingDetailRst {
 
-    private String meetingId;
+    private String id;
 
     private String type;
 
+    private String title;
+
     private String name;
 
-    private String start;
+    private String startTime;
 
-    private String finish;
+    private String finishTime;
 
     private String meetingRoom;
 
     private String host;
 
-    private String createDept;
+    private String hostName;
+
+    private String createDep;
 
     private String meetingMaterial;
 
@@ -37,19 +41,11 @@ public class QMeetingDetailRst {
 
     private String state;
 
-    private String create_by;
+    private String createBy;
 
-    private String create_date;
+    private String createDate;
 
     private List<QTopicListRst> topics;
-
-    public String getMeetingId() {
-        return meetingId;
-    }
-
-    public void setMeetingId(String meetingId) {
-        this.meetingId = meetingId;
-    }
 
     public String getType() {
         return type;
@@ -67,22 +63,6 @@ public class QMeetingDetailRst {
         this.name = name;
     }
 
-    public String getStart() {
-        return start;
-    }
-
-    public void setStart(String start) {
-        this.start = start;
-    }
-
-    public String getFinish() {
-        return finish;
-    }
-
-    public void setFinish(String finish) {
-        this.finish = finish;
-    }
-
     public String getMeetingRoom() {
         return meetingRoom;
     }
@@ -97,14 +77,6 @@ public class QMeetingDetailRst {
 
     public void setHost(String host) {
         this.host = host;
-    }
-
-    public String getCreateDept() {
-        return createDept;
-    }
-
-    public void setCreateDept(String createDept) {
-        this.createDept = createDept;
     }
 
     public String getMeetingMaterial() {
@@ -163,27 +135,75 @@ public class QMeetingDetailRst {
         this.state = state;
     }
 
-    public String getCreate_by() {
-        return create_by;
-    }
-
-    public void setCreate_by(String create_by) {
-        this.create_by = create_by;
-    }
-
-    public String getCreate_date() {
-        return create_date;
-    }
-
-    public void setCreate_date(String create_date) {
-        this.create_date = create_date;
-    }
-
     public List<QTopicListRst> getTopics() {
         return topics;
     }
 
     public void setTopics(List<QTopicListRst> topics) {
         this.topics = topics;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(String finishTime) {
+        this.finishTime = finishTime;
+    }
+
+    public String getHostName() {
+        return hostName;
+    }
+
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
+    }
+
+    public String getCreateDep() {
+        return createDep;
+    }
+
+    public void setCreateDep(String createDep) {
+        this.createDep = createDep;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 }

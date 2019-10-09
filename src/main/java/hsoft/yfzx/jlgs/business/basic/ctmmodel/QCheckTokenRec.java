@@ -17,7 +17,7 @@ public class QCheckTokenRec extends AbstactBaseRec {
     @DataValidation(description = "登录设备", dataType = DataType.STRING, required = true, length = 8)
     private String deviceType;
     //IMEI
-    private String IMEI;
+    private String IMEI = "";
     //是否踢人操作 0否 1是
     @DataValidation(description = "是否解决冲突", dataType = DataType.STRING, required = false, length = 3)
     private String kick;

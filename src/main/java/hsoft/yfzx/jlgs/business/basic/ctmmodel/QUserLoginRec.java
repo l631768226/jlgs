@@ -17,7 +17,7 @@ public class QUserLoginRec extends AbstactBaseRec {
 
     @DataValidation(description = "IMEI", dataType = DataType.STRING, length = 50)
     @JsonProperty("IMEI")
-    private String IMEI;
+    private String IMEI = "";
 
     public String getUserName() {
         return userName;

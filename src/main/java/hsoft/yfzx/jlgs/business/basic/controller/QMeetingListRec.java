@@ -1,15 +1,17 @@
-package hsoft.yfzx.jlgs.business.basic.ctmmodel;
+package hsoft.yfzx.jlgs.business.basic.controller;
+
+import hsoft.yfzx.jlgs.utils.validation.AbstactBaseRec;
 
 /**
- * 获取会议列表传入model
+ * 查询会议列表传入参数model
  */
-public class HMeetingListRec {
-
-    private String userId;
+public class QMeetingListRec extends AbstactBaseRec {
 
     private String flag;
 
     private String searchKey;
+
+    private String userId;
 
     public String getFlag() {
         return flag;

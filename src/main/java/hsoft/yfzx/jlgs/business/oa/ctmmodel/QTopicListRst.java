@@ -13,6 +13,22 @@ public class QTopicListRst {
 
     private String topicName;
 
+    private String topicDept;
+
+    private String topicTime;
+
+    private String topicPerson;
+
+    private String attendanceDept;
+
+    private String topicMaterial;
+
+    private String topicEnclousure;
+
+    private String topicMaterialAndTopicEnclosure;
+
+    private String ytsfkj;
+
     private String reporterId;
 
     private String reporterName;
@@ -113,5 +129,69 @@ public class QTopicListRst {
 
     public void setReporterName(String reporterName) {
         this.reporterName = reporterName;
+    }
+
+    public String getTopicDept() {
+        return topicDept;
+    }
+
+    public void setTopicDept(String topicDept) {
+        this.topicDept = topicDept;
+    }
+
+    public String getTopicTime() {
+        return topicTime;
+    }
+
+    public void setTopicTime(String topicTime) {
+        this.topicTime = topicTime;
+    }
+
+    public String getTopicPerson() {
+        return topicPerson;
+    }
+
+    public void setTopicPerson(String topicPerson) {
+        this.topicPerson = topicPerson;
+    }
+
+    public String getAttendanceDept() {
+        return attendanceDept;
+    }
+
+    public void setAttendanceDept(String attendanceDept) {
+        this.attendanceDept = attendanceDept;
+    }
+
+    public String getTopicMaterial() {
+        return topicMaterial;
+    }
+
+    public void setTopicMaterial(String topicMaterial) {
+        this.topicMaterial = topicMaterial;
+    }
+
+    public String getTopicEnclousure() {
+        return topicEnclousure;
+    }
+
+    public void setTopicEnclousure(String topicEnclousure) {
+        this.topicEnclousure = topicEnclousure;
+    }
+
+    public String getTopicMaterialAndTopicEnclosure() {
+        return topicMaterialAndTopicEnclosure;
+    }
+
+    public void setTopicMaterialAndTopicEnclosure(String topicMaterialAndTopicEnclosure) {
+        this.topicMaterialAndTopicEnclosure = topicMaterialAndTopicEnclosure;
+    }
+
+    public String getYtsfkj() {
+        return ytsfkj;
+    }
+
+    public void setYtsfkj(String ytsfkj) {
+        this.ytsfkj = ytsfkj;
     }
 }

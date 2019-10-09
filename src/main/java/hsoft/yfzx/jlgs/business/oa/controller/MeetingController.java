@@ -1,5 +1,6 @@
 package hsoft.yfzx.jlgs.business.oa.controller;
 
+import hsoft.yfzx.jlgs.business.basic.controller.QMeetingListRec;
 import hsoft.yfzx.jlgs.business.oa.ctmmodel.*;
 import hsoft.yfzx.jlgs.business.oa.server.MeetingService;
 import hsoft.yfzx.jlgs.utils.model.common.RequestData;
@@ -22,11 +23,25 @@ public class MeetingController {
     private MeetingService meetingService;
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public ResponseData<List<QMeetingListRst>> list(@RequestBody RequestData requestData) {
-
+    public ResponseData<List<QMeetingListRst>> list(@RequestBody RequestData<QMeetingListRec> requestData) {
+        ResponseData<List<QMeetingListRst>> responseData = new ResponseData<>();
+        QMeetingListRec data = requestData.getData();
+        if (data == null) {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo("无数据需要修改");
+            // 返回
+            return responseData;
+        }
+        if (!data.validation()) {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
+            // 返回
+            return responseData;
+        }
         String userId = requestData.getOwner().getUserId();
-
-        return meetingService.list(userId);
+        return meetingService.list(userId, data);
     }
 
     /**
