@@ -5,7 +5,6 @@ import com.google.gson.reflect.TypeToken;
 import hsoft.yfzx.jlgs.business.basic.controller.QMeetingListRec;
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.HMeetingDetailRec;
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.HMeetingListRec;
-import hsoft.yfzx.jlgs.business.basic.ctmmodel.UUserInfoRec;
 import hsoft.yfzx.jlgs.business.oa.ctmmodel.*;
 import hsoft.yfzx.jlgs.utils.model.common.ResponseData;
 import hsoft.yfzx.jlgs.utils.model.common.ReturnStatus;
@@ -58,7 +57,6 @@ public class MeetingService {
         String dataStr = gson.toJson(hsoftReqData);
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
-        System.out.println("meetingList " + resultStr);
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
@@ -282,8 +280,8 @@ public class MeetingService {
      * @param data
      * @return
      */
-    public ResponseData<QMeetingAproveListRst> approveList(String userId, QMeetingAproveListRec data){
-        ResponseData<QMeetingAproveListRst> responseData = new ResponseData<>();
+    public ResponseData<List<QMeetingAproveListRst>> approveList(String userId, QMeetingAproveListRec data){
+        ResponseData<List<QMeetingAproveListRst>> responseData = new ResponseData<>();
         //会议类型
         String type = data.getType();
         //状态（1待我办理 2经我办理 3我发起的）
@@ -310,17 +308,20 @@ public class MeetingService {
         //请求内网地址
         String url = jsServerUrl + "/oa/meeting/approveList";
 
-        QMeetingAproveListRst qMeetingAproveListRst = new QMeetingAproveListRst();
+        List<QMeetingAproveListRst> qMeetingAproveListRst = new ArrayList<>();
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+
+        System.out.println("张仕坤 " + resultStr + " " + dataStr);
+
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
             return responseData;
         }else {
             try {
-                HsoftRstData<QMeetingAproveListRst> hsoftRstData = gson.fromJson(resultStr,
-                        new TypeToken<HsoftRstData<QMeetingAproveListRst>>() {
+                HsoftRstData<List<QMeetingAproveListRst>> hsoftRstData = gson.fromJson(resultStr,
+                        new TypeToken<HsoftRstData<List<QMeetingAproveListRst>>>() {
                         }.getType());
 
                 if(hsoftRstData == null){
@@ -584,8 +585,12 @@ public class MeetingService {
     public ResponseData<List<QMeetingNoTopicRst>> notopic(String userId, QMeetingNoTopicRec data){
         ResponseData<List<QMeetingNoTopicRst>> responseData = new ResponseData<>();
         data.setUserId(userId);
-        HsoftReqData<QMeetingNoTopicRec> hsoftReqData = new HsoftReqData<>();
-        hsoftReqData.setChangeableData(data);
+
+        HMeetingNotopicRec hMeetingNotopicRec = new HMeetingNotopicRec();
+        BeanUtils.copyProperties(data, hMeetingNotopicRec);
+
+        HsoftReqData<HMeetingNotopicRec> hsoftReqData = new HsoftReqData<>();
+        hsoftReqData.setChangeableData(hMeetingNotopicRec);
 
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
@@ -639,8 +644,12 @@ public class MeetingService {
     public ResponseData<String> updateTopic(String userId, UUpdateTopicRec data){
         ResponseData<String> responseData = new ResponseData<>();
         data.setUserId(userId);
-        HsoftReqData<UUpdateTopicRec> hsoftReqData = new HsoftReqData<>();
-        hsoftReqData.setChangeableData(data);
+
+        HUpdateTopicRec hUpdateTopicRec = new HUpdateTopicRec();
+        BeanUtils.copyProperties(data, hUpdateTopicRec);
+
+        HsoftReqData<HUpdateTopicRec> hsoftReqData = new HsoftReqData<>();
+        hsoftReqData.setChangeableData(hUpdateTopicRec);
 
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);

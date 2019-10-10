@@ -144,8 +144,8 @@ public class MeetingController {
      * @return
      */
     @RequestMapping(value = "/approveList", method = RequestMethod.POST)
-    public ResponseData<QMeetingAproveListRst> approveList(@RequestBody RequestData<QMeetingAproveListRec> requestData) {
-        ResponseData<QMeetingAproveListRst> responseData = new ResponseData<>();
+    public ResponseData<List<QMeetingAproveListRst>> approveList(@RequestBody RequestData<QMeetingAproveListRec> requestData) {
+        ResponseData<List<QMeetingAproveListRst>> responseData = new ResponseData<>();
         QMeetingAproveListRec data = requestData.getData();
 
         if (data == null) {
