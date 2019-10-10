@@ -12,6 +12,7 @@ import hsoft.yfzx.jlgs.utils.model.common.ReturnStatus;
 import hsoft.yfzx.jlgs.utils.model.http.HsoftReqData;
 import hsoft.yfzx.jlgs.utils.model.http.HsoftRstData;
 import hsoft.yfzx.jlgs.utils.tool.HttpMethodTool;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -307,7 +308,7 @@ public class MeetingService {
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
-        String url = jsServerUrl + "/oa/meeting/page";
+        String url = jsServerUrl + "/oa/meeting/approveList";
 
         QMeetingAproveListRst qMeetingAproveListRst = new QMeetingAproveListRst();
 
@@ -370,7 +371,7 @@ public class MeetingService {
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
-        String url = jsServerUrl + "/oa/meeting/detail";
+        String url = jsServerUrl + "/oa/meeting/approveDetail";
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
         if(resultStr.equals("fail") || resultStr.equals("error")){
@@ -528,8 +529,13 @@ public class MeetingService {
     public ResponseData<String> modify(String userId, UMeetingModifyRec data){
         ResponseData<String> responseData = new ResponseData<>();
         data.setUserId(userId);
-        HsoftReqData<UMeetingModifyRec> hsoftReqData = new HsoftReqData<>();
-        hsoftReqData.setChangeableData(data);
+
+        HMeetingModifyRec hMeetingModifyRec = new HMeetingModifyRec();
+
+        BeanUtils.copyProperties(data, hMeetingModifyRec);
+
+        HsoftReqData<HMeetingModifyRec> hsoftReqData = new HsoftReqData<>();
+        hsoftReqData.setChangeableData(hMeetingModifyRec);
 
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);

@@ -1,31 +1,20 @@
-package hsoft.yfzx.jlgs.business.basic.ctmmodel;
+package hsoft.yfzx.jlgs.business.oa.ctmmodel;
 
-import hsoft.yfzx.jlgs.utils.validation.AbstactBaseRec;
 import hsoft.yfzx.jlgs.utils.validation.DataType;
 import hsoft.yfzx.jlgs.utils.validation.DataValidation;
 
-public class UModifyRec extends AbstactBaseRec {
-    @DataValidation(description = "议题id", dataType = DataType.STRING, required = true, length = 36)
+public class HTopicModifyRec {
+
     private String topicId;
-    @DataValidation(description = "议题类型", dataType = DataType.STRING, required = true, length = 36)
     private String type;
-    @DataValidation(description = "议题名称", dataType = DataType.STRING, required = true, length = 36)
     private String topicName;
-    @DataValidation(description = "议题汇报人姓名", dataType = DataType.STRING, required = true, length = 36)
     private String reporterName;
-    @DataValidation(description = "议题时长", dataType = DataType.STRING, required = true, length = 36)
     private String duration;
-    @DataValidation(description = "议题会签部门id", dataType = DataType.STRING, required = true, length = 2000)
     private String countersign;
-    @DataValidation(description = "议题会签部门名称", dataType = DataType.STRING, required = true, length = 2000)
     private String countersignName;
-    @DataValidation(description = "分管局领导id", dataType = DataType.STRING, required = true, length = 36)
     private String deputy;
-
     private String loginName;
-
     private String userId;
-
     private String comment;
 
     public String getTopicId() {
@@ -34,22 +23,6 @@ public class UModifyRec extends AbstactBaseRec {
 
     public void setTopicId(String topicId) {
         this.topicId = topicId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public String getLoginName() {
-        return loginName;
-    }
-
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public String getType() {
@@ -106,6 +79,22 @@ public class UModifyRec extends AbstactBaseRec {
 
     public void setDeputy(String deputy) {
         this.deputy = deputy;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getComment() {

@@ -9,6 +9,7 @@ import hsoft.yfzx.jlgs.utils.model.common.ReturnStatus;
 import hsoft.yfzx.jlgs.utils.model.http.HsoftReqData;
 import hsoft.yfzx.jlgs.utils.model.http.HsoftRstData;
 import hsoft.yfzx.jlgs.utils.tool.HttpMethodTool;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -275,8 +276,12 @@ public class TopicService {
     public ResponseData<String> modify(String userId, UModifyRec data){
         ResponseData<String> responseData = new ResponseData<>();
         data.setUserId(userId);
-        HsoftReqData<UModifyRec> hsoftReqData = new HsoftReqData<>();
-        hsoftReqData.setChangeableData(data);
+
+        HTopicModifyRec hTopicModifyRec = new HTopicModifyRec();
+        BeanUtils.copyProperties(data, hTopicModifyRec);
+
+        HsoftReqData<HTopicModifyRec> hsoftReqData = new HsoftReqData<>();
+        hsoftReqData.setChangeableData(hTopicModifyRec);
 
         String url = jsServerUrl + "/topic/topicModify";
 
