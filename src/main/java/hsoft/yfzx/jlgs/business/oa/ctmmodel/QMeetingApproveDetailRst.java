@@ -34,7 +34,17 @@ public class QMeetingApproveDetailRst {
 
     private String submasterNames;
 
+    private String deptName;
+
     private List<QMeetingTopicRst> topicList;
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
 
     public String getProInsId() {
         return proInsId;
