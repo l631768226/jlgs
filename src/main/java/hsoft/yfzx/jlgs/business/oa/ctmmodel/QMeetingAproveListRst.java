@@ -27,12 +27,22 @@ public class QMeetingAproveListRst {
 
     private String create_date;
 
+    private String create_byName;
+
     private String current;
 
     private String updateFlag;
 
     public String getCurrent() {
         return current;
+    }
+
+    public String getCreate_byName() {
+        return create_byName;
+    }
+
+    public void setCreate_byName(String create_byName) {
+        this.create_byName = create_byName;
     }
 
     public void setCurrent(String current) {

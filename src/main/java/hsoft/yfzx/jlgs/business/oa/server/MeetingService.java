@@ -353,13 +353,13 @@ public class MeetingService {
      * @param data
      * @return
      */
-    public ResponseData<List<QMeetingApproveDetailRst>> approveDetail(
+    public ResponseData<QMeetingApproveDetailRst> approveDetail(
             String userId, QMeetingApproveDetailRec data){
-        ResponseData<List<QMeetingApproveDetailRst>> responseData = new ResponseData<>();
+        ResponseData<QMeetingApproveDetailRst> responseData = new ResponseData<>();
         //获取会议id
         String meetingId = data.getMeetingId();
 
-        List<QMeetingApproveDetailRst> qMeetingApproveDetailRstList = new ArrayList<>();
+        QMeetingApproveDetailRst qMeetingApproveDetailRst = new QMeetingApproveDetailRst();
 
         HsoftReqData<HMeetingApproveDetailRec> hsoftReqData = new HsoftReqData<>();
         HMeetingApproveDetailRec hApproveDetailRec = new HMeetingApproveDetailRec();
@@ -373,14 +373,15 @@ public class MeetingService {
         String url = jsServerUrl + "/oa/meeting/approveDetail";
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
             return responseData;
         }else {
             try {
-                HsoftRstData<List<QMeetingApproveDetailRst>> hsoftRstData = gson.fromJson(resultStr,
-                        new TypeToken<HsoftRstData<List<QMeetingApproveDetailRst>>>() {
+                HsoftRstData<QMeetingApproveDetailRst> hsoftRstData = gson.fromJson(resultStr,
+                        new TypeToken<HsoftRstData<QMeetingApproveDetailRst>>() {
                         }.getType());
 
                 if(hsoftRstData == null){
@@ -394,7 +395,7 @@ public class MeetingService {
                         responseData.setExtInfo(hsoftRstData.getMessage());
                         return responseData;
                     }else{
-                        qMeetingApproveDetailRstList = hsoftRstData.getData();
+                        qMeetingApproveDetailRst = hsoftRstData.getData();
                     }
                 }
             }catch (Exception e){
@@ -404,7 +405,7 @@ public class MeetingService {
             }
         }
         responseData.setStatus(ReturnStatus.OK);
-        responseData.setResultSet(qMeetingApproveDetailRstList);
+        responseData.setResultSet(qMeetingApproveDetailRst);
         return responseData;
     }
 

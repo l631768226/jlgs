@@ -47,7 +47,7 @@ public class QMeetingDetailRst {
 
     private String flags;
 
-    private List<QTopicListRst> topics;
+    private List<QTopicListRst> topicList;
 
     public String getFlags() {
         return flags;
@@ -145,12 +145,12 @@ public class QMeetingDetailRst {
         this.state = state;
     }
 
-    public List<QTopicListRst> getTopics() {
-        return topics;
+    public List<QTopicListRst> getTopicList() {
+        return topicList;
     }
 
-    public void setTopics(List<QTopicListRst> topics) {
-        this.topics = topics;
+    public void setTopicList(List<QTopicListRst> topicList) {
+        this.topicList = topicList;
     }
 
     public String getId() {

@@ -5,6 +5,8 @@ package hsoft.yfzx.jlgs.business.oa.ctmmodel;
  */
 public class QTopicListRst {
 
+    private String id;
+
     private String topicId;
 
     private String deptId;
@@ -42,6 +44,74 @@ public class QTopicListRst {
     private String current;
 
     private String updateFlag;
+
+    private String title;
+
+    private String createDep;
+
+    private String createDepName;
+
+    private String reporter;
+
+    private String duration;
+
+    private String depName;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCreateDep() {
+        return createDep;
+    }
+
+    public void setCreateDep(String createDep) {
+        this.createDep = createDep;
+    }
+
+    public String getCreateDepName() {
+        return createDepName;
+    }
+
+    public void setCreateDepName(String createDepName) {
+        this.createDepName = createDepName;
+    }
+
+    public String getReporter() {
+        return reporter;
+    }
+
+    public void setReporter(String reporter) {
+        this.reporter = reporter;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getDepName() {
+        return depName;
+    }
+
+    public void setDepName(String depName) {
+        this.depName = depName;
+    }
 
     public String getUpdateFlag() {
         return updateFlag;
