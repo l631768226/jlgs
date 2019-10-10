@@ -39,6 +39,46 @@ public class UMeetingModifyRec extends AbstactBaseRec {
     private String userId;
 
     private String comment;
+    @DataValidation(description = "议题id", dataType = DataType.STRING, required = true, length = 2000)
+    private String ids;
+    @DataValidation(description = "会议时长", dataType = DataType.STRING, required = true, length = 36)
+    private String conferenceDuration;
+    @DataValidation(description = "议题时长", dataType = DataType.STRING, required = true, length = 36)
+    private String topicDuration;
+    @DataValidation(description = "操作人id", dataType = DataType.STRING, required = true, length = 36)
+    private String createBy;
+
+    public String getIds() {
+        return ids;
+    }
+
+    public void setIds(String ids) {
+        this.ids = ids;
+    }
+
+    public String getConferenceDuration() {
+        return conferenceDuration;
+    }
+
+    public void setConferenceDuration(String conferenceDuration) {
+        this.conferenceDuration = conferenceDuration;
+    }
+
+    public String getTopicDuration() {
+        return topicDuration;
+    }
+
+    public void setTopicDuration(String topicDuration) {
+        this.topicDuration = topicDuration;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
 
     public String getMeetingId() {
         return meetingId;

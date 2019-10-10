@@ -13,12 +13,22 @@ public class UUpdateTopicRec extends AbstactBaseRec {
     private String reporter;
     @DataValidation(description = "汇报时长", dataType = DataType.STRING, required = true, length = 36)
     private String duration;
-    @DataValidation(description = "列席部门名称", dataType = DataType.STRING, required = true, length = 2000)
-    private String depName;
+//    @DataValidation(description = "列席部门名称", dataType = DataType.STRING, required = true, length = 2000)
+//    private String depName;
     @DataValidation(description = "列席部门id", dataType = DataType.STRING, required = true, length = 2000)
     private String depId;
 
     private String userId;
+    @DataValidation(description = "会议id", dataType = DataType.STRING, required = true, length = 36)
+    private String meetingId;
+
+    public String getMeetingId() {
+        return meetingId;
+    }
+
+    public void setMeetingId(String meetingId) {
+        this.meetingId = meetingId;
+    }
 
     public String getUserId() {
         return userId;
@@ -58,14 +68,6 @@ public class UUpdateTopicRec extends AbstactBaseRec {
 
     public void setDuration(String duration) {
         this.duration = duration;
-    }
-
-    public String getDepName() {
-        return depName;
-    }
-
-    public void setDepName(String depName) {
-        this.depName = depName;
     }
 
     public String getDepId() {
