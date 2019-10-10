@@ -24,7 +24,7 @@ public class QMeetingApproveDetailRst {
 
     private String finishTime;
 
-    private String meetingroom;
+    private String meetingRoom;
 
     private String host;
 
@@ -86,12 +86,12 @@ public class QMeetingApproveDetailRst {
         this.finishTime = finishTime;
     }
 
-    public String getMeetingroom() {
-        return meetingroom;
+    public String getMeetingRoom() {
+        return meetingRoom;
     }
 
-    public void setMeetingroom(String meetingroom) {
-        this.meetingroom = meetingroom;
+    public void setMeetingRoom(String meetingRoom) {
+        this.meetingRoom = meetingRoom;
     }
 
     public String getHost() {
