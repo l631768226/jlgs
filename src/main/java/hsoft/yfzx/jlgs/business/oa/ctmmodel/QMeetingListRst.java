@@ -19,7 +19,7 @@ public class QMeetingListRst {
 
     private String finishTime;
 
-    private String meetingRoom;
+    private String meetingroom;
 
     private String host;
 
@@ -30,6 +30,8 @@ public class QMeetingListRst {
     private String createBy;
 
     private String createDate;
+
+    private String flags;
 
     public String getType() {
         return type;
@@ -55,12 +57,20 @@ public class QMeetingListRst {
         this.name = name;
     }
 
-    public String getMeetingRoom() {
-        return meetingRoom;
+    public String getMeetingroom() {
+        return meetingroom;
     }
 
-    public void setMeetingRoom(String meetingRoom) {
-        this.meetingRoom = meetingRoom;
+    public void setMeetingroom(String meetingroom) {
+        this.meetingroom = meetingroom;
+    }
+
+    public String getFlags() {
+        return flags;
+    }
+
+    public void setFlags(String flags) {
+        this.flags = flags;
     }
 
     public String getHost() {

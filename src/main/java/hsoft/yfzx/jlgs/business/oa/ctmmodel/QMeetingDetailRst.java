@@ -45,7 +45,17 @@ public class QMeetingDetailRst {
 
     private String createDate;
 
+    private String flags;
+
     private List<QTopicListRst> topics;
+
+    public String getFlags() {
+        return flags;
+    }
+
+    public void setFlags(String flags) {
+        this.flags = flags;
+    }
 
     public String getType() {
         return type;

@@ -38,6 +38,8 @@ public class MeetingService {
 
         String flag = data.getFlag();
         String searchKey = data.getSearchKey();
+        String page = data.getPage();
+        String pageSize = data.getPageSize();
 
         List<QMeetingListRst> qMeetingListRstList = new ArrayList<>();
         //构造内网会议列表请求数据
@@ -46,6 +48,8 @@ public class MeetingService {
         hMeetingListRec.setUserId(userId);
         hMeetingListRec.setFlag(flag);
         hMeetingListRec.setSearchKey(searchKey);
+        hMeetingListRec.setPage(page);
+        hMeetingListRec.setPageSize(pageSize);
         hsoftReqData.setChangeableData(hMeetingListRec);
         //请求内网地址
         String url = jsServerUrl + "/meeting/api/list";
