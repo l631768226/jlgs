@@ -28,11 +28,9 @@ public class UMeetingModifyRec extends AbstactBaseRec {
     @DataValidation(description = "分管领导id", dataType = DataType.STRING, required = true, length = 2000)
     private String deputy;
     @DataValidation(description = "分管领导姓名", dataType = DataType.STRING, required = true, length = 2000)
-    private String submasterName;
-    @DataValidation(description = "分管局领导id", dataType = DataType.STRING, required = true, length = 36)
-    private String duty;
-    @DataValidation(description = "汇报人姓名", dataType = DataType.STRING, required = true, length = 36)
-    private String reporterName;
+    private String submasterNames;
+//    @DataValidation(description = "汇报人姓名", dataType = DataType.STRING, required = true, length = 36)
+//    private String reporterName;
 
     private List<String> topicList;
 
@@ -144,28 +142,12 @@ public class UMeetingModifyRec extends AbstactBaseRec {
         this.deputy = deputy;
     }
 
-    public String getSubmasterName() {
-        return submasterName;
+    public String getSubmasterNames() {
+        return submasterNames;
     }
 
-    public void setSubmasterName(String submasterName) {
-        this.submasterName = submasterName;
-    }
-
-    public String getDuty() {
-        return duty;
-    }
-
-    public void setDuty(String duty) {
-        this.duty = duty;
-    }
-
-    public String getReporterName() {
-        return reporterName;
-    }
-
-    public void setReporterName(String reporterName) {
-        this.reporterName = reporterName;
+    public void setSubmasterNames(String submasterNames) {
+        this.submasterNames = submasterNames;
     }
 
     public List<String> getTopicList() {

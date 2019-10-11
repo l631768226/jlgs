@@ -551,6 +551,9 @@ public class MeetingService {
         String url = jsServerUrl + "/oa/meeting/meetingModify";
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+
+        System.out.println("会议审批修改 " + dataStr + " " + resultStr);
+
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
