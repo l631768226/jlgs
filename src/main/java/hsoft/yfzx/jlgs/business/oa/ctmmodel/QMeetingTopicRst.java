@@ -2,6 +2,7 @@ package hsoft.yfzx.jlgs.business.oa.ctmmodel;
 
 public class QMeetingTopicRst {
 
+
     private String title;
 
     private String createDepName;
@@ -13,6 +14,16 @@ public class QMeetingTopicRst {
     private String duration;
 
     private String depName;
+
+    private String countersign;
+
+    public String getCountersign() {
+        return countersign;
+    }
+
+    public void setCountersign(String countersign) {
+        this.countersign = countersign;
+    }
 
     public String getTitle() {
         return title;

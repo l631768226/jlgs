@@ -17,6 +17,26 @@ public class QMeetingNoTopicRst {
 
     private String countersignName;
 
+    private String countersign ;
+
+    private String duration;
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getCountersign() {
+        return countersign;
+    }
+
+    public void setCountersign(String countersign) {
+        this.countersign = countersign;
+    }
+
     public String getTopicId() {
         return topicId;
     }

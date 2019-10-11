@@ -36,7 +36,17 @@ public class QMeetingApproveDetailRst {
 
     private String deptName;
 
+    private String countersign;
+
     private List<QMeetingTopicRst> topicList;
+
+    public String getCountersign() {
+        return countersign;
+    }
+
+    public void setCountersign(String countersign) {
+        this.countersign = countersign;
+    }
 
     public String getDeptName() {
         return deptName;

@@ -434,6 +434,8 @@ public class MeetingService {
         String url = jsServerUrl + "/oa/meeting/approve";
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+
+        System.out.println("会议审批通过 " + dataStr + " " + resultStr);
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
@@ -488,6 +490,9 @@ public class MeetingService {
         String url = jsServerUrl + "/oa/meeting/reject";
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+
+        System.out.println("会议审批驳回 " + dataStr + " " + resultStr);
+
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
@@ -599,6 +604,9 @@ public class MeetingService {
         List<QMeetingNoTopicRst> qMeetingNoTopicRstList = new ArrayList<>();
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+
+        System.out.println("未上会议题  " + dataStr + " " + resultStr);
+
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
