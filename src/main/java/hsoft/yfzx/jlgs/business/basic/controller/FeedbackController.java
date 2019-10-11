@@ -24,7 +24,7 @@ public class FeedbackController {
      * @param requestData
      * @return
      */
-    @RequestMapping(value = "/feedback/launch", method = RequestMethod.POST)
+    @RequestMapping(value = "/launch", method = RequestMethod.POST)
     public ResponseData<String> launchFeedBack(@RequestBody RequestData<CFeedbackRec> requestData){
         ResponseData<String> responseData = new ResponseData<>();
         CFeedbackRec data = requestData.getData();
@@ -49,5 +49,6 @@ public class FeedbackController {
 
         return feedbackService.launchFeedBack(data);
     }
+
 
 }

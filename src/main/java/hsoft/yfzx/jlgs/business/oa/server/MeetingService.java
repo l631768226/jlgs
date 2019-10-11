@@ -307,7 +307,8 @@ public class MeetingService {
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
-        String url = jsServerUrl + "/oa/meeting/approveList";
+//        String url = jsServerUrl + "/oa/meeting/approveList";
+        String url = "http://192.168.4.213:8088/jeesite/a/mobile/oa/meeting/approveList";
 
         List<QMeetingAproveListRst> qMeetingAproveListRst = new ArrayList<>();
 
@@ -371,8 +372,8 @@ public class MeetingService {
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
-        String url = jsServerUrl + "/oa/meeting/approveDetail";
-
+//        String url = jsServerUrl + "/oa/meeting/approveDetail";
+        String url = "http://192.168.4.213:8088/jeesite/a/mobile/oa/meeting/approveDetail";
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
 
         System.out.println("会议审批详情 " + dataStr + " " + resultStr);
@@ -434,7 +435,8 @@ public class MeetingService {
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
-        String url = jsServerUrl + "/oa/meeting/approve";
+//        String url = jsServerUrl + "/oa/meeting/approve";
+        String url = "http://192.168.4.213:8088/jeesite/a/mobile/oa/meeting/approve";
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
 
@@ -490,7 +492,8 @@ public class MeetingService {
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
-        String url = jsServerUrl + "/oa/meeting/reject";
+//        String url = jsServerUrl + "/oa/meeting/reject";
+        String url = "http://192.168.4.213:8088/jeesite/a/mobile/oa/meeting/reject";
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
 
@@ -549,7 +552,7 @@ public class MeetingService {
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
         String url = jsServerUrl + "/oa/meeting/meetingModify";
-
+//        String url = "http://192.168.4.213:8088/jeesite/a/mobile/oa/meeting/meetingModify";
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
 
         System.out.println("会议审批修改 " + dataStr + " " + resultStr);

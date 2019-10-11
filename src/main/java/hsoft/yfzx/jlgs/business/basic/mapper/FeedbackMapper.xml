@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hsoft.yfzx.jlgs.business.basic.mapper.FeedbackMapper">
+  <resultMap id="BaseResultMap" type="hsoft.yfzx.jlgs.business.basic.model.Feedback">
+    <id column="FEEDBACKID" jdbcType="VARCHAR" property="FEEDBACKID" />
+    <result column="USERID" jdbcType="VARCHAR" property="USERID" />
+    <result column="MANAGERID" jdbcType="VARCHAR" property="MANAGERID" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="EMAIL" />
+    <result column="PHONE" jdbcType="VARCHAR" property="PHONE" />
+    <result column="ISDEAL" jdbcType="VARCHAR" property="ISDEAL" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="CREATETIME" />
+    <result column="USERTYPE" jdbcType="VARCHAR" property="USERTYPE" />
+    <result column="TYPE" jdbcType="VARCHAR" property="TYPE" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="hsoft.yfzx.jlgs.business.basic.model.Feedback">
+    <result column="CONTENT" jdbcType="CLOB" property="CONTENT" />
+    <result column="PHOTO" jdbcType="BLOB" property="PHOTO" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    FEEDBACKID, USERID, MANAGERID, EMAIL, PHONE, ISDEAL, CREATETIME, USERTYPE, TYPE
+  </sql>
+  <sql id="Blob_Column_List">
+    CONTENT, PHOTO
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="hsoft.yfzx.jlgs.business.basic.model.FeedbackExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from FEEDBACK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="hsoft.yfzx.jlgs.business.basic.model.FeedbackExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from FEEDBACK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from FEEDBACK
+    where FEEDBACKID = #{FEEDBACKID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from FEEDBACK
+    where FEEDBACKID = #{FEEDBACKID,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="hsoft.yfzx.jlgs.business.basic.model.FeedbackExample">
+    delete from FEEDBACK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="hsoft.yfzx.jlgs.business.basic.model.Feedback">
+    insert into FEEDBACK (FEEDBACKID, USERID, MANAGERID, 
+      EMAIL, PHONE, ISDEAL, 
+      CREATETIME, USERTYPE, TYPE, 
+      CONTENT, PHOTO)
+    values (#{FEEDBACKID,jdbcType=VARCHAR}, #{USERID,jdbcType=VARCHAR}, #{MANAGERID,jdbcType=VARCHAR}, 
+      #{EMAIL,jdbcType=VARCHAR}, #{PHONE,jdbcType=VARCHAR}, #{ISDEAL,jdbcType=VARCHAR}, 
+      #{CREATETIME,jdbcType=TIMESTAMP}, #{USERTYPE,jdbcType=VARCHAR}, #{TYPE,jdbcType=VARCHAR}, 
+      #{CONTENT,jdbcType=CLOB}, #{PHOTO,jdbcType=BLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="hsoft.yfzx.jlgs.business.basic.model.Feedback">
+    insert into FEEDBACK
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="FEEDBACKID != null">
+        FEEDBACKID,
+      </if>
+      <if test="USERID != null">
+        USERID,
+      </if>
+      <if test="MANAGERID != null">
+        MANAGERID,
+      </if>
+      <if test="EMAIL != null">
+        EMAIL,
+      </if>
+      <if test="PHONE != null">
+        PHONE,
+      </if>
+      <if test="ISDEAL != null">
+        ISDEAL,
+      </if>
+      <if test="CREATETIME != null">
+        CREATETIME,
+      </if>
+      <if test="USERTYPE != null">
+        USERTYPE,
+      </if>
+      <if test="TYPE != null">
+        TYPE,
+      </if>
+      <if test="CONTENT != null">
+        CONTENT,
+      </if>
+      <if test="PHOTO != null">
+        PHOTO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="FEEDBACKID != null">
+        #{FEEDBACKID,jdbcType=VARCHAR},
+      </if>
+      <if test="USERID != null">
+        #{USERID,jdbcType=VARCHAR},
+      </if>
+      <if test="MANAGERID != null">
+        #{MANAGERID,jdbcType=VARCHAR},
+      </if>
+      <if test="EMAIL != null">
+        #{EMAIL,jdbcType=VARCHAR},
+      </if>
+      <if test="PHONE != null">
+        #{PHONE,jdbcType=VARCHAR},
+      </if>
+      <if test="ISDEAL != null">
+        #{ISDEAL,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATETIME != null">
+        #{CREATETIME,jdbcType=TIMESTAMP},
+      </if>
+      <if test="USERTYPE != null">
+        #{USERTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="TYPE != null">
+        #{TYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="CONTENT != null">
+        #{CONTENT,jdbcType=CLOB},
+      </if>
+      <if test="PHOTO != null">
+        #{PHOTO,jdbcType=BLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="hsoft.yfzx.jlgs.business.basic.model.FeedbackExample" resultType="java.lang.Long">
+    select count(*) from FEEDBACK
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update FEEDBACK
+    <set>
+      <if test="record.FEEDBACKID != null">
+        FEEDBACKID = #{record.FEEDBACKID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.USERID != null">
+        USERID = #{record.USERID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.MANAGERID != null">
+        MANAGERID = #{record.MANAGERID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.EMAIL != null">
+        EMAIL = #{record.EMAIL,jdbcType=VARCHAR},
+      </if>
+      <if test="record.PHONE != null">
+        PHONE = #{record.PHONE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ISDEAL != null">
+        ISDEAL = #{record.ISDEAL,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CREATETIME != null">
+        CREATETIME = #{record.CREATETIME,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.USERTYPE != null">
+        USERTYPE = #{record.USERTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.TYPE != null">
+        TYPE = #{record.TYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CONTENT != null">
+        CONTENT = #{record.CONTENT,jdbcType=CLOB},
+      </if>
+      <if test="record.PHOTO != null">
+        PHOTO = #{record.PHOTO,jdbcType=BLOB},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update FEEDBACK
+    set FEEDBACKID = #{record.FEEDBACKID,jdbcType=VARCHAR},
+      USERID = #{record.USERID,jdbcType=VARCHAR},
+      MANAGERID = #{record.MANAGERID,jdbcType=VARCHAR},
+      EMAIL = #{record.EMAIL,jdbcType=VARCHAR},
+      PHONE = #{record.PHONE,jdbcType=VARCHAR},
+      ISDEAL = #{record.ISDEAL,jdbcType=VARCHAR},
+      CREATETIME = #{record.CREATETIME,jdbcType=TIMESTAMP},
+      USERTYPE = #{record.USERTYPE,jdbcType=VARCHAR},
+      TYPE = #{record.TYPE,jdbcType=VARCHAR},
+      CONTENT = #{record.CONTENT,jdbcType=CLOB},
+      PHOTO = #{record.PHOTO,jdbcType=BLOB}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update FEEDBACK
+    set FEEDBACKID = #{record.FEEDBACKID,jdbcType=VARCHAR},
+      USERID = #{record.USERID,jdbcType=VARCHAR},
+      MANAGERID = #{record.MANAGERID,jdbcType=VARCHAR},
+      EMAIL = #{record.EMAIL,jdbcType=VARCHAR},
+      PHONE = #{record.PHONE,jdbcType=VARCHAR},
+      ISDEAL = #{record.ISDEAL,jdbcType=VARCHAR},
+      CREATETIME = #{record.CREATETIME,jdbcType=TIMESTAMP},
+      USERTYPE = #{record.USERTYPE,jdbcType=VARCHAR},
+      TYPE = #{record.TYPE,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="hsoft.yfzx.jlgs.business.basic.model.Feedback">
+    update FEEDBACK
+    <set>
+      <if test="USERID != null">
+        USERID = #{USERID,jdbcType=VARCHAR},
+      </if>
+      <if test="MANAGERID != null">
+        MANAGERID = #{MANAGERID,jdbcType=VARCHAR},
+      </if>
+      <if test="EMAIL != null">
+        EMAIL = #{EMAIL,jdbcType=VARCHAR},
+      </if>
+      <if test="PHONE != null">
+        PHONE = #{PHONE,jdbcType=VARCHAR},
+      </if>
+      <if test="ISDEAL != null">
+        ISDEAL = #{ISDEAL,jdbcType=VARCHAR},
+      </if>
+      <if test="CREATETIME != null">
+        CREATETIME = #{CREATETIME,jdbcType=TIMESTAMP},
+      </if>
+      <if test="USERTYPE != null">
+        USERTYPE = #{USERTYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="TYPE != null">
+        TYPE = #{TYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="CONTENT != null">
+        CONTENT = #{CONTENT,jdbcType=CLOB},
+      </if>
+      <if test="PHOTO != null">
+        PHOTO = #{PHOTO,jdbcType=BLOB},
+      </if>
+    </set>
+    where FEEDBACKID = #{FEEDBACKID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="hsoft.yfzx.jlgs.business.basic.model.Feedback">
+    update FEEDBACK
+    set USERID = #{USERID,jdbcType=VARCHAR},
+      MANAGERID = #{MANAGERID,jdbcType=VARCHAR},
+      EMAIL = #{EMAIL,jdbcType=VARCHAR},
+      PHONE = #{PHONE,jdbcType=VARCHAR},
+      ISDEAL = #{ISDEAL,jdbcType=VARCHAR},
+      CREATETIME = #{CREATETIME,jdbcType=TIMESTAMP},
+      USERTYPE = #{USERTYPE,jdbcType=VARCHAR},
+      TYPE = #{TYPE,jdbcType=VARCHAR},
+      CONTENT = #{CONTENT,jdbcType=CLOB},
+      PHOTO = #{PHOTO,jdbcType=BLOB}
+    where FEEDBACKID = #{FEEDBACKID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="hsoft.yfzx.jlgs.business.basic.model.Feedback">
+    update FEEDBACK
+    set USERID = #{USERID,jdbcType=VARCHAR},
+      MANAGERID = #{MANAGERID,jdbcType=VARCHAR},
+      EMAIL = #{EMAIL,jdbcType=VARCHAR},
+      PHONE = #{PHONE,jdbcType=VARCHAR},
+      ISDEAL = #{ISDEAL,jdbcType=VARCHAR},
+      CREATETIME = #{CREATETIME,jdbcType=TIMESTAMP},
+      USERTYPE = #{USERTYPE,jdbcType=VARCHAR},
+      TYPE = #{TYPE,jdbcType=VARCHAR}
+    where FEEDBACKID = #{FEEDBACKID,jdbcType=VARCHAR}
+  </update>
+</mapper>
