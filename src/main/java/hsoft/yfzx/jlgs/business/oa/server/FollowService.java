@@ -106,7 +106,7 @@ public class FollowService {
         List<QHistoicFlowRst> qHistoicFlowRstList = new ArrayList<>();
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
-        System.out.println("列表" + resultStr);
+//        System.out.println("列表" + resultStr);
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");

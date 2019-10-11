@@ -20,6 +20,10 @@ public class QMeetingApproveDetailRst {
 
     private String name;
 
+    private String topicDuration;
+
+    private String conferenceDuration;
+
     private String startTime;
 
     private String finishTime;
@@ -39,6 +43,22 @@ public class QMeetingApproveDetailRst {
     private String countersign;
 
     private List<QMeetingTopicRst> topicList;
+
+    public String getTopicDuration() {
+        return topicDuration;
+    }
+
+    public void setTopicDuration(String topicDuration) {
+        this.topicDuration = topicDuration;
+    }
+
+    public String getConferenceDuration() {
+        return conferenceDuration;
+    }
+
+    public void setConferenceDuration(String conferenceDuration) {
+        this.conferenceDuration = conferenceDuration;
+    }
 
     public String getCountersign() {
         return countersign;
