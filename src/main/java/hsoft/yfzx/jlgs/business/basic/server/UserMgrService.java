@@ -62,6 +62,7 @@ public class UserMgrService {
 
     /**
      * 登录接口
+     *
      * @param data
      * @return
      * @throws UnsupportedEncodingException
@@ -94,30 +95,30 @@ public class UserMgrService {
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
         SysUser sysUser = new SysUser();
         System.out.println(resultStr);
-        if(resultStr.equals("fail") || resultStr.equals("error")){
+        if (resultStr.equals("fail") || resultStr.equals("error")) {
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
             return responseData;
-        }else {
+        } else {
             try {
                 HsoftRstData<SysUser> hsoftRstData = gson.fromJson(resultStr, new TypeToken<HsoftRstData<SysUser>>() {
                 }.getType());
 
-                if(hsoftRstData == null){
+                if (hsoftRstData == null) {
                     responseData.setStatus(ReturnStatus.ERR0017);
                     responseData.setExtInfo("服务请求失败,返回为空");
                     return responseData;
-                }else{
+                } else {
                     int code = hsoftRstData.getCode();
-                    if(code < 1){
+                    if (code < 1) {
                         responseData.setStatus(ReturnStatus.ERR0013);
                         responseData.setExtInfo(hsoftRstData.getMessage());
                         return responseData;
-                    }else{
+                    } else {
                         sysUser = hsoftRstData.getData();
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 responseData.setStatus(ReturnStatus.ERR0017);
                 responseData.setExtInfo("服务请求失败,返回值解析失败");
@@ -125,7 +126,7 @@ public class UserMgrService {
             }
         }
 
-        if(sysUser == null){
+        if (sysUser == null) {
             //若用户信息为空 则登录失败
             responseData.setStatus(ReturnStatus.ERR0013);
             responseData.setExtInfo("用户名或密码错误");
@@ -158,9 +159,9 @@ public class UserMgrService {
         long lastLoginTime = Generator.getLongTimeStamp();
         logininfo.setLASTLOGINTIME(lastLoginTime);
 
-        if(oldLogininfo == null){
+        if (oldLogininfo == null) {
             loginInfoMapper.insertSelective(logininfo);
-        }else{
+        } else {
             loginInfoMapper.updateByPrimaryKeySelective(logininfo);
         }
 
@@ -239,9 +240,9 @@ public class UserMgrService {
         qUserLoginRst.setDeptName(sysUser.getOfficeName());
         qUserLoginRst.setDeptId(sysUser.getOfficeId());
         qUserLoginRst.setUserName(userName);
-        if(sysUser.getWork_YEARS() != null){
+        if (sysUser.getWork_YEARS() != null) {
             qUserLoginRst.setWorkYears(String.valueOf(sysUser.getWork_YEARS()));
-        }else{
+        } else {
             qUserLoginRst.setWorkYears("");
         }
         qUserLoginRst.setWorkState(sysUser.getWork_STATE());
@@ -257,6 +258,7 @@ public class UserMgrService {
 
     /**
      * 修改密码
+     *
      * @param data
      * @param userId
      * @return
@@ -283,28 +285,28 @@ public class UserMgrService {
         String dataStr = gson.toJson(hsoftReqData);
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
-        if(resultStr.equals("fail") || resultStr.equals("error")){
+        if (resultStr.equals("fail") || resultStr.equals("error")) {
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
             return responseData;
-        }else {
+        } else {
             try {
                 HsoftRstData hsoftRstData = gson.fromJson(resultStr, new TypeToken<HsoftRstData>() {
                 }.getType());
 
-                if(hsoftRstData == null){
+                if (hsoftRstData == null) {
                     responseData.setStatus(ReturnStatus.ERR0017);
                     responseData.setExtInfo("服务请求失败,返回为空");
                     return responseData;
-                }else{
+                } else {
                     int code = hsoftRstData.getCode();
-                    if(code < 1){
+                    if (code < 1) {
                         responseData.setStatus(ReturnStatus.ERR0004);
                         responseData.setExtInfo(hsoftRstData.getMessage());
                         return responseData;
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 responseData.setStatus(ReturnStatus.ERR0017);
                 responseData.setExtInfo("服务请求失败,返回值解析失败");
                 return responseData;
@@ -317,8 +319,9 @@ public class UserMgrService {
 
     /**
      * 查询用户详情信息
+     *
      * @param userId 用户id
-     * @param data 查询用户详情传入参数
+     * @param data   查询用户详情传入参数
      * @return
      */
     public ResponseData<QUserDetailRst> queryDetail(String userId, QUserDetailRec data) {
@@ -331,7 +334,7 @@ public class UserMgrService {
         if (!"".equals(data.getUserId()) && data.getUserId() != null) {
             //查询是否为此人的常用联系人
             freqcontact = ctmFreqMapper.findById(userId, data.getUserId());
-            if(freqcontact != null){
+            if (freqcontact != null) {
                 freqFlag = "1";
             }
             userId = data.getUserId();
@@ -349,30 +352,30 @@ public class UserMgrService {
         SysUser sysUser = new SysUser();
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
-        if(resultStr.equals("fail") || resultStr.equals("error")){
+        if (resultStr.equals("fail") || resultStr.equals("error")) {
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
             return responseData;
-        }else {
+        } else {
             try {
                 HsoftRstData<SysUser> hsoftRstData = gson.fromJson(resultStr, new TypeToken<HsoftRstData<SysUser>>() {
                 }.getType());
 
-                if(hsoftRstData == null){
+                if (hsoftRstData == null) {
                     responseData.setStatus(ReturnStatus.ERR0017);
                     responseData.setExtInfo("服务请求失败,返回为空");
                     return responseData;
-                }else{
+                } else {
                     int code = hsoftRstData.getCode();
-                    if(code < 1){
+                    if (code < 1) {
                         responseData.setStatus(ReturnStatus.ERR0004);
                         responseData.setExtInfo(hsoftRstData.getMessage());
                         return responseData;
-                    }else{
+                    } else {
                         sysUser = hsoftRstData.getData();
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 responseData.setStatus(ReturnStatus.ERR0017);
                 responseData.setExtInfo("服务请求失败,返回值解析失败");
                 return responseData;
@@ -393,9 +396,9 @@ public class UserMgrService {
         qUserDetailRst.setDeptName(sysUser.getOfficeName());
         qUserDetailRst.setDeptId(sysUser.getOfficeId());
 
-        if(sysUser.getWork_YEARS() != null){
+        if (sysUser.getWork_YEARS() != null) {
             qUserDetailRst.setWorkYears(String.valueOf(sysUser.getWork_YEARS()));
-        }else{
+        } else {
             qUserDetailRst.setWorkYears("");
         }
         qUserDetailRst.setWorkState(sysUser.getWork_STATE());
@@ -411,11 +414,12 @@ public class UserMgrService {
 
     /**
      * 更新手机IMEI信息
+     *
      * @param userId 用户id
-     * @param data IMEI信息
+     * @param data   IMEI信息
      * @return
      */
-    public ResponseData<String> updateMobileInfo(String userId, UUserMobileInfoRec data){
+    public ResponseData<String> updateMobileInfo(String userId, UUserMobileInfoRec data) {
         ResponseData<String> responseData = new ResponseData<>();
         //获取设备类型
         String deviceType = data.getDeviceType();
@@ -435,28 +439,28 @@ public class UserMgrService {
         String dataStr = gson.toJson(hsoftReqData);
         String url = jsServerUrl + "/user/updateMobileInfo";
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
-        if(resultStr.equals("fail") || resultStr.equals("error")){
+        if (resultStr.equals("fail") || resultStr.equals("error")) {
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
             return responseData;
-        }else {
+        } else {
             try {
                 HsoftRstData hsoftRstData = gson.fromJson(resultStr, new TypeToken<HsoftRstData>() {
                 }.getType());
 
-                if(hsoftRstData == null){
+                if (hsoftRstData == null) {
                     responseData.setStatus(ReturnStatus.ERR0017);
                     responseData.setExtInfo("服务请求失败,返回为空");
                     return responseData;
-                }else{
+                } else {
                     int code = hsoftRstData.getCode();
-                    if(code < 1){
+                    if (code < 1) {
                         responseData.setStatus(ReturnStatus.ERR0004);
                         responseData.setExtInfo(hsoftRstData.getMessage());
                         return responseData;
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 responseData.setStatus(ReturnStatus.ERR0017);
                 responseData.setExtInfo("服务请求失败,返回值解析失败");
                 return responseData;
@@ -469,6 +473,7 @@ public class UserMgrService {
 
     /**
      * 查询某部门下人员列表信息
+     *
      * @param data
      * @return
      */
@@ -497,38 +502,38 @@ public class UserMgrService {
         List<SysUser> sysUserList = new ArrayList<>();
         //调用内网查询某组织下人员列表接口
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
-        if(resultStr.equals("fail") || resultStr.equals("error")){
+        if (resultStr.equals("fail") || resultStr.equals("error")) {
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
             return responseData;
-        }else {
+        } else {
             try {
                 HsoftRstData<List<SysUser>> hsoftRstData = gson.fromJson(resultStr, new TypeToken<HsoftRstData<List<SysUser>>>() {
                 }.getType());
 
-                if(hsoftRstData == null){
+                if (hsoftRstData == null) {
                     responseData.setStatus(ReturnStatus.ERR0017);
                     responseData.setExtInfo("服务请求失败,返回为空");
                     return responseData;
-                }else{
+                } else {
                     int code = hsoftRstData.getCode();
-                    if(code < 1){
+                    if (code < 1) {
                         responseData.setStatus(ReturnStatus.ERR0004);
                         responseData.setExtInfo(hsoftRstData.getMessage());
                         return responseData;
-                    }else{
+                    } else {
                         sysUserList = hsoftRstData.getData();
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 responseData.setStatus(ReturnStatus.ERR0017);
                 responseData.setExtInfo("服务请求失败,返回值解析失败");
                 return responseData;
             }
         }
 
-        if(sysUserList != null && sysUserList.size() > 0){
-            for(SysUser sysUser : sysUserList){
+        if (sysUserList != null && sysUserList.size() > 0) {
+            for (SysUser sysUser : sysUserList) {
                 QUserRst qUserRst = new QUserRst();
                 qUserRst.setUserId(sysUser.getId());
                 qUserRst.setRealName(sysUser.getName());
@@ -539,15 +544,15 @@ public class UserMgrService {
                 qUserRst.setPhoto(sysUser.getPhoto());
                 qUserRst.setPosition(sysUser.getPosition());
                 qUserRst.setPositionRemark(sysUser.getPosition_REMARK());
-                if(sysUser.getBirthday() == null){
+                if (sysUser.getBirthday() == null) {
                     qUserRst.setBirthday("");
-                }else{
+                } else {
                     qUserRst.setBirthday(sysUser.getBirthday().toString());
                 }
 
-                if(sysUser.getWork_YEARS() == null){
+                if (sysUser.getWork_YEARS() == null) {
                     qUserRst.setWorkYears("");
-                }else{
+                } else {
                     qUserRst.setWorkYears(sysUser.getWork_YEARS().toString());
                 }
                 qUserRst.setWorkState(sysUser.getWork_STATE());
@@ -566,11 +571,12 @@ public class UserMgrService {
 
     /**
      * 修改用户信息
+     *
      * @param userId
      * @param data
      * @return
      */
-    public ResponseData<QUserDetailRst> changeUserInfo(String userId, UUserInfoRec data){
+    public ResponseData<QUserDetailRst> changeUserInfo(String userId, UUserInfoRec data) {
         ResponseData<QUserDetailRst> responseData = new ResponseData<>();
 
         HChangeUserInfoRec hChangeUserInfoRec = new HChangeUserInfoRec();
@@ -596,30 +602,30 @@ public class UserMgrService {
         SysUser sysUser = new SysUser();
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
-        if(resultStr.equals("fail") || resultStr.equals("error")){
+        if (resultStr.equals("fail") || resultStr.equals("error")) {
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
             return responseData;
-        }else {
+        } else {
             try {
                 HsoftRstData<SysUser> hsoftRstData = gson.fromJson(resultStr, new TypeToken<HsoftRstData<SysUser>>() {
                 }.getType());
 
-                if(hsoftRstData == null){
+                if (hsoftRstData == null) {
                     responseData.setStatus(ReturnStatus.ERR0017);
                     responseData.setExtInfo("服务请求失败,返回为空");
                     return responseData;
-                }else{
+                } else {
                     int code = hsoftRstData.getCode();
-                    if(code < 1){
+                    if (code < 1) {
                         responseData.setStatus(ReturnStatus.ERR0004);
                         responseData.setExtInfo(hsoftRstData.getMessage());
                         return responseData;
-                    }else{
+                    } else {
                         sysUser = hsoftRstData.getData();
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 responseData.setStatus(ReturnStatus.ERR0017);
                 responseData.setExtInfo("服务请求失败,返回值解析失败");
                 return responseData;
@@ -639,9 +645,9 @@ public class UserMgrService {
         qUserDetailRst.setPositionRemark(sysUser.getPosition_REMARK());
         qUserDetailRst.setDeptName(sysUser.getOfficeName());
         qUserDetailRst.setDeptId(sysUser.getOfficeId());
-        if(sysUser.getWork_YEARS() != null){
+        if (sysUser.getWork_YEARS() != null) {
             qUserDetailRst.setWorkYears(String.valueOf(sysUser.getWork_YEARS()));
-        }else{
+        } else {
             qUserDetailRst.setWorkYears("");
         }
         qUserDetailRst.setWorkState(sysUser.getWork_STATE());
@@ -654,7 +660,7 @@ public class UserMgrService {
     }
 
 
-    public ResponseData<List<QMasterListRst>> master(){
+    public ResponseData<List<QMasterListRst>> master() {
         ResponseData<List<QMasterListRst>> responseData = new ResponseData<>();
         List<QMasterListRst> qMasterListRstList = new ArrayList<>();
 
@@ -663,37 +669,37 @@ public class UserMgrService {
         List<SysUser> sysUserList = new ArrayList<>();
         //调用内网查询某组织下人员列表接口
         String resultStr = HttpMethodTool.getJson(url, "", "POST");
-        if(resultStr.equals("fail") || resultStr.equals("error")){
+        if (resultStr.equals("fail") || resultStr.equals("error")) {
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
             return responseData;
-        }else {
+        } else {
             try {
                 HsoftRstData<List<SysUser>> hsoftRstData = gson.fromJson(resultStr, new TypeToken<HsoftRstData<List<SysUser>>>() {
                 }.getType());
 
-                if(hsoftRstData == null){
+                if (hsoftRstData == null) {
                     responseData.setStatus(ReturnStatus.ERR0017);
                     responseData.setExtInfo("服务请求失败,返回为空");
                     return responseData;
-                }else{
+                } else {
                     int code = hsoftRstData.getCode();
-                    if(code < 1){
+                    if (code < 1) {
                         responseData.setStatus(ReturnStatus.ERR0004);
                         responseData.setExtInfo(hsoftRstData.getMessage());
                         return responseData;
-                    }else{
+                    } else {
                         sysUserList = hsoftRstData.getData();
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 responseData.setStatus(ReturnStatus.ERR0017);
                 responseData.setExtInfo("服务请求失败,返回值解析失败");
                 return responseData;
             }
         }
 
-        if(sysUserList != null && sysUserList.size() > 0) {
+        if (sysUserList != null && sysUserList.size() > 0) {
             for (SysUser sysUser : sysUserList) {
                 QMasterListRst qMasterListRst = new QMasterListRst();
                 qMasterListRst.setName(sysUser.getName());
@@ -710,10 +716,11 @@ public class UserMgrService {
 
     /**
      * 注册Xmpp账号
+     *
      * @param data
      * @return
      */
-    public ResponseData<String> create(CUserRec data){
+    public ResponseData<String> create(CUserRec data) {
         ResponseData<String> responseData = new ResponseData<>();
 
         String userId = data.getUserId();

@@ -64,8 +64,10 @@ public class CheckPermissionAop {
                 "/file/pic".equals(request.getServletPath())){
             //文件上传下载接口不需要校验token
             return pjp.proceed();
-        }else if("/im/push".equals(request.getServletPath())){
-            //消息推送接口不需要校验token
+        }else if("/im/push".equals(request.getServletPath()) ||
+                //消息推送接口不需要校验token
+                "/basic/user/create".equals(request.getServletPath())){
+                //创建xmpp账号不需要校验token
             return pjp.proceed();
         }else {
 //            System.out.println("请求的地址为 = " + request.getServletPath());
