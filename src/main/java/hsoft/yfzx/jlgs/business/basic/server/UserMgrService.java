@@ -708,4 +708,21 @@ public class UserMgrService {
         return responseData;
     }
 
+    /**
+     * 注册Xmpp账号
+     * @param data
+     * @return
+     */
+    public ResponseData<String> create(CUserRec data){
+        ResponseData<String> responseData = new ResponseData<>();
+
+        String userId = data.getUserId();
+        String userName = data.getLoginName();
+
+        XmppOperator.register(userName, userId);
+
+        responseData.setStatus(ReturnStatus.OK);
+        return responseData;
+    }
+
 }

@@ -101,16 +101,6 @@ public class UserMgrController {
     }
 
     /**
-     * 创建用户
-     * @param requestData
-     * @return
-     */
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ResponseData<String> create(@RequestBody RequestData<String> requestData){
-        return null;
-    }
-
-    /**
      * 删除用户
      * @param requestData
      * @return
@@ -171,4 +161,25 @@ public class UserMgrController {
     public ResponseData<List<QMasterListRst>> master(@RequestBody RequestData requestData){
         return userMgrService.master();
     }
+
+    /**
+     * 注册xmpp账号
+     * @param requestData
+     * @return
+     */
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public ResponseData<String> create(@RequestBody RequestData<CUserRec> requestData){
+        ResponseData<String> responseData = new ResponseData<>();
+        CUserRec data = requestData.getData();
+        if (!data.validation() || data == null)
+        {
+            // 数据校验不通过
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo(data.getFailCauses());
+            // 返回
+            return responseData;
+        }
+        return userMgrService.create(data);
+    }
+
 }

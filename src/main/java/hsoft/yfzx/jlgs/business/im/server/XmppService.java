@@ -412,7 +412,7 @@ public class XmppService {
                         XmppOperator.sendXMPP(userNameList, IMEIList, apnsContent, title, content);
                     }
                 }
-                catch (SmackException | IOException | XMPPException | InterruptedException | JSONException | CommunicationException | KeystoreException | InvalidDeviceTokenFormatException e)
+                catch (Exception e)
                 {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

@@ -10,7 +10,7 @@
     </parent>
     <groupId>hsoft.yfzx</groupId>
     <artifactId>jlgs</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2</version>
     <name>jlgs</name>
     <description>Demo project for Spring Boot</description>
 
@@ -92,6 +92,17 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>hit.ly</groupId>
+            <artifactId>xmpppush</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>hit.ly</groupId>
+            <artifactId>oraclejdbc</artifactId>
+            <version>1.0</version>
+        </dependency>
         <!-- smack -->
         <!-- https://mvnrepository.com/artifact/org.igniterealtime.smack/smack-core -->
         <dependency>
@@ -157,33 +168,56 @@
 
     </dependencies>
 
+    <distributionManagement>
+        <repository>
+            <id>nexus</id>
+            <name>Nexus Release</name>
+            <url>http://192.168.4.224:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>Nexus Snapshot</name>
+            <url>http://192.168.4.224:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>${mybatis-core.version}</version>
                 <configuration>
-                    <configurationFile>
-                        src/main/resources/generatorConfig.xml
-                    </configurationFile>
-                    <verbose>true</verbose>
-                    <overwrite>true</overwrite>
+                    <mainClass>hsoft.yfzx.jlgs.JlgsApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>Generator MyBatis Artifacts</id>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>repackage</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+
+<!--            <plugin>-->
+<!--                <groupId>org.mybatis.generator</groupId>-->
+<!--                <artifactId>mybatis-generator-maven-plugin</artifactId>-->
+<!--                <version>${mybatis-core.version}</version>-->
+<!--                <configuration>-->
+<!--                    <configurationFile>-->
+<!--                        src/main/resources/generatorConfig.xml-->
+<!--                    </configurationFile>-->
+<!--                    <verbose>true</verbose>-->
+<!--                    <overwrite>true</overwrite>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>Generator MyBatis Artifacts</id>-->
+<!--                        <goals>-->
+<!--                            <goal>generate</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
         </plugins>
 
@@ -193,6 +227,13 @@
                 <filtering>false</filtering>
                 <includes>
                     <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**.*</include>
                 </includes>
             </resource>
         </resources>
