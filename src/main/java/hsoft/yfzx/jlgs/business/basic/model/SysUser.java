@@ -73,6 +73,16 @@ public class SysUser {
 
     private String officeName;
 
+    private String workStateName;
+
+    public String getWorkStateName() {
+        return workStateName;
+    }
+
+    public void setWorkStateName(String workStateName) {
+        this.workStateName = workStateName;
+    }
+
     public String getId() {
         return id;
     }

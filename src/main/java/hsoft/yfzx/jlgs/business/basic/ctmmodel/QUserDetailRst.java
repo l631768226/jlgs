@@ -34,7 +34,17 @@ public class QUserDetailRst {
 
     private String deptId;
 
+    private String workStateName;
+
     private String freqFlag = "0";
+
+    public String getWorkStateName() {
+        return workStateName;
+    }
+
+    public void setWorkStateName(String workStateName) {
+        this.workStateName = workStateName;
+    }
 
     public String getFreqFlag() {
         return freqFlag;
