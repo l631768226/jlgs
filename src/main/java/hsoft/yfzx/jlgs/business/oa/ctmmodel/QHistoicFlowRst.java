@@ -26,6 +26,16 @@ public class QHistoicFlowRst {
 
     private String position;
 
+    private String isEnd;
+
+    public String getIsEnd() {
+        return isEnd;
+    }
+
+    public void setIsEnd(String isEnd) {
+        this.isEnd = isEnd;
+    }
+
     public String getOfficeId() {
         return officeId;
     }
