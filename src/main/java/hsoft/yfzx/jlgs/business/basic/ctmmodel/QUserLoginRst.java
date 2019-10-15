@@ -43,6 +43,16 @@ public class QUserLoginRst {
 
     private String deptId;
 
+    private String workStateName;
+
+    public String getWorkStateName() {
+        return workStateName;
+    }
+
+    public void setWorkStateName(String workStateName) {
+        this.workStateName = workStateName;
+    }
+
     public String getDeptName() {
         return deptName;
     }

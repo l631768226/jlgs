@@ -47,7 +47,17 @@ public class QMeetingDetailRst {
 
     private String flags;
 
+    private String isLeader;
+
     private List<QTopicListRst> topicList;
+
+    public String getIsLeader() {
+        return isLeader;
+    }
+
+    public void setIsLeader(String isLeader) {
+        this.isLeader = isLeader;
+    }
 
     public String getFlags() {
         return flags;
