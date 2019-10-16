@@ -10,7 +10,9 @@
     </parent>
     <groupId>hsoft.yfzx</groupId>
     <artifactId>jlgs</artifactId>
-    <version>0.0.5</version>
+
+<!--    修改后需要import-->
+    <version>0.1.2</version>
     <name>jlgs</name>
     <description>Demo project for Spring Boot</description>
 

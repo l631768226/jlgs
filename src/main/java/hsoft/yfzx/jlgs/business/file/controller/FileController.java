@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @RestController
@@ -68,7 +69,7 @@ public class FileController {
 
 
     @RequestMapping(value = "/pic", method = {RequestMethod.POST, RequestMethod.GET})
-    public void downloadPic(@RequestParam(name = "id", required = true) String id, HttpServletResponse response){
+    public void downloadPic(@RequestParam(name = "id", required = true) String id, HttpServletResponse response) throws UnsupportedEncodingException {
         fileService.downloadPic(id, response);
     }
 

@@ -1,7 +1,6 @@
 package hsoft.yfzx.jlgs.business.file.server;
 
 import com.mongodb.client.gridfs.model.GridFSFile;
-import com.mongodb.gridfs.GridFSDBFile;
 import hsoft.yfzx.jlgs.business.file.ctmmodel.CFileUploadRst;
 import hsoft.yfzx.jlgs.business.file.ctmmodel.QFileDetailRec;
 import hsoft.yfzx.jlgs.business.file.ctmmodel.QFileDetailRst;
@@ -21,11 +20,13 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -228,9 +229,19 @@ public class FileService {
         return result;
     }
 
-    public void downloadPic(String id, HttpServletResponse response) {
+    public void downloadPic(String id, HttpServletResponse response) throws UnsupportedEncodingException {
+
+        if(id != null && !"".equals(id)){
+            String filename = id.substring(id.lastIndexOf("/")+1);
+            id = id.substring(0,id.lastIndexOf("/") + 1);
+            filename =URLEncoder.encode(filename, "utf-8");
+            id = id + filename;
+        }else{
+            return;
+        }
+
         String destUrl = serverBaseUrl + id;
-//        destUrl = "http://192.168.4.224:8080/jeesite/userfiles/16c0e7fdd9c14b2da53134e7f5bd94f9/images/photo/2019/09/%E5%8F%91%E7%A5%A8%E4%BF%A1%E6%81%AF.png";
+//        destUrl = "http://192.168.24.114:8080/jeesite/userfiles/1/images/photo/2019/10/%E8%B0%A2%E6%96%87.JPG";
         System.out.println(destUrl);
         InputStream bis = null;
         ServletOutputStream outputStream = null;
@@ -241,11 +252,15 @@ public class FileService {
 //            response.setHeader("Content-Disposition", "attachment;filename=" + as);
 
             HttpURLConnection connection = (HttpURLConnection) new URL(destUrl).openConnection();
+            connection.setDoOutput(true);
             connection.setReadTimeout(30000);
             connection.setConnectTimeout(30000);
             connection.setRequestMethod("GET");
-            connection.connect();
-
+            connection.setRequestProperty("Connection","Keep-Alive");
+            connection.setRequestProperty("User-Agent","Mozilla/5.0 (Linux; Android 4.4.2; MX4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Mobile Crosswalk/10.39.235.16 Mobile Safari/537.36");
+//            connection.connect();
+            int status = connection.getResponseCode();
+            System.out.println(status);
             bis = connection.getInputStream();
 //            String count = String.valueOf(bis.available());
 //            int length = connection.getContentLength();
