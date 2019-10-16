@@ -19,10 +19,10 @@ import java.util.List;
 @Transactional
 public class LeaveService {
 
-//    @Value("${custom.js.serverUrl}")
-//    String jsServerUrl;
+    @Value("${custom.js.serverUrl}")
+    String jsServerUrl;
 
-    private String jsServerUrl = "http://192.168.4.213:8088/jeesite/a/mobile";
+//    private String jsServerUrl = "http://192.168.4.213:8088/jeesite/a/mobile";
 
     private Gson gson = new Gson();
 

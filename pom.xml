@@ -10,13 +10,12 @@
     </parent>
     <groupId>hsoft.yfzx</groupId>
     <artifactId>jlgs</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.5</version>
     <name>jlgs</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
         <java.version>1.8</java.version>
-
         <!-- mybatis -->
         <mybatis-core.version>1.3.7</mybatis-core.version>
 
