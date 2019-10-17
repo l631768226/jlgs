@@ -156,13 +156,22 @@ public class NoticeService {
         ResponseData<List<QNoticeListRst>> responseData = new ResponseData<>();
 
         String state = data.getState();
+        if(state == null ||state.equals("")){
+            state = null;
+        }
         String type = data.getType();
+        if(type == null ||type.equals("")){
+            type = null;
+        }
         String urgency = data.getUrgency();
+        if(urgency == null || urgency.equals("")){
+            urgency = null;
+        }
         String del = data.getDel();
         String page = data.getPage();
         String pageSize = data.getPageSize();
 
-        if(del == null){
+        if(del == null || del.equals("")){
             del = "0";
         }
         String searchRule = data.getSearchRule();
@@ -186,6 +195,7 @@ public class NoticeService {
         List<OaNotify> oaNotifyList = new ArrayList<>();
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+//        System.out.println("ahhaha" + resultStr);
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
@@ -226,6 +236,7 @@ public class NoticeService {
                 qNoticeListRst.setUrgency(oaNotify.getType());
                 qNoticeListRst.setTitle(oaNotify.getTitle());
                 qNoticeListRst.setType(oaNotify.getNotice_TYPE());
+                qNoticeListRst.setRelationId(oaNotify.getNotice_ID());
                 qNoticeListRsts.add(qNoticeListRst);
             }
         }

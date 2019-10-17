@@ -19,6 +19,26 @@ public class QNoticeListRst {
 
     private String urgency;
 
+    private String noticeType;
+
+    private String noticeId;
+
+    public String getNoticeType() {
+        return noticeType;
+    }
+
+    public void setNoticeType(String noticeType) {
+        this.noticeType = noticeType;
+    }
+
+    public String getNoticeId() {
+        return noticeId;
+    }
+
+    public void setNoticeId(String noticeId) {
+        this.noticeId = noticeId;
+    }
+
     public String getUrgency() {
         return urgency;
     }

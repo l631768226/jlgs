@@ -49,7 +49,37 @@ public class QMeetingDetailRst {
 
     private String isLeader;
 
-    private List<QTopicListRst> topicList;
+    private String sfch;
+
+    private String noticeType;
+
+    private String noticeId;
+
+    private List<QTopicListRst> topics;
+
+    public String getSfch() {
+        return sfch;
+    }
+
+    public void setSfch(String sfch) {
+        this.sfch = sfch;
+    }
+
+    public String getNoticeType() {
+        return noticeType;
+    }
+
+    public void setNoticeType(String noticeType) {
+        this.noticeType = noticeType;
+    }
+
+    public String getNoticeId() {
+        return noticeId;
+    }
+
+    public void setNoticeId(String noticeId) {
+        this.noticeId = noticeId;
+    }
 
     public String getIsLeader() {
         return isLeader;
@@ -155,12 +185,12 @@ public class QMeetingDetailRst {
         this.state = state;
     }
 
-    public List<QTopicListRst> getTopicList() {
-        return topicList;
+    public List<QTopicListRst> getTopics() {
+        return topics;
     }
 
-    public void setTopicList(List<QTopicListRst> topicList) {
-        this.topicList = topicList;
+    public void setTopics(List<QTopicListRst> topics) {
+        this.topics = topics;
     }
 
     public String getId() {
