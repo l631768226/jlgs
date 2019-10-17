@@ -57,6 +57,9 @@ public class MeetingService {
         String dataStr = gson.toJson(hsoftReqData);
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+
+        System.out.println("会议列表 " + dataStr + " " + resultStr);
+
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
@@ -116,7 +119,7 @@ public class MeetingService {
         QMeetingDetailRst qMeetingDetailRst = new QMeetingDetailRst();
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
-//        System.out.println(dataStr + " " + resultStr);
+        System.out.println("会议详情 " + dataStr + " " + resultStr);
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
