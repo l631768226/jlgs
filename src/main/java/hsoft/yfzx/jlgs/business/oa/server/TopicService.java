@@ -54,7 +54,7 @@ public class TopicService {
         hTopicListRec.setUserDepId(deptId);
         hsoftReqData.setChangeableData(hTopicListRec);
 
-        System.out.println(gson.toJson(hsoftReqData));
+//        System.out.println(gson.toJson(hsoftReqData));
 
         String url = jsServerUrl + "/topic/topicList";
 //        String url = "http://192.168.4.218:8088/jeesite/a/mobile/topic/topicCheckList";
@@ -63,7 +63,7 @@ public class TopicService {
         List<QTopicListRst> qTopicListRstList = new ArrayList<>();
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
-        System.out.println("result = " + resultStr);
+//        System.out.println("result = " + resultStr);
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");

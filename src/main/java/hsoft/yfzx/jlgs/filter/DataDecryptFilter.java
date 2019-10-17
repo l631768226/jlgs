@@ -107,7 +107,7 @@ public class DataDecryptFilter extends OncePerRequestFilter
                      
                         String ns = sb.toString();
                          
-                        System.out.println("the key = " + key + " , the data = " + ns);
+//                        System.out.println("the key = " + key + " , the data = " + ns);
                         // 循环遍历并解密全部数据
                         for (int i = 0; i < data.length; i++)
                         {

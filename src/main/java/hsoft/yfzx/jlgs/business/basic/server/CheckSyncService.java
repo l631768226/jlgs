@@ -56,10 +56,10 @@ public class CheckSyncService {
 
         if (userTokenCacheData == null) {
             //若token失效 则正常进行token校验处理
-            System.out.println("&&&&&&&&&&&&&&&&&&&& token失效 " + userToken);
+//            System.out.println("&&&&&&&&&&&&&&&&&&&& token失效 " + userToken);
             return checkErrorToken(userToken, qCheckTokenRec);
         } else {
-            System.out.println("%%%%%%%%%%%%%%%%%%%%%%% token有效 " + userToken);
+//            System.out.println("%%%%%%%%%%%%%%%%%%%%%%% token有效 " + userToken);
             //若token有效 则 根据kick值的设置进行下一步操作
             return checkRightToken(userTokenCacheData.getUserName(), qCheckTokenRec, userToken);
         }
@@ -82,7 +82,7 @@ public class CheckSyncService {
 
         if (loginInfo == null) {
             //登录信息不存在（一般情况下不可能，出现则为严重错误）
-            System.out.println("~~~~~~~~~ !!!!!!!!!!!! 账号不存在或已被删除");
+//            System.out.println("~~~~~~~~~ !!!!!!!!!!!! 账号不存在或已被删除");
             responseData.setStatus(ReturnStatus.ERR0010);
             responseData.setExtInfo("操作的数据不存在");
             QCheckResult qCheckResult = new QCheckResult();
@@ -95,7 +95,7 @@ public class CheckSyncService {
         String token = loginInfo.getTOKEN();
         if (StringUtils.isBlank(token)) {
             //token为空（一般情况下不可能，出现则为严重错误）
-            System.out.println("~~~~~~~~~~ !!!!!!!!!!!! 账号从未登录过");
+//            System.out.println("~~~~~~~~~~ !!!!!!!!!!!! 账号从未登录过");
             responseData.setStatus(ReturnStatus.ERR0010);
             responseData.setExtInfo("token不存在");
             QCheckResult qCheckResult = new QCheckResult();
@@ -108,11 +108,11 @@ public class CheckSyncService {
 
         if (token.equals(userToken)) {
             //登录信息中最后一次的token与传入值相同，可以继续处理
-            System.out.println("~~~~~~~~ token 有效");
+//            System.out.println("~~~~~~~~ token 有效");
             responseData.setStatus(ReturnStatus.OK);
         } else {
             //登录信息中最后一次的token与传入值不同，此时虽然token在redis中有效，但是不可使用
-            System.out.println("~~~~~~~~ token 与登录信息表不符");
+//            System.out.println("~~~~~~~~ token 与登录信息表不符");
             //token不一致,说明两次操作中间有人登录过
             responseData.setStatus(ReturnStatus.ERR0010);
             responseData.setExtInfo("账号重复登录");
@@ -129,7 +129,7 @@ public class CheckSyncService {
             if ("M".equals(qCheckTokenRec.getDeviceType())) {
                 //若为移动端登录
                 String checkResult = XmppOperator.checkSession(userName, "mobile");
-                System.out.println(qCheckTokenRec.getIMEI() + " " + userName + "****************" + checkResult + "1".equals(checkResult));
+//                System.out.println(qCheckTokenRec.getIMEI() + " " + userName + "****************" + checkResult + "1".equals(checkResult));
                 if ("1".equals(checkResult)) {
                     //若存在连接
 
@@ -190,7 +190,7 @@ public class CheckSyncService {
         Logininfo loginInfo = loginInfoMapper.selectByPrimaryKey(qCheckTokenRec.getUserId());
 
         if(loginInfo == null){
-            System.out.println("!!!!!!!!!!!! 账号不存在或已被删除");
+//            System.out.println("!!!!!!!!!!!! 账号不存在或已被删除");
             responseData.setStatus(ReturnStatus.ERR0010);
             responseData.setExtInfo("操作的数据不存在");
             QCheckResult qCheckResult = new QCheckResult();
@@ -204,7 +204,7 @@ public class CheckSyncService {
         String token = loginInfo.getTOKEN();
         if(token == null || "".equals(token)){
             //如果token为空，说明此账号从未登录过
-            System.out.println("!!!!!!!!!!!! 账号从未登录过");
+//            System.out.println("!!!!!!!!!!!! 账号从未登录过");
             responseData.setStatus(ReturnStatus.ERR0010);
             responseData.setExtInfo("token不存在");
             QCheckResult qCheckResult = new QCheckResult();
@@ -218,7 +218,7 @@ public class CheckSyncService {
         if(token.equals(userToken)){
             //token一致，则说明token失效
             //需要生成一个有效的token给前端
-            System.out.println("!!!!!!!!!!!! token超时失效");
+//            System.out.println("!!!!!!!!!!!! token超时失效");
             String newToken = Generator.getToken();
 
             String userName = loginInfo.getUSERNAME();
@@ -239,7 +239,7 @@ public class CheckSyncService {
             redisTemplate.expire(newToken, failureTime, TimeUnit.MINUTES);
 
             //同时修改登录信息表数据
-            System.out.println("IMEI = " + qCheckTokenRec.getIMEI());
+//            System.out.println("IMEI = " + qCheckTokenRec.getIMEI());
 
             loginInfo.setIMEI(qCheckTokenRec.getIMEI());
             loginInfo.setTOKEN(newToken);
@@ -259,7 +259,7 @@ public class CheckSyncService {
             responseData.setResultSet(qCheckTokenRst);
 
         }else{
-            System.out.println("!!!!!!!!!!!! 账号重复登录");
+//            System.out.println("!!!!!!!!!!!! 账号重复登录");
             //token不一致,说明两次操作中间有人登录过
             responseData.setStatus(ReturnStatus.ERR0010);
             responseData.setExtInfo("账号重复登录");

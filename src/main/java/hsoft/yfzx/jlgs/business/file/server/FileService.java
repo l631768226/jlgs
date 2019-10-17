@@ -57,7 +57,7 @@ public class FileService {
 
         String userId = (String) request.getAttribute("userId");
         List<CFileUploadRst> resultList = new ArrayList<>();
-        System.out.println("the value = " + value);
+//        System.out.println("the value = " + value);
         try {
 
             /**
@@ -74,7 +74,7 @@ public class FileService {
                 if (tmpPart.getSubmittedFileName() == null) {
                     continue;
                 }
-                System.out.println("######" + tmpPart.getSubmittedFileName() + "," + tmpPart.getSize());
+//                System.out.println("######" + tmpPart.getSubmittedFileName() + "," + tmpPart.getSize());
                 if (tmpPart.getName().equals("file") && tmpPart.getSize() > 0) {
                     // result += saveFile2MongoDB(tmpPart) + "\r\n\r\n";
                     // 获得提交的文件名
@@ -87,7 +87,7 @@ public class FileService {
 
                     ObjectId resultId = gridFsTemplate.store(ins, filename, contenttype);
                     result = resultId.toString();
-                    System.out.println("文件id为: " + result);
+//                    System.out.println("文件id为: " + result);
                     CFileUploadRst cFileUploadRst = new CFileUploadRst();
                     cFileUploadRst.setFileId(result);
                     resultList.add(cFileUploadRst);
@@ -242,7 +242,7 @@ public class FileService {
 
         String destUrl = serverBaseUrl + id;
 //        destUrl = "http://192.168.24.114:8080/jeesite/userfiles/1/images/photo/2019/10/%E8%B0%A2%E6%96%87.JPG";
-        System.out.println(destUrl);
+//        System.out.println(destUrl);
         InputStream bis = null;
         ServletOutputStream outputStream = null;
 
@@ -260,7 +260,7 @@ public class FileService {
             connection.setRequestProperty("User-Agent","Mozilla/5.0 (Linux; Android 4.4.2; MX4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Mobile Crosswalk/10.39.235.16 Mobile Safari/537.36");
 //            connection.connect();
             int status = connection.getResponseCode();
-            System.out.println(status);
+//            System.out.println(status);
             bis = connection.getInputStream();
 //            String count = String.valueOf(bis.available());
 //            int length = connection.getContentLength();

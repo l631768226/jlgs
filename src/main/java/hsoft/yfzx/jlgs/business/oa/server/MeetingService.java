@@ -58,7 +58,7 @@ public class MeetingService {
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
 
-        System.out.println("会议列表 " + dataStr + " " + resultStr);
+//        System.out.println("会议列表 " + dataStr + " " + resultStr);
 
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
@@ -119,7 +119,7 @@ public class MeetingService {
         QMeetingDetailRst qMeetingDetailRst = new QMeetingDetailRst();
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
-        System.out.println("会议详情 " + dataStr + " " + resultStr);
+//        System.out.println("会议详情 " + dataStr + " " + resultStr);
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
@@ -379,7 +379,7 @@ public class MeetingService {
 //        String url = "http://192.168.4.213:8088/jeesite/a/mobile/oa/meeting/approveDetail";
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
 
-        System.out.println("会议审批详情 " + dataStr + " " + resultStr);
+//        System.out.println("会议审批详情 " + dataStr + " " + resultStr);
 
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
@@ -443,7 +443,7 @@ public class MeetingService {
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
 
-        System.out.println("会议审批通过 " + dataStr + " " + resultStr);
+//        System.out.println("会议审批通过 " + dataStr + " " + resultStr);
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
@@ -500,7 +500,7 @@ public class MeetingService {
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
 
-        System.out.println("会议审批驳回 " + dataStr + " " + resultStr);
+//        System.out.println("会议审批驳回 " + dataStr + " " + resultStr);
 
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
@@ -558,7 +558,7 @@ public class MeetingService {
 //        String url = "http://192.168.4.213:8088/jeesite/a/mobile/oa/meeting/meetingModify";
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
 
-        System.out.println("会议审批修改 " + dataStr + " " + resultStr);
+//        System.out.println("会议审批修改 " + dataStr + " " + resultStr);
 
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
@@ -617,7 +617,7 @@ public class MeetingService {
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
 
-        System.out.println("未上会议题  " + dataStr + " " + resultStr);
+//        System.out.println("未上会议题  " + dataStr + " " + resultStr);
 
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);

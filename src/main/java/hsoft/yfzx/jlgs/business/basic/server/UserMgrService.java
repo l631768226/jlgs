@@ -94,7 +94,7 @@ public class UserMgrService {
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
         SysUser sysUser = new SysUser();
-        System.out.println(resultStr);
+//        System.out.println(resultStr);
         if (resultStr.equals("fail") || resultStr.equals("error")) {
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
@@ -170,20 +170,20 @@ public class UserMgrService {
         if ("1".equals(checkResult)) {
             // 连接存在 则需要发送断开连接消息 并断开连接
             String closeResult = XmppOperator.closeSession(data.getUserName(), "mobile");
-            System.out.println("*************** " + closeResult + "1".equals(closeResult));
+//            System.out.println("*************** " + closeResult + "1".equals(closeResult));
             if ("1".equals(closeResult) || "-100".equals(closeResult)) {
                 // 断开连接成功 或 连接不存在
-                System.out.println("**************连接************连接断开");
+//                System.out.println("**************连接************连接断开");
             } else {
                 // 断开连接失败, 则返回消息服务器连接失败
-                System.out.println("**************连接************断开连接失败");
+//                System.out.println("**************连接************断开连接失败");
                 responseData.setStatus(ReturnStatus.ERR0014);
                 responseData.setExtInfo("XMPP消息服务器连接失败");
                 return responseData;
             }
         } else {
             // 若连接不存在，不必处理
-            System.out.println("**************连接************连接不存在");
+//            System.out.println("**************连接************连接不存在");
         }
 
         // 从redis里获取当前username对应的token值
@@ -192,11 +192,11 @@ public class UserMgrService {
         // 如果redis里存在当前username的则删除
         if (!"".equals(rUserName) && rUserName != null) {
             // 如果旧的token存在，则删除此token对应的数据
-            System.out.println("^^^^^^^^^^^^^^^ token存在 删除");
+//            System.out.println("^^^^^^^^^^^^^^^ token存在 删除");
             redisTemplate.delete("M" + data.getUserName());
         } else {
             // 如果旧的token不存在
-            System.out.println("^^^^^^^^^^^^^^^ token不存在 暂时不操作");
+//            System.out.println("^^^^^^^^^^^^^^^ token不存在 暂时不操作");
         }
         // 把当前key为username value为token的放入redis
         stringRedisTemplate.opsForValue().set("M" + data.getUserName(), token);
@@ -211,11 +211,11 @@ public class UserMgrService {
 
         if (StringUtils.isBlank(tokenStr)) {
             // 为空
-            System.out.println("@@@@@@@@@@@@@@@@@@ 没有取到token");
+//            System.out.println("@@@@@@@@@@@@@@@@@@ 没有取到token");
             tokenStr = token;
         } else {
             // 不为空
-            System.out.println("@@@@@@@@@@@@@@@@@@ 取到了token:" + tokenStr);
+//            System.out.println("@@@@@@@@@@@@@@@@@@ 取到了token:" + tokenStr);
         }
 
         vo.set(tokenStr, ucData);
@@ -295,7 +295,7 @@ public class UserMgrService {
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
 
-        System.out.println(dataStr + " " + resultStr);
+//        System.out.println(dataStr + " " + resultStr);
 
         if (resultStr.equals("fail") || resultStr.equals("error")) {
             responseData.setStatus(ReturnStatus.ERR0017);
@@ -608,7 +608,7 @@ public class UserMgrService {
         HsoftReqData<HChangeUserInfoRec> hsoftReqData = new HsoftReqData<>();
         hsoftReqData.setChangeableData(hChangeUserInfoRec);
         String dataStr = gson.toJson(hsoftReqData);
-        System.out.println(dataStr);
+//        System.out.println(dataStr);
         String url = jsServerUrl + "/user/change";
 
         SysUser sysUser = new SysUser();

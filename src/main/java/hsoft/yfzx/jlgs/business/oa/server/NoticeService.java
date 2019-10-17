@@ -191,7 +191,7 @@ public class NoticeService {
         String dataStr = gson.toJson(hsoftReqData);
         //请求地址
 
-        jsServerUrl = "http://192.168.4.224:8080/jeesite/a/mobile";
+//        jsServerUrl = "http://192.168.4.224:8080/jeesite/a/mobile";
         String url = jsServerUrl + "/notice/list";
 
         List<OaNotify> oaNotifyList = new ArrayList<>();

@@ -218,7 +218,7 @@ public class ChatStoreService {
         ResponseData<List<QChatStoreRst>> responseData = new ResponseData<>();
         // 获取消息id的列表
         List<String> ids = data.getIds();
-        System.out.println(new Gson().toJson(ids));
+//        System.out.println(new Gson().toJson(ids));
 
         String objectType = data.getObjectType();
         // 声明查询条件
@@ -255,7 +255,7 @@ public class ChatStoreService {
             for (String id : ids) {
                 // 根据id查询数据库获取聊天记录
                 CtmChatStore chatStore = ctmChatStoreMapper.queryDetailByGroupId(id);
-                System.out.println(id + " " + new Gson().toJson(chatStore));
+//                System.out.println(id + " " + new Gson().toJson(chatStore));
                 // 根据需要组拼返回结果
                 if (chatStore != null) {
                     QChatStoreRst qChatStoreRst = new QChatStoreRst();
@@ -304,7 +304,7 @@ public class ChatStoreService {
             }else{
                 // 根据id查询数据库获取聊天记录
                 List<CtmChatStore> chatStoreList = ctmChatStoreMapper.queryLastByUserId(userId, objectId);
-                System.out.println(objectId + " " + new Gson().toJson(chatStoreList));
+//                System.out.println(objectId + " " + new Gson().toJson(chatStoreList));
                 // 根据需要组拼返回结果
                 if (chatStoreList.size() > 0) {
                     QChatStoreRst qChatStoreRst = new QChatStoreRst();
@@ -342,7 +342,7 @@ public class ChatStoreService {
 
             // 根据id查询数据库获取聊天记录
             CtmChatStore chatStore = ctmChatStoreMapper.queryLastByGroupId(userId, objectId, versionStamp, userGroup.getCREATETIME());
-            System.out.println(objectId + " " + new Gson().toJson(chatStore));
+//            System.out.println(objectId + " " + new Gson().toJson(chatStore));
             // 根据需要组拼返回结果
             if (chatStore != null) {
                 QChatStoreRst qChatStoreRst = new QChatStoreRst();

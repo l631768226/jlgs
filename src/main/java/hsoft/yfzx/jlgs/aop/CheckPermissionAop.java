@@ -45,7 +45,7 @@ public class CheckPermissionAop {
         if ("/im/xmpp/send".equals(request.getServletPath())) {
             // 键值对的形式传入参数
             String value = request.getParameter("json");
-            System.out.println("传入的数据 " + value);
+//            System.out.println("传入的数据 " + value);
             try {
                 requestData = gson.fromJson(value, new TypeToken<RequestData<Object>>() {
                 }.getType());
@@ -79,7 +79,7 @@ public class CheckPermissionAop {
         try {
 
             if (requestData == null) {
-                System.out.println("转换后的model为空");
+//                System.out.println("转换后的model为空");
                 ResponseData<String> responseData = new ResponseData<>();
                 responseData.setStatus(ReturnStatus.ERR0016);
                 responseData.setExtInfo("未按照约定的方式传递参数");
@@ -89,7 +89,7 @@ public class CheckPermissionAop {
             String token = requestData.getToken();
 
             if (StringUtils.isBlank(token)) {
-                System.out.println("没有传token");
+//                System.out.println("没有传token");
                 ResponseData<String> responseData = new ResponseData<>();
                 responseData.setStatus(ReturnStatus.ERR0005);
                 responseData.setExtInfo("没有上传token");
@@ -99,20 +99,20 @@ public class CheckPermissionAop {
             ValueOperations<String, Object> vo = redisTemplate.opsForValue();
             UserCacheData userCacheData = (UserCacheData) vo.get(token);
             if (userCacheData == null) {
-                System.out.println("token不存在");
+//                System.out.println("token不存在");
                 ResponseData<String> responseData = new ResponseData<>();
                 responseData.setStatus(ReturnStatus.ERR0005);
-                responseData.setExtInfo("token失效或不存在");
+                responseData.setExtInfo("token失效或 不存在");
                 return responseData;
             }
             //获取token中存储的userName
             String userName = userCacheData.getUserName();
             if (StringUtils.isBlank(userName)) {
                 //若userName为空，提示token失效
-                System.out.println("userName不存在");
+//                System.out.println("userName不存在");
                 ResponseData<String> responseData = new ResponseData<>();
                 responseData.setStatus(ReturnStatus.ERR0005);
-                responseData.setExtInfo("token失效或不存在");
+                responseData.setExtInfo("token失效或userName不存在");
                 return responseData;
             }
 

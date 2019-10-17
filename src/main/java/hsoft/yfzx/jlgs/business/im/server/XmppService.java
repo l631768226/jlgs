@@ -101,7 +101,7 @@ public class XmppService {
                 fileId = fileService.uploadDBFile(request.getPart("file"));
                 imgResult = fileUrl + "?id=" + fileId;
 
-                System.out.println("img = " + imgResult);
+//                System.out.println("img = " + imgResult);
                 XmppImgData xmppImgData = new XmppImgData();
                 xmppImgData.setUrl(imgResult);
                 xmppImgData.setSize(data.getFileSize());
@@ -122,7 +122,7 @@ public class XmppService {
                 fileId = fileService.uploadDBFile(request.getPart("file"));
                 audioUrl = fileUrl + "?id=" + fileId;
 
-                System.out.println("audio = " + audioUrl);
+//                System.out.println("audio = " + audioUrl);
                 XmppAudioData xmppAudioData = new XmppAudioData();
                 xmppAudioData.setUrl(audioUrl);
                 xmppAudioData.setDuration(data.getDuration());
@@ -255,7 +255,7 @@ public class XmppService {
 
                 xmppHeadData.setContent(xmppBodyData);
                 msgInfo = gson.toJson(xmppHeadData);
-                System.out.println("2****" + msgInfo);
+//                System.out.println("2****" + msgInfo);
                 // 获取接收人的信息
                 Logininfo receUser = logininfoMapper.selectByPrimaryKey(data.getReceId());
                 if (receUser == null) {
@@ -268,7 +268,7 @@ public class XmppService {
                 // 插入数据库
                 chatstoreMapper.insertSelective(chatStore);
 
-                System.out.println("0***************" + gson.toJson(chatStore));
+//                System.out.println("0***************" + gson.toJson(chatStore));
                 List<String> userList = new ArrayList<>();
                 userList.add(receUser.getUSERID());
                 apnsContent = logininfo.getREALNAME() + ":" + apnsContent;
@@ -320,7 +320,7 @@ public class XmppService {
                 chatstoreMapper.insertSelective(chatStore);
 
                 apnsContent = data.getSenderName() + ":" + apnsContent;
-                System.out.println("1***************" + gson.toJson(chatStore));
+//                System.out.println("1***************" + gson.toJson(chatStore));
                 // 群发消息
                 if (!userIdList.isEmpty()) {
                     // 若群组信息不存在
@@ -336,7 +336,7 @@ public class XmppService {
             // 设置消息发送状态为 成功
             chatStore.setSENDSTATUS("1");
             chatstoreMapper.updateByPrimaryKeySelective(chatStore);
-            System.out.println("==================" + gson.toJson(chatStore));
+//            System.out.println("==================" + gson.toJson(chatStore));
             CXmppRst cXmppRst = new CXmppRst();
             cXmppRst.setChatStoreId(chatStoreId);
             cXmppRst.setSendTime(String.valueOf(sendTime));
