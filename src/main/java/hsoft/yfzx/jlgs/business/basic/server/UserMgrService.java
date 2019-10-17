@@ -282,7 +282,6 @@ public class UserMgrService {
 
         //调用内网修改密码接口，传入用户id、新密码和旧密码，获取返回值
 
-//        jsServerUrl = "http://192.168.4.224:8080/jeesite/a/mobile";
         String url = jsServerUrl + "/user/updatePwd";
 
         HsoftReqData hsoftReqData = new HsoftReqData();
