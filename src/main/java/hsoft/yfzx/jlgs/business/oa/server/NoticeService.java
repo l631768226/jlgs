@@ -190,6 +190,8 @@ public class NoticeService {
         //传入参数
         String dataStr = gson.toJson(hsoftReqData);
         //请求地址
+
+        jsServerUrl = "http://192.168.4.224:8080/jeesite/a/mobile";
         String url = jsServerUrl + "/notice/list";
 
         List<OaNotify> oaNotifyList = new ArrayList<>();
@@ -237,6 +239,7 @@ public class NoticeService {
                 qNoticeListRst.setTitle(oaNotify.getTitle());
                 qNoticeListRst.setType(oaNotify.getNotice_TYPE());
                 qNoticeListRst.setRelationId(oaNotify.getNotice_ID());
+                qNoticeListRst.setPeople(oaNotify.getPeople());
                 qNoticeListRsts.add(qNoticeListRst);
             }
         }

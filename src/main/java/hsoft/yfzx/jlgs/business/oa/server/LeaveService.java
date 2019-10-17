@@ -118,6 +118,9 @@ public class LeaveService {
         QLeaveDetailRst qLeaveDetailRst = new QLeaveDetailRst();
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+
+        System.out.println("请休假详情" + resultStr);
+
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");

@@ -23,6 +23,16 @@ public class QNoticeListRst {
 
     private String noticeId;
 
+    private String people;
+
+    public String getPeople() {
+        return people;
+    }
+
+    public void setPeople(String people) {
+        this.people = people;
+    }
+
     public String getNoticeType() {
         return noticeType;
     }

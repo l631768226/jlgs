@@ -272,8 +272,17 @@ public class UserMgrService {
         //获取新密码
         String newPwd = data.getNewPwd();
 
+        int count = newPwd.length();
+
+        if(count < 6){
+            responseData.setStatus(ReturnStatus.ERR0001);
+            responseData.setExtInfo("密码最小为6位");
+            return responseData;
+        }
+
         //调用内网修改密码接口，传入用户id、新密码和旧密码，获取返回值
 
+//        jsServerUrl = "http://192.168.4.224:8080/jeesite/a/mobile";
         String url = jsServerUrl + "/user/updatePwd";
 
         HsoftReqData hsoftReqData = new HsoftReqData();
@@ -285,6 +294,9 @@ public class UserMgrService {
         String dataStr = gson.toJson(hsoftReqData);
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+
+        System.out.println(dataStr + " " + resultStr);
+
         if (resultStr.equals("fail") || resultStr.equals("error")) {
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
@@ -301,7 +313,7 @@ public class UserMgrService {
                 } else {
                     int code = hsoftRstData.getCode();
                     if (code < 1) {
-                        responseData.setStatus(ReturnStatus.ERR0004);
+                        responseData.setStatus(ReturnStatus.ERR0013);
                         responseData.setExtInfo(hsoftRstData.getMessage());
                         return responseData;
                     }
