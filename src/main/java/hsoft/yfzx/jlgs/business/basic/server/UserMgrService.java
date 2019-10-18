@@ -52,7 +52,7 @@ public class UserMgrService {
     private Gson gson = new Gson();
 
     // 设置失效时间
-    private long failureTime = 180l;
+    private long failureTime = 2;
 
     @Value("${custom.serverUrl}")
     String serverUrl;

@@ -28,6 +28,8 @@ public class CheckPermissionAop {
     @Resource
     RedisTemplate<String, Object> redisTemplate;
 
+    private int time = 2;
+
     @Autowired
     private HttpServletRequest request;
 
@@ -117,7 +119,7 @@ public class CheckPermissionAop {
             }
 
             //有效的token
-            redisTemplate.expire(token, 180, TimeUnit.MINUTES);
+            redisTemplate.expire(token, time, TimeUnit.MINUTES);
 
             Owner owner = new Owner();
             // 将查询到的用户信息中的userId置入owner中
