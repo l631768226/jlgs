@@ -271,16 +271,16 @@ public class FileService {
             outputStream.write(data);
             outputStream.close();
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         } catch (ClassCastException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         } finally {
             try {
                 bis.close();
             } catch (IOException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
             } catch (NullPointerException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
             }
         }
     }

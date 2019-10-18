@@ -1,6 +1,6 @@
 package hsoft.yfzx.jlgs.business.oa.controller;
 
-import hsoft.yfzx.jlgs.business.basic.controller.QMeetingListRec;
+import hsoft.yfzx.jlgs.business.basic.ctmmodel.QMeetingListRec;
 import hsoft.yfzx.jlgs.business.oa.ctmmodel.*;
 import hsoft.yfzx.jlgs.business.oa.server.MeetingService;
 import hsoft.yfzx.jlgs.utils.model.common.RequestData;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.xml.ws.Response;
 import java.util.List;
 
 @RestController

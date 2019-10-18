@@ -310,9 +310,19 @@ public class FreqService {
         //获取排序信息
         List<CtmFreqSortRec> sortRecList = data.getSorts();
 
+        //先删除常用群组设置
+
+        int result = ctmFreqMapper.deleteFregGroup(userId);
+
+        //循环插入
         if(sortRecList != null && sortRecList.size() > 0){
             for(CtmFreqSortRec ctmFreqSortRec : sortRecList){
-                ctmFreqMapper.updateGroupSort(ctmFreqSortRec.getSort(), ctmFreqSortRec.getObjectId(), userId);
+                Freqgroup freqgroup = new Freqgroup();
+                freqgroup.setOWNERID(userId);
+                freqgroup.setGROUPID(ctmFreqSortRec.getObjectId());
+                freqgroup.setSORT(Short.valueOf(ctmFreqSortRec.getSort()));
+                freqgroupMapper.insertSelective(freqgroup);
+//                ctmFreqMapper.updateGroupSort(ctmFreqSortRec.getSort(), ctmFreqSortRec.getObjectId(), userId);
             }
         }else{
             responseData.setStatus(ReturnStatus.ERR0003);

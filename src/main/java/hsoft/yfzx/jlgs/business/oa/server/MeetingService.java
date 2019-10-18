@@ -2,7 +2,7 @@ package hsoft.yfzx.jlgs.business.oa.server;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import hsoft.yfzx.jlgs.business.basic.controller.QMeetingListRec;
+import hsoft.yfzx.jlgs.business.basic.ctmmodel.QMeetingListRec;
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.HMeetingDetailRec;
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.HMeetingListRec;
 import hsoft.yfzx.jlgs.business.oa.ctmmodel.*;

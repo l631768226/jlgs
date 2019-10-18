@@ -1,13 +1,12 @@
 package hsoft.yfzx.jlgs.business.basic.server;
 
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.*;
+import hsoft.yfzx.jlgs.business.basic.dao.CtmFreqMapper;
 import hsoft.yfzx.jlgs.business.basic.dao.CtmUserGroupMapper;
+import hsoft.yfzx.jlgs.business.basic.mapper.FreqgroupMapper;
 import hsoft.yfzx.jlgs.business.basic.mapper.GroupinfoMapper;
 import hsoft.yfzx.jlgs.business.basic.mapper.UsergroupMapper;
-import hsoft.yfzx.jlgs.business.basic.model.Groupinfo;
-import hsoft.yfzx.jlgs.business.basic.model.GroupinfoExample;
-import hsoft.yfzx.jlgs.business.basic.model.Usergroup;
-import hsoft.yfzx.jlgs.business.basic.model.UsergroupExample;
+import hsoft.yfzx.jlgs.business.basic.model.*;
 import hsoft.yfzx.jlgs.business.im.dao.CtmChatCfgMapper;
 import hsoft.yfzx.jlgs.utils.model.common.ResponseData;
 import hsoft.yfzx.jlgs.utils.model.common.ReturnStatus;
@@ -37,6 +36,12 @@ public class UserGroupMgrService {
 
     @Autowired
     private CtmUserGroupMapper ctmUserGroupMapper;
+
+    @Autowired
+    private FreqgroupMapper freqgroupMapper;
+
+    @Autowired
+    private CtmFreqMapper ctmFreqMapper;
 
     /**
      * 某个群组添加人员
@@ -93,6 +98,13 @@ public class UserGroupMgrService {
             userGroup.setVERSIONSTAMP(createStamp);
             userGroup.setDELFLAG("0");
             usergroupMapper.insert(userGroup);
+
+            Freqgroup freqgroup = new Freqgroup();
+            freqgroup.setOWNERID(cGroupsUserRec.getUserId());
+            freqgroup.setGROUPID(cUserGroupRec.getGroupId());
+            short freqsort = 0;
+            freqgroup.setSORT(freqsort);
+            freqgroupMapper.insertSelective(freqgroup);
         }
         // 更新群组版本
         Groupinfo groupInfo = groupinfoMapper.selectByPrimaryKey(cUserGroupRec.getGroupId());
@@ -131,6 +143,7 @@ public class UserGroupMgrService {
         String groupId = dUserGroupRec.getGroupId();
         for(String userId : userIdList){
             ctmChatCfgMapper.delChatCfg(userId, groupId);
+            ctmFreqMapper.delFreqGroup(userId, groupId);
         }
         responseData.setStatus(ReturnStatus.OK);
         return responseData;

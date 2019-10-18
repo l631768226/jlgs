@@ -116,4 +116,22 @@ public interface CtmFreqMapper {
     @Select("select B.*, A.GROUPNAME objectName from GROUPINFO A, FREQGROUP B where A.GROUPID = B.GROUPID " +
             "and A.GROUPNAME like '%${searchRule}%' and B.OWNERID = #{userId}")
     List<Freqgroup> searchGroup(@Param("userId") String userId, @Param("searchRule")String searchRule);
+
+
+    /**
+     * 根据ownerId删除常用群组
+     * @param ownerId
+     * @return
+     */
+    @Delete("delete from FREQGROUP where OWNERID = #{ownerId}")
+    int deleteFregGroup(@Param("ownerId") String ownerId);
+
+    /**
+     * 根据群组id删除常用群组
+     * @param groupId
+     * @return
+     */
+    @Delete("delete from FREQGROUP where GROUPID = #{groupId}")
+    int deleteFreqGroupByGroupId(@Param("groupId") String groupId);
+
 }

@@ -36,8 +36,10 @@ public interface CtmUserGroupMapper {
      * @param userId 用户id
      * @return
      */
-    @Select("select B.* from USERGROUP A, GROUPINFO B where A.GROUPID = B.GROUPID and A.USERID = #{userId} " +
-            "ORDER BY B.SORT ASC")
+    @Select("select B.* from USERGROUP A, GROUPINFO B, FREQGROUP C where A.GROUPID = B.GROUPID " +
+            " and A.USERID = #{userId} " +
+            " and A.USERID = C.OWNERID and A.GROUPID = C.GROUPID " +
+            "ORDER BY C.SORT ASC")
     List<Groupinfo> findMyGroupList(@Param("userId") String userId);
 
     /**

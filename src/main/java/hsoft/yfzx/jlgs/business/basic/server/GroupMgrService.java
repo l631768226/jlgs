@@ -3,6 +3,7 @@ package hsoft.yfzx.jlgs.business.basic.server;
 import hsoft.yfzx.jlgs.business.basic.ctmmodel.*;
 import hsoft.yfzx.jlgs.business.basic.dao.CtmFreqMapper;
 import hsoft.yfzx.jlgs.business.basic.dao.CtmUserGroupMapper;
+import hsoft.yfzx.jlgs.business.basic.mapper.FreqgroupMapper;
 import hsoft.yfzx.jlgs.business.basic.mapper.GroupinfoMapper;
 import hsoft.yfzx.jlgs.business.basic.mapper.UsergroupMapper;
 import hsoft.yfzx.jlgs.business.basic.model.*;
@@ -36,6 +37,9 @@ public class GroupMgrService {
 
     @Autowired
     private CtmFreqMapper ctmFreqMapper;
+
+    @Autowired
+    private FreqgroupMapper freqgroupMapper;
 
     /**
      * 创建群组
@@ -100,6 +104,14 @@ public class GroupMgrService {
                 responseData.setExtInfo("添加群组成员失败");
                 return responseData;
             }
+
+            Freqgroup freqgroup = new Freqgroup();
+            freqgroup.setOWNERID(cGroupsUserRec.getUserId());
+            freqgroup.setGROUPID(newGroupId);
+            short freqsort = 0;
+            freqgroup.setSORT(freqsort);
+            freqgroupMapper.insertSelective(freqgroup);
+
         }
 
         responseData.setStatus(ReturnStatus.OK);
@@ -152,6 +164,8 @@ public class GroupMgrService {
 
         //删除对此群组的会话设置
         int deleteCount = ctmChatCfgMapper.deleteByObjectId(groupId);
+        //删除常用群组设置
+        int resultCount = ctmFreqMapper.deleteFreqGroupByGroupId(groupId);
 
         responseData.setStatus(ReturnStatus.OK);
         return responseData;
@@ -329,6 +343,7 @@ public class GroupMgrService {
         }
 
         ctmUserGroupMapper.deleteByGroupId(data.getGroupId());
+        ctmFreqMapper.deleteFreqGroupByGroupId(data.getGroupId());
 
         // 循环插入群组人员
         Usergroup userGroup = new Usergroup();
@@ -352,6 +367,11 @@ public class GroupMgrService {
                 responseData.setExtInfo("添加群组成员失败");
                 return responseData;
             }
+            Freqgroup freqgroup = new Freqgroup();
+            freqgroup.setSORT(Short.valueOf(sort));
+            freqgroup.setGROUPID(data.getGroupId());
+            freqgroup.setOWNERID(cGroupsUserRec.getUserId());
+            freqgroupMapper.insertSelective(freqgroup);
         }
 
         Long createStamp = Generator.getLongTimeStamp();

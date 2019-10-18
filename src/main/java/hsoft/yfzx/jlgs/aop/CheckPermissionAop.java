@@ -58,7 +58,8 @@ public class CheckPermissionAop {
                 responseData.setExtInfo("未按照约定的格式传递参数");
                 return responseData;
             }
-        } else if("/basic/user/login".equals(request.getServletPath())){
+        } else if("/basic/user/login".equals(request.getServletPath()) ||
+                "/basic/check/token".equals(request.getServletPath())){
             //登录接口不需要校验token
             return pjp.proceed();
         }else if("/file/upload".equals(request.getServletPath()) ||

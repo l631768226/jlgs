@@ -1,4 +1,4 @@
-package hsoft.yfzx.jlgs.business.basic.controller;
+package hsoft.yfzx.jlgs.business.basic.ctmmodel;
 
 import hsoft.yfzx.jlgs.utils.validation.AbstactBaseRec;
 

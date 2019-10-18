@@ -20,8 +20,6 @@ public class GroupMgrController {
     @Autowired
     private GroupMgrService groupMgrService;
 
-
-
     /**
      * 创建群组
      * @param requestData
