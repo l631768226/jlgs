@@ -38,7 +38,7 @@ public class CheckSyncService {
     RedisTemplate<String, Object> redisTemplate;
 
     // 设置失效时间
-    private long failureTime = 2;
+    private long failureTime = 180;
 
     /**
      * 检测token是否有效

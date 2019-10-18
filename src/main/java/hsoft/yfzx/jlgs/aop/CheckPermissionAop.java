@@ -28,7 +28,7 @@ public class CheckPermissionAop {
     @Resource
     RedisTemplate<String, Object> redisTemplate;
 
-    private int time = 2;
+    private int time = 180;
 
     @Autowired
     private HttpServletRequest request;

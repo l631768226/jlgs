@@ -46,7 +46,7 @@ public class FollowService {
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
         String url = jsServerUrl + "/follow/histoicUpdate";
-        url = "http://192.168.4.206:8080/jeesite/a/mobile/follow/histoicUpdate";
+//        url = "http://192.168.4.206:8080/jeesite/a/mobile/follow/histoicUpdate";
 
         QHistoicUpdateRst qHistoicUpdateRst = new QHistoicUpdateRst();
 
@@ -101,7 +101,7 @@ public class FollowService {
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
         String url = jsServerUrl + "/follow/histoicFlow";
-        url = "http://192.168.4.206:8080/jeesite/a/mobile/follow/histoicFlow";
+//        url = "http://192.168.4.206:8080/jeesite/a/mobile/follow/histoicFlow";
 
         List<QHistoicFlowRst> qHistoicFlowRstList = new ArrayList<>();
 

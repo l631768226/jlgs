@@ -33,6 +33,16 @@ public class OaNotify {
 
     private String people;
 
+    private String flag;
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
     public String getPeople() {
         return people;
     }
