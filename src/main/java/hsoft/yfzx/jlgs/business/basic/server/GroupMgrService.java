@@ -306,25 +306,25 @@ public class GroupMgrService {
             return responseData;
         }
 
-        // 判断群组人员与人员的组织机构是否关联并且存在
-        List<CGroupsUserRec> userList = data.getUsers();
-        int ownerNum = 0;
-        for (int i = 0; i < userList.size(); i++) {
-            // 群组内只允许有一个群主
-            if (userList.get(i).getLevel().equals("1")) {
-                ownerNum++;
-            }
-            if (ownerNum > 1) {
-                responseData.setStatus(ReturnStatus.ERR0002);
-                responseData.setExtInfo("群组内只可以有一个群主");
-                return responseData;
-            }
-        }
-        if (ownerNum < 1) {
-            responseData.setStatus(ReturnStatus.ERR0001);
-            responseData.setExtInfo("群组内必须有一个群主");
-            return responseData;
-        }
+//        // 判断群组人员与人员的组织机构是否关联并且存在
+//        List<CGroupsUserRec> userList = data.getUsers();
+//        int ownerNum = 0;
+//        for (int i = 0; i < userList.size(); i++) {
+//            // 群组内只允许有一个群主
+//            if (userList.get(i).getLevel().equals("1")) {
+//                ownerNum++;
+//            }
+//            if (ownerNum > 1) {
+//                responseData.setStatus(ReturnStatus.ERR0002);
+//                responseData.setExtInfo("群组内只可以有一个群主");
+//                return responseData;
+//            }
+//        }
+//        if (ownerNum < 1) {
+//            responseData.setStatus(ReturnStatus.ERR0001);
+//            responseData.setExtInfo("群组内必须有一个群主");
+//            return responseData;
+//        }
 
         // 添加修改历史
         Groupinfo oldGroupInfo = list.get(0);
@@ -342,37 +342,37 @@ public class GroupMgrService {
             return responseData;
         }
 
-        ctmUserGroupMapper.deleteByGroupId(data.getGroupId());
-        ctmFreqMapper.deleteFreqGroupByGroupId(data.getGroupId());
-
-        // 循环插入群组人员
-        Usergroup userGroup = new Usergroup();
-        for (CGroupsUserRec cGroupsUserRec : userList) {
-
-            userGroup.setUSERID(cGroupsUserRec.getUserId());
-            userGroup.setDEPTID(cGroupsUserRec.getDeptId());
-            userGroup.setPOSITIONCODELIST(cGroupsUserRec.getPositionCodeList());
-            userGroup.setUSER_LEVEL(cGroupsUserRec.getLevel());
-            userGroup.setGROUPID(data.getGroupId());
-            String sort = cGroupsUserRec.getSort();
-            if(sort == null || "".equals(sort)){
-                sort = "0";
-            }
-            userGroup.setSORT(Short.valueOf(sort));
-            userGroup.setCREATETIME(Generator.getLongTimeStamp());
-            userGroup.setVERSIONSTAMP(Generator.getLongTimeStamp());
-            userGroup.setDELFLAG("0");
-            if (usergroupMapper.insertSelective(userGroup) < 1) {
-                responseData.setStatus(ReturnStatus.ERR0004);
-                responseData.setExtInfo("添加群组成员失败");
-                return responseData;
-            }
-            Freqgroup freqgroup = new Freqgroup();
-            freqgroup.setSORT(Short.valueOf(sort));
-            freqgroup.setGROUPID(data.getGroupId());
-            freqgroup.setOWNERID(cGroupsUserRec.getUserId());
-            freqgroupMapper.insertSelective(freqgroup);
-        }
+//        ctmUserGroupMapper.deleteByGroupId(data.getGroupId());
+//        ctmFreqMapper.deleteFreqGroupByGroupId(data.getGroupId());
+//
+//        // 循环插入群组人员
+//        Usergroup userGroup = new Usergroup();
+//        for (CGroupsUserRec cGroupsUserRec : userList) {
+//
+//            userGroup.setUSERID(cGroupsUserRec.getUserId());
+//            userGroup.setDEPTID(cGroupsUserRec.getDeptId());
+//            userGroup.setPOSITIONCODELIST(cGroupsUserRec.getPositionCodeList());
+//            userGroup.setUSER_LEVEL(cGroupsUserRec.getLevel());
+//            userGroup.setGROUPID(data.getGroupId());
+//            String sort = cGroupsUserRec.getSort();
+//            if(sort == null || "".equals(sort)){
+//                sort = "0";
+//            }
+//            userGroup.setSORT(Short.valueOf(sort));
+//            userGroup.setCREATETIME(Generator.getLongTimeStamp());
+//            userGroup.setVERSIONSTAMP(Generator.getLongTimeStamp());
+//            userGroup.setDELFLAG("0");
+//            if (usergroupMapper.insertSelective(userGroup) < 1) {
+//                responseData.setStatus(ReturnStatus.ERR0004);
+//                responseData.setExtInfo("添加群组成员失败");
+//                return responseData;
+//            }
+//            Freqgroup freqgroup = new Freqgroup();
+//            freqgroup.setSORT(Short.valueOf(sort));
+//            freqgroup.setGROUPID(data.getGroupId());
+//            freqgroup.setOWNERID(cGroupsUserRec.getUserId());
+//            freqgroupMapper.insertSelective(freqgroup);
+//        }
 
         Long createStamp = Generator.getLongTimeStamp();
 

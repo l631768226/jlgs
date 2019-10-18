@@ -52,7 +52,7 @@ public class UserMgrService {
     private Gson gson = new Gson();
 
     // 设置失效时间
-    private long failureTime = 2;
+    private long failureTime = 180;
 
     @Value("${custom.serverUrl}")
     String serverUrl;
@@ -312,8 +312,14 @@ public class UserMgrService {
                 } else {
                     int code = hsoftRstData.getCode();
                     if (code < 1) {
-                        responseData.setStatus(ReturnStatus.ERR0013);
-                        responseData.setExtInfo(hsoftRstData.getMessage());
+
+                        if(code == -1){
+                            responseData.setStatus(ReturnStatus.ERR0024);
+                            responseData.setExtInfo(hsoftRstData.getMessage());
+                        }else{
+                            responseData.setStatus(ReturnStatus.ERR0004);
+                            responseData.setExtInfo(hsoftRstData.getMessage());
+                        }
                         return responseData;
                     }
                 }

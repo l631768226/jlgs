@@ -136,7 +136,7 @@ public class DeptMgrService {
         List<SysOffice> officeList = new ArrayList<>();
         List<SysUser> sysUserList = new ArrayList<>();
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
-        System.out.println(resultStr);
+//        System.out.println(resultStr);
 
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);

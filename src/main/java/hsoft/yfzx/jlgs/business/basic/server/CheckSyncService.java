@@ -82,7 +82,7 @@ public class CheckSyncService {
 
         if (loginInfo == null) {
             //登录信息不存在（一般情况下不可能，出现则为严重错误）
-            System.out.println("~~~~~~~~~ !!!!!!!!!!!! 账号不存在或已被删除");
+//            System.out.println("~~~~~~~~~ !!!!!!!!!!!! 账号不存在或已被删除");
             responseData.setStatus(ReturnStatus.ERR0010);
             responseData.setExtInfo("操作的数据不存在");
             QCheckResult qCheckResult = new QCheckResult();
@@ -95,7 +95,7 @@ public class CheckSyncService {
         String token = loginInfo.getTOKEN();
         if (StringUtils.isBlank(token)) {
             //token为空（一般情况下不可能，出现则为严重错误）
-            System.out.println("~~~~~~~~~~ !!!!!!!!!!!! 账号从未登录过");
+//            System.out.println("~~~~~~~~~~ !!!!!!!!!!!! 账号从未登录过");
             responseData.setStatus(ReturnStatus.ERR0010);
             responseData.setExtInfo("token不存在");
             QCheckResult qCheckResult = new QCheckResult();

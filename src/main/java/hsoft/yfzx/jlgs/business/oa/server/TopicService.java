@@ -81,7 +81,7 @@ public class TopicService {
                 }else{
                     int code = hsoftRstData.getCode();
                     if(code < 1){
-                        responseData.setStatus(ReturnStatus.ERR0013);
+                        responseData.setStatus(ReturnStatus.ERR0004);
                         responseData.setExtInfo(hsoftRstData.getMessage());
                         return responseData;
                     }else{
@@ -124,6 +124,9 @@ public class TopicService {
 
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+
+        System.out.println("议题审批通过 " + dataStr + " " + resultStr);
+
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
@@ -141,7 +144,7 @@ public class TopicService {
                 }else{
                     int code = hsoftRstData.getCode();
                     if(code < 1){
-                        responseData.setStatus(ReturnStatus.ERR0013);
+                        responseData.setStatus(ReturnStatus.ERR0004);
                         responseData.setExtInfo(hsoftRstData.getMessage());
                         return responseData;
                     }
@@ -180,6 +183,9 @@ public class TopicService {
         String dataStr = gson.toJson(hsoftReqData);
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
+
+        System.out.println("议题审批驳回 " + dataStr + " " + resultStr);
+
         if(resultStr.equals("fail") || resultStr.equals("error")){
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
@@ -197,7 +203,7 @@ public class TopicService {
                 }else{
                     int code = hsoftRstData.getCode();
                     if(code < 1){
-                        responseData.setStatus(ReturnStatus.ERR0013);
+                        responseData.setStatus(ReturnStatus.ERR0004);
                         responseData.setExtInfo(hsoftRstData.getMessage());
                         return responseData;
                     }
@@ -253,7 +259,7 @@ public class TopicService {
                 }else{
                     int code = hsoftRstData.getCode();
                     if(code < 1){
-                        responseData.setStatus(ReturnStatus.ERR0013);
+                        responseData.setStatus(ReturnStatus.ERR0004);
                         responseData.setExtInfo(hsoftRstData.getMessage());
                         return responseData;
                     }else{
@@ -306,7 +312,7 @@ public class TopicService {
                 }else{
                     int code = hsoftRstData.getCode();
                     if(code < 1){
-                        responseData.setStatus(ReturnStatus.ERR0013);
+                        responseData.setStatus(ReturnStatus.ERR0004);
                         responseData.setExtInfo(hsoftRstData.getMessage());
                         return responseData;
                     }

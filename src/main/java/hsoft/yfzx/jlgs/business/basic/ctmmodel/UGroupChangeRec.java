@@ -18,7 +18,7 @@ public class UGroupChangeRec extends AbstactBaseRec {
     @DataValidation(description = "群组简介", dataType = DataType.STRING, required = false, length = 255)
     private String introduce;
 
-    @DataValidation(description = "群组名人员", dataType = DataType.LIST, required = true, length = 1)
+//    @DataValidation(description = "群组名人员", dataType = DataType.LIST, required = true, length = 1)
     private List<CGroupsUserRec> users;
 
     public String getGroupId() {
