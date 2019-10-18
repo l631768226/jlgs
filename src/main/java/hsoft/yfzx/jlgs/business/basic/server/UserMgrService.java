@@ -87,14 +87,14 @@ public class UserMgrService {
         hLoginRec.setIMEI(data.getIMEI());
 
         hsoftReqData.setChangeableData(hLoginRec);
-
+        jsServerUrl = "http://192.168.4.224:8080/jeesite/a/mobile";
         String url = jsServerUrl + "/user/login";
 
         String dataStr = gson.toJson(hsoftReqData);
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
         SysUser sysUser = new SysUser();
-//        System.out.println(resultStr);
+        System.out.println("登录 " + resultStr);
         if (resultStr.equals("fail") || resultStr.equals("error")) {
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
@@ -249,8 +249,7 @@ public class UserMgrService {
         qUserLoginRst.setDuty(sysUser.getDuty());
         qUserLoginRst.setPolitics(sysUser.getPolitics());
         qUserLoginRst.setBirthday(sysUser.getBirthday());
-
-
+        qUserLoginRst.setWorkStateName(sysUser.getWorkStateName());
         responseData.setStatus(ReturnStatus.OK);
         responseData.setResultSet(qUserLoginRst);
         return responseData;
