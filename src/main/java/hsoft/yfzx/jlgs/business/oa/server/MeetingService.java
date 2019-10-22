@@ -114,7 +114,7 @@ public class MeetingService {
         //内网请求数据
         String dataStr = gson.toJson(hsoftReqData);
         //请求内网地址
-        jsServerUrl  = "http://192.168.4.198:8080/jeesite/a/mobile";
+//        jsServerUrl  = "http://192.168.4.198:8080/jeesite/a/mobile";
         String url = jsServerUrl + "/meeting/api/detail";
 
         QMeetingDetailRst qMeetingDetailRst = new QMeetingDetailRst();

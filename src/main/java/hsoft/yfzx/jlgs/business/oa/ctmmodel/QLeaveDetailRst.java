@@ -1,4 +1,5 @@
 package hsoft.yfzx.jlgs.business.oa.ctmmodel;
+
 /**
  * 查询请休假详情返回参数model
  */
@@ -55,6 +56,8 @@ public class QLeaveDetailRst {
     private String taskId;
 
     private String deptName;
+
+    private String workYears;
 
     public String getDeptName() {
         return deptName;
@@ -262,5 +265,13 @@ public class QLeaveDetailRst {
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
+    }
+
+    public String getWorkYears() {
+        return workYears;
+    }
+
+    public void setWorkYears(String workYears) {
+        this.workYears = workYears;
     }
 }

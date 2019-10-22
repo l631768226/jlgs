@@ -12,7 +12,7 @@
     <artifactId>jlgs</artifactId>
 
 <!--    修改后需要import-->
-    <version>0.1.7</version>
+    <version>1.0.0</version>
     <name>jlgs</name>
     <description>Demo project for Spring Boot</description>
 

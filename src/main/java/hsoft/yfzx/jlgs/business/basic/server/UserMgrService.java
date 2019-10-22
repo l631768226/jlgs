@@ -94,7 +94,7 @@ public class UserMgrService {
 
         String resultStr = HttpMethodTool.getJson(url, dataStr, "POST");
         SysUser sysUser = new SysUser();
-//        System.out.println("登录 " + resultStr);
+//        System.out.println(url +  "登录 " + resultStr);
         if (resultStr.equals("fail") || resultStr.equals("error")) {
             responseData.setStatus(ReturnStatus.ERR0017);
             responseData.setExtInfo("服务请求失败");
