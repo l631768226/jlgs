@@ -25,9 +25,9 @@ public class UMeetingModifyRec extends AbstactBaseRec {
     private String startTime;
     @DataValidation(description = "会议结束时间", dataType = DataType.STRING, required = true, length = 36)
     private String finishTime;
-    @DataValidation(description = "分管领导id", dataType = DataType.STRING, required = true, length = 2000)
+//    @DataValidation(description = "分管领导id", dataType = DataType.STRING, required = true, length = 2000)
     private String deputy;
-    @DataValidation(description = "分管领导姓名", dataType = DataType.STRING, required = true, length = 2000)
+//    @DataValidation(description = "分管领导姓名", dataType = DataType.STRING, required = true, length = 2000)
     private String submasterNames;
 //    @DataValidation(description = "汇报人姓名", dataType = DataType.STRING, required = true, length = 36)
 //    private String reporterName;
